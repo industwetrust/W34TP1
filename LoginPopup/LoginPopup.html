@@ -1,0 +1,192 @@
+<link href="LoginPopup/LoginPopup.css" rel="stylesheet">
+
+<script>
+    (function($) {
+        $.fn.extend({
+            leanModal: function(options) {
+                var defaults = {
+                    top: 100,
+                    overlay: 0.5,
+                    closeButton: null
+                };
+                var overlay = $("<div id='lean_overlay'></div>");
+                $("body").append(overlay);
+                options = $.extend(defaults, options);
+                return this.each(function() {
+                    var o = options;
+                    var modal_id = $(this).attr("href");
+
+                    function showModal() {
+                        $("#lean_overlay").click(function() {
+                            close_modal(modal_id);
+                        });
+                        $(o.closeButton).click(function() {
+                            close_modal(modal_id);
+                        });
+
+                        var modal_height = $(modal_id).outerHeight();
+                        var modal_width = $(modal_id).outerWidth();
+
+                        $("#lean_overlay").css({
+                            "display": "block",
+                            opacity: 0
+                        });
+
+                        $("#lean_overlay").fadeTo(200, o.overlay);
+
+                        $(modal_id).css({
+                            "display": "block",
+                            "position": "fixed",
+                            "opacity": 0,
+                            "z-index": 11000,
+                            "left": 50 + "%",
+                            "margin-left": -(modal_width / 2) + "px",
+                            "top": o.top + "px"
+                        });
+
+                        $(modal_id).fadeTo(200, 1);
+                    };
+
+                    $(this).click(function(e) {
+                        showModal();
+                        e.preventDefault();
+                    });
+                });
+
+                function close_modal(modal_id) {
+                    $("#lean_overlay").fadeOut(200);
+                    $(modal_id).css({
+                        "display": "none"
+                    });
+                }
+            }
+        });
+    })(jQuery);
+</script>
+
+<div id="modal" class="popupContainer" style="display:none;">
+    <header class="popupHeader">
+        <span class="header_title">Connexion</span>
+        <span class="modal_close"><i class="fa fa-times"></i></span>
+    </header>
+
+    <section class="popupBody">
+        <!-- Social Login -->
+        <div class="social_login">
+            <div class="">
+                <a href="#" class="social_box fb">
+                    <span class="icon"><i class="fa fa-facebook"></i></span>
+                    <span class="icon_title">Utiliser Facebook</span>
+
+                </a>
+
+                <a href="#" class="social_box google">
+                    <span class="icon"><i class="fa fa-google-plus"></i></span>
+                    <span class="icon_title">Utiliser Google</span>
+                </a>
+            </div>
+
+            <div class="centeredText">
+                <span>Ou utiliser votre courriel</span>
+            </div>
+
+            <div class="action_btns">
+                <div class="one_half"><a href="#" id="login_form" class="btn">Se connecter</a></div>
+                <div class="one_half last"><a href="#" id="register_form" class="btn">S'inscrire</a></div>
+            </div>
+        </div>
+
+        <!-- Username & Password Login form -->
+        <div class="user_login">
+            <form>
+                <label>Nom d'utilisateur</label>
+                <input type="text" />
+                <br />
+
+                <label>Mot de passe</label>
+                <input type="password" />
+                <br />
+
+                <div class="checkbox">
+                    <input id="remember" type="checkbox" />
+                    <label for="remember">Se souvenir de moi</label>
+                </div>
+
+                <div class="action_btns">
+                    <div class="one_half"><a href="#" class="btn dark_btn"><i class="fa fa-angle-double-left"></i> Retour</a></div>
+                    <div class="one_half last"><a href="#" class="btn send_btn">Se connecter</a></div>
+                </div>
+            </form>
+
+            <a href="#" class="forgot_password">Mot de passe oublié?</a>
+        </div>
+
+        <!-- Register Form -->
+        <div class="user_register">
+            <form>
+                <label>Nom d'utilisateur</label>
+                <input type="text" />
+                <br />
+
+                <label>Mot de passe</label>
+                <input type="password" />
+                <br />
+                
+                <label>Prénom</label>
+                <input type="text" />
+                <br />
+                
+                <label>Nom</label>
+                <input type="text" />
+                <br />
+
+                <label># Mobile</label>
+                <input type="email" />
+                <br />
+
+                <div class="action_btns">
+                    <div class="one_half"><a href="#" class="btn dark_btn"><i class="fa fa-angle-double-left"></i> Retour</a></div>
+                    <div class="one_half last"><a href="#" class="btn send_btn">S'inscrire</a></div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+<script>
+    function GetAppropriateTop() {
+        var maxTop = $(window).height() - 601;
+        return maxTop < 200 ? maxTop : 200;
+    };
+    
+    $(".modal_trigger").leanModal({top: GetAppropriateTop(), overlay: 0.6, closeButton: ".modal_close"});
+
+    $(function() {
+        // Calling Login Form
+        $("#login_form").click(function() {
+            $(".social_login").hide();
+            $(".user_login").show();
+            return false;
+        });
+
+        // Calling Register Form
+        $("#register_form").click(function() {
+            $(".social_login").hide();
+            $(".user_register").show();
+            $(".header_title").text('Register');
+            return false;
+        });
+
+        // Going back to Social Forms
+        $(".dark_btn").click(function() {
+            $(".user_login").hide();
+            $(".user_register").hide();
+            $(".social_login").show();
+            $(".header_title").text('Login');
+            return false;
+        });
+
+    });
+    
+    
+</script>
