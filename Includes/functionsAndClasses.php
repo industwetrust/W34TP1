@@ -20,7 +20,7 @@
         $this->UpdateProductQuantity($productID, $quantity);
       }
       else {
-        array_push ($this->_ProductOrders, new ProductOrder($productID, $quantity);
+        array_push($this->_ProductOrders, new ProductOrder($productID, $quantity));
       }
     }
     
@@ -51,7 +51,7 @@
     }
     
     function GetProductOrders() {
-      return $_ProductOrders;
+      return $this->_ProductOrders;
     }
   }
 ?>

@@ -61,7 +61,7 @@ session_start();
                                             </li>
                                             <li class="sub-menu"><a href="javascript:{}">Produits</a>
                                                 <ul>
-                                                    <li><a href="portfolio_2columns.html"><span>-</span>Catalogue</a></li>
+                                                    <li><a href="index.php?page=Produits"><span>-</span>Catalogue</a></li>
                                                     <li><a href="portfolio_3columns.html"><span>-</span>Categories</a></li>
 <!--                                                    <li><a href="portfolio_4columns.html"><span>-</span>4 Columns</a></li>                                      -->
                                                 </ul>
@@ -103,6 +103,8 @@ session_start();
                     case "about" : include("Includes/about.php");
                         break;
                     case "contacts" : include("Includes/contacts.php");
+                        break;
+                    case "Produits" : include("Includes/Products.php");
                         break;
                     default : include("Includes/homepage.php");
                         break;
