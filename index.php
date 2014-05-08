@@ -70,7 +70,8 @@
                                             </li>                                  
                                             <li class="sub-menu"><a href="javascript:{}">Administrer</a>
                                                 <ul>
-                                                    <li><a href="blog.html"><span>-</span>Utilisateur</a></li>
+                                                    <li><a href="blog.html"><span>-</span>Utilisateurs</a></li>
+                                                    <li><a href="blog_post.html"><span>-</span>Categories de produit</a></li> 
                                                     <li><a href="blog_post.html"><span>-</span>Produits</a></li> 
                                                     <li><a href="blog_post.html"><span>-</span>Commandes</a></li> 
                                                 </ul>
