@@ -1,0 +1,12 @@
+#itemsContainer {}
+
+.itemRow {}
+
+.itemContainer {}
+
+.itemImageContainer {}
+
+.itemImage {
+    height: 128px;
+    width: 128px;
+}

@@ -30,17 +30,24 @@ CREATE TABLE Addresses(
 CREATE TABLE Categories(
   CategoryID INT NOT NULL AUTO_INCREMENT,
   CategoryName VARCHAR(60) NOT NULL,
+  ImageURL VARCHAR(2048) NOT NULL,
   Description TEXT(2048),
   PRIMARY KEY (CategoryID)
 );
 
 CREATE TABLE Products(
   ProductID INT NOT NULL AUTO_INCREMENT,
-  CategoryID INT NOT NULL,
   ProductName VARCHAR(60) NOT NULL,
   Price NUMERIC(9,2),
   UnitsInStock INT,
-  PRIMARY KEY (ProductID),
+  PRIMARY KEY (ProductID)
+);
+
+CREATE TABLE ProductsCategories(
+  ProductID INT NOT NULL,
+  CategoryID INT NOT NULL,
+  PRIMARY KEY (ProductID, CategoryID),
+  FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
   FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
 );
 
@@ -83,3 +90,11 @@ CREATE TABLE OrderDetail (
   FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
+
+INSERT INTO Categories (CategoryName, ImageURL)
+VALUES ("Nom de catégorie 1", "TestCategory.jpg"),
+        ("Nom de catégorie 2", "TestCategory.jpg"),
+        ("Nom de catégorie 3", "TestCategory.jpg"),
+        ("Nom de catégorie 4", "TestCategory.jpg"),
+        ("Nom de catégorie 5", "TestCategory.jpg"),
+        ("Nom de catégorie 6", "TestCategory.jpg");

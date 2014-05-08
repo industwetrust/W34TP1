@@ -1,5 +1,6 @@
 <?php
-session_start();
+    session_start();
+    include("Includes/functionsAndClasses.php");
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +18,7 @@ session_start();
         <link rel="stylesheet" id="camera-css"  href="css/camera.css" type="text/css" media="all">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/theme.css" rel="stylesheet">
+        <link href="css/Products.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/skins/tango/skin.css" />
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />

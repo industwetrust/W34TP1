@@ -16,6 +16,8 @@
     private $_ProductOrders;
     
     function AddProductOrder($productID, $quantity) { // Si le produit est déjà dans le panier, la nouvelle quantité remplace l'ancienne quantité.
+      if ($quantity <= 0) { return; }
+        
       if ($this->IsProductInBasket($productID)) {
         $this->UpdateProductQuantity($productID, $quantity);
       }
