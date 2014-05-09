@@ -1,6 +1,13 @@
 <?php
     session_start();
     include("Includes/functionsAndClasses.php");
+    
+    $DB_HOST = "localhost";
+    $DB_USER = "root";
+    $DB_PASS = "";
+    $DB_NAME = "tpw34";
+    
+    $PRODUCT_CATEOGORIES_IMG_PATH = "Img/Categories/";
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +78,7 @@
                                             <li class="sub-menu"><a href="javascript:{}">Administrer</a>
                                                 <ul>
                                                     <li><a href="blog.html"><span>-</span>Utilisateurs</a></li>
-                                                    <li><a href="blog_post.html"><span>-</span>Categories de produit</a></li> 
+                                                    <li><a href="index.php?page=GestCategoriesProd"><span>-</span>Categories de produit</a></li> 
                                                     <li><a href="blog_post.html"><span>-</span>Produits</a></li> 
                                                     <li><a href="blog_post.html"><span>-</span>Commandes</a></li> 
                                                 </ul>
@@ -95,22 +102,15 @@
             if (isset($_GET["page"])) {
                 $page = $_GET["page"];
                 switch ($page) {
-                    case "login" : include("Includes/login.php");
-                        break;
-                    case "users" : include("Includes/users.php");
-                        break;
-                    case "registrer" : include("Includes/registrer.php");
-                        break;
-                    case "sortir" : include("Includes/sortir.php");
-                        break;
-                    case "about" : include("Includes/about.php");
-                        break;
-                    case "contacts" : include("Includes/contacts.php");
-                        break;
-                    case "Produits" : include("Includes/Products.php");
-                        break;
-                    default : include("Includes/homepage.php");
-                        break;
+                    case "login" :              include("Includes/login.php");                  break;
+                    case "users" :              include("Includes/users.php");                  break;
+                    case "registrer" :          include("Includes/registrer.php");              break;
+                    case "sortir" :             include("Includes/sortir.php");                 break;
+                    case "about" :              include("Includes/about.php");                  break;
+                    case "contacts" :           include("Includes/contacts.php");               break;
+                    case "Produits" :           include("Includes/Products.php");               break;
+                    case "GestCategoriesProd" : include("Includes/ManageProdCategories.php");   break;
+                    default :                   include("Includes/homepage.php");               break;
                 }
             } else //dans le cast ou l'url ne contient pas de param 'page'
                 include("Includes/home.php");

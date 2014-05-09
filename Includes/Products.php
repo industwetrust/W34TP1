@@ -12,7 +12,7 @@
         $_SESSION["Basket"] = new Basket();
     }
 
-    $mySqli = new mysqli("localhost", "root", "", "tpw34");
+    $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
     
     $page = empty($_GET["PageN"]) ? 0 : $_GET["PageN"];
     // TODO: Dans le cas où $page n'est pas un entier positif, le changer en 0
