@@ -24,14 +24,12 @@
         // Updates
         if (count($toModify) > 0) {
             $okItemsCount = 0;
-            $notOkItemsCount = 0;
             
             for ($i = 0, $lim = count($toModify); $i < $lim; $i++) {
                 $id = $toModify[$i];
                 
                 if ($_POST["txtCategoryName" . $id] == "" || $_POST["txtImageURL" . $id] == "") {
-                    echo "<div style='color:red;'>La catégorie " . $id . " n'a pas pu être ajouté car le nom et/ou l'Url de l'image est manquant.</div>";
-                    $notOkItemsCount++;
+                    echo "<div style='color:red;'>La catégorie " . $id . " n'a pas pu être modifié car le nom et/ou l'Url de l'image est manquant.</div>";
                 }
                 else {
                     $query = "UPDATE categories SET " . 

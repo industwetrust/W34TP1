@@ -6,8 +6,6 @@
 ?>
 
 <?php
-    header ('Content-type: text/html; charset=iso8859-15');
-
     if (!isset($_SESSION["Basket"])) {
         $_SESSION["Basket"] = new Basket();
     }
