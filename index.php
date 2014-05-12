@@ -81,6 +81,7 @@
                                                     <li><a href="blog.html"><span>-</span>Utilisateurs</a></li>
                                                     <li><a href="index.php?page=GestionCategoriesProd"><span>-</span>Categories de produit</a></li> 
                                                     <li><a href="index.php?page=GestionProduits"><span>-</span>Produits</a></li> 
+                                                    <li><a href="index.php?page=GestionProduitParCat"><span>-</span>Produit par catégories</a></li> 
                                                     <li><a href="blog_post.html"><span>-</span>Commandes</a></li> 
                                                 </ul>
                                             </li>
@@ -112,6 +113,7 @@
                     case "Produits" :               include("Includes/Products.php");               break;
                     case "GestionCategoriesProd" :  include("Includes/ManageProdCategories.php");   break;
                     case "GestionProduits" :        include("Includes/ManageProducts.php");         break;
+                    case "GestionProduitParCat" :   include("Includes/ManageProductsByCat.php");    break;
                     default :                       include("Includes/homepage.php");               break;
                 }
             } else //dans le cast ou l'url ne contient pas de param 'page'

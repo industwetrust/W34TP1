@@ -1,3 +1,5 @@
+<!--Cette page permet de dénifir les catégories de produit-->
+
 <?php
     header ('charset=utf-8');
 
