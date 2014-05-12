@@ -5,47 +5,36 @@
 
     $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
 
-    if (isset($_POST)) {
-        $updateQuery = "";
+    if (!empty($_POST["changedChkBoxes"])) {
+        $affectedRows = 0;
+        $query = "";
+        $toModify = explode(";", $_POST["changedChkBoxes"]);
+
+        foreach($toModify as $modif) {
+            $modInfos = explode("_", $modif);
         
-         foreach(array_keys($_POST) as $key) {
-            if (substr($key, 0, 15) === "chkModProdInCat") {
-                array_push($toModify, explode("chkModProdInCat", $key)[1]);
-            }
+            $query = $modInfos[2] == "Add" ? "INSERT INTO ProductsCategories (ProductID, CategoryID) VALUES (" . $modInfos[0] . ", " . $modInfos[1] . ");" : 
+                                             "DELETE FROM ProductsCategories WHERE ProductID = " . $modInfos[0] . " AND CategoryID = " . $modInfos[1] . ";";
+
+            $mySqli->query($query);
+
+            if ($mySqli->affected_rows == 1)
+                $affectedRows++;
+            else
+                echo "<div style='color: red;'>" . $mySqli->error . "</div>";
         }
         
-        print_r($_POST);
-
-//        for ($i = 0, $lim = count($toModify); $i < $lim; $i++) {
-//            $id = $toModify[$i];
-//
-//            if ($_POST["txtProductName" . $id] == "" || $_POST["txtImageURL" . $id] == "") {
-//                echo "<div style='color:red;'>Le produit " . $id . " n'a pas pu être modifié car le nom et/ou l'Url de l'image est manquant.</div>";
-//            }
-//            else {
-//                $query = "UPDATE products SET " . 
-//                         "ProductName='" .  $_POST["txtProductName" . $id]  . "', " . 
-//                         "Description='" .  $_POST["txtProductDesc" . $id]  . "', " . 
-//                         "price='" .        $_POST["txtPrice" . $id]        . "', " . 
-//                         "unitsInStock='" . $_POST["txtUnitsInStock" . $id] . "' " . 
-//                         "WHERE ProductID = " . $id . ";";
-//
-//                $mySqli->query($query);
-//
-//                if ($mySqli->affected_rows == 1) {
-//                    $okItemsCount++;
-//                }
-//            }
-//        }
-//
-//        if ($okItemsCount > 0) {
-//            echo "<div style='color: green;'>" . $okItemsCount . " produits sur " . count($toModify) . " modifiées avec succès!</div>";
-//        }
+        if ($affectedRows == count($toModify)) {
+            echo "<div style='color: green;'>" . $affectedRows . " lignes affectées avec succès!</div>";
+        }
+        else {
+            echo "<div style='color: red;'>" . $affectedRows . " lignes affectées sur " . count($toModify) . ".</div>";
+        }
     }
     
     $products = $mySqli->query("SELECT ProductID, ProductName FROM Products");
     $categories = $mySqli->query("SELECT CategoryID, CategoryName FROM Categories");
-    $productCats = $mySqli->query("SELECT CategoryID, productID FROM ProductsCategories"); // productCats: productCategories
+    $productCats = $mySqli->query("SELECT CategoryID, ProductID FROM ProductsCategories"); // productCats: productCategories
     
     $killPage = false;
     
@@ -64,40 +53,71 @@
     $categoryIDs = array();
 ?>
 <div id="manageProductsByCatContainer" style="width: 1200px; margin: 0px auto;">
-    <form action="#" method="POST">
-        <table border="1">
-            <?php
-                echo "<tr><td></td>";
-                while($row = $categories->fetch_assoc()) {
-                    array_push($categoryIDs, $row["CategoryID"]);
-                    echo "<td>" . $row["CategoryName"] . "(" . $row["CategoryID"] . ")</td>";
-                }
-                echo "<td>Modifier</td>";
-                echo "</tr>";
-                    
-                while($row = $products->fetch_assoc()) {
-                    $pID = $row["ProductID"];
-                    
-                    echo "<tr>";
-                    echo "<td>" . $pID . "-" . $row["ProductName"] . "</td>";
-                    
-                    for ($i = 0; $i < count($categoryIDs); $i++) {
-                        echo "<td><input type='checkbox' " .
-                                        "name='chkProdInCat-" . $pID . "," . $categoryIDs[$i] . "' " . 
-                                        "onclick='CheckModifyChkBox(" . $pID . ")' /></td>";
-                    }
-                    echo "<td><input id='chkModProdInCat" . $pID . "' type='checkbox' name='chkModProdInCat" . $pID . "' value='Modify' /></td>";
-                    
-                    echo "</tr>";
-                }
-            ?>
-        </table><br />
-        <input type="submit" value="Confirmer">
+    <form id="frmChangeProdsInCats" action="#" method="POST">
+        <input id="changedChkBoxes" type="hidden" name="changedChkBoxes" value="" />
     </form>
+    
+    <table border="1">
+        <?php
+            $prodsInCats = array();
+
+            while($row = $productCats->fetch_assoc()) {
+                $prodsInCats[$row["ProductID"] . "," . $row["CategoryID"]] = '';
+            }
+
+            echo "<tr><td></td>";
+            while($row = $categories->fetch_assoc()) {
+                array_push($categoryIDs, $row["CategoryID"]);
+                echo "<td>" . $row["CategoryID"] . "-" . $row["CategoryName"] . "</td>";
+            }
+            echo "</tr>";
+
+            while($row = $products->fetch_assoc()) {
+                $pID = $row["ProductID"];
+
+                echo "<tr>";
+                echo "<td>" . $pID . "-" . $row["ProductName"] . "</td>";
+
+                for ($i = 0; $i < count($categoryIDs); $i++) {
+                    $checked = isset($prodsInCats[$row["ProductID"] . "," . $categoryIDs[$i]]) ? "checked" : "";
+                    
+                    echo "<td><input type='checkbox' " .
+                                    "id='chkProdInCat_" . $pID . "_" . $categoryIDs[$i] . "' " .
+                                    "name='chkProdInCat_" . $pID . "," . $categoryIDs[$i] . "' " . 
+                                    "onclick='CheckModifyChkBox(" . $pID . ", " . $categoryIDs[$i] . ")' " . 
+                                    $checked . " /></td>";
+                }
+
+                echo "</tr>";
+            }
+        ?>
+    </table><br />
+    <input type="button" value="Confirmer" onclick="SendChangedData()">
 </div>
 
 <script type="text/javascript">
-    function CheckModifyChkBox(productID) {
-        document.getElementById('chkModProdInCat' + productID).checked = true;
+    var prodsInCat = new Array();
+    
+    function SendChangedData() {
+        var ctb = document.getElementById('changedChkBoxes').value; // ctb: changed text boxes
+        
+        for (var key in prodsInCat) {
+            if (ctb !== "")
+                ctb += ";";
+            ctb += key + "_" + prodsInCat[key];
+        }
+        
+        document.getElementById("changedChkBoxes").value = ctb;
+        
+        document.getElementById("frmChangeProdsInCats").submit();
+    }
+    
+    function CheckModifyChkBox(productID, categoryID) {
+        var newValue = document.getElementById('chkProdInCat_' + productID + '_' + categoryID).checked ? "Add" : "Delete";
+        
+        if (prodsInCat[productID + '_' + categoryID] === undefined)
+            prodsInCat[productID + '_' + categoryID] = newValue;
+        else
+            delete prodsInCat[productID + '_' + categoryID]
     }
 </script>
