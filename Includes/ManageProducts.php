@@ -164,17 +164,19 @@
                     $lastProductID = $row["ProductID"];
                     $price = $row["Price"] == '' ? '-' : $row["Price"];
                     $unitsInStock = $row["UnitsInStock"] == '' ? '-' : $row["UnitsInStock"];
+                    $onChangeEvent = "onchange=document.getElementById('chkModifyProduct" . $lastProductID . "').checked = true";
+                    $deletionDisabled = $mySqli->query("SELECT COUNT(*) FROM ProductsCategories WHERE ProductID = " . $lastProductID)->fetch_row()[0] > 0 ? "disabled" : "";
                     echo "<tr>";
                     echo "<td>" . $lastProductID . "</td>";
-                    echo "<td><input type='text' name='txtProductName" . $lastProductID . "' value='" . $row["ProductName"] . "' /></td>";
-                    echo "<td><input type='text' name='txtProductDesc" . $lastProductID . "' value='" . $row["Description"] . "' /></td>";
-                    echo "<td><input type='text' name='txtPrice" . $lastProductID . "' value='" . $price . "' /></td>";
-                    echo "<td><input type='text' name='txtUnitsInStock" . $lastProductID . "' value='" . $unitsInStock . "' /></td>";
-                    echo "<td><input type='text' name='txtImageURL" . $lastProductID . "' value='" . $row["imageURL"] . "' /></td>";
+                    echo "<td><input type='text' name='txtProductName" . $lastProductID . "' value='" . $row["ProductName"] . "' " . $onChangeEvent . " /></td>";
+                    echo "<td><input type='text' name='txtProductDesc" . $lastProductID . "' value='" . $row["Description"] . "' " . $onChangeEvent . " /></td>";
+                    echo "<td><input type='text' name='txtPrice" . $lastProductID . "' value='" . $price . "' " . $onChangeEvent . " /></td>";
+                    echo "<td><input type='text' name='txtUnitsInStock" . $lastProductID . "' value='" . $unitsInStock . "' " . $onChangeEvent . " /></td>";
+                    echo "<td><input type='text' name='txtImageURL" . $lastProductID . "' value='" . $row["imageURL"] . "' " . $onChangeEvent . " /></td>";
                     echo "<td><img style='width: 64px; height:64px;' src=' " . $PRODUCT_IMGS_PATH . $row["imageURL"] . "'></td>";
                     echo "<td></td>";
                     echo "<td><input type='checkbox' name='chkModifyProduct" . $lastProductID . "' value='Modify' /></td>";
-                    echo "<td><input type='checkbox' name='chkDeleteProduct" . $lastProductID . "' value='Delete' /></td>";
+                    echo "<td><input type='checkbox' name='chkDeleteProduct" . $lastProductID . "' value='Delete' " . $deletionDisabled . " /></td>";
                     echo "</tr>";
                 }
 

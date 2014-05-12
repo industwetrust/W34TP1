@@ -25,7 +25,7 @@
         }
         
         if ($affectedRows == count($toModify)) {
-            echo "<div style='color: green;'>" . $affectedRows . " lignes affectées avec succès!</div>";
+            echo "<div style='color: green;'>" . $affectedRows . " lignes affectées sur " . count($toModify) . "</div>";
         }
         else {
             echo "<div style='color: red;'>" . $affectedRows . " lignes affectées sur " . count($toModify) . ".</div>";
