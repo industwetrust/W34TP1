@@ -1,6 +1,6 @@
 <?php
-    session_start();
     include("Includes/functionsAndClasses.php");
+    session_start();
     
     $DB_HOST = "localhost";
     $DB_USER = "root";
@@ -9,6 +9,8 @@
     
     $PRODUCT_CATEOGORIES_IMG_PATH = "Img/Categories/";
     $PRODUCT_IMGS_PATH = "Img/Products/";
+    
+    $SECONDS_IN_A_DAY = 60*60*24;
 ?>
 
 <!DOCTYPE html>
@@ -72,8 +74,7 @@
                                             <li class="sub-menu"><a href="javascript:{}">Produits</a>
                                                 <ul>
                                                     <li><a href="index.php?page=Produits"><span>-</span>Catalogue</a></li>
-                                                    <li><a href="portfolio_3columns.html"><span>-</span>Categories</a></li>
-<!--                                                    <li><a href="portfolio_4columns.html"><span>-</span>4 Columns</a></li>                                      -->
+<!--                                                    <li><a href="portfolio_3columns.html"><span>-</span>Categories</a></li>-->
                                                 </ul>
                                             </li>                                  
                                             <li class="sub-menu"><a href="javascript:{}">Administrer</a>

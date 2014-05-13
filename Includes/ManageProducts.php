@@ -164,7 +164,7 @@
                     $lastProductID = $row["ProductID"];
                     $price = $row["Price"] == '' ? '-' : $row["Price"];
                     $unitsInStock = $row["UnitsInStock"] == '' ? '-' : $row["UnitsInStock"];
-                    $onChangeEvent = "onchange=document.getElementById('chkModifyProduct" . $lastProductID . "').checked = true";
+                    $onChangeEvent = "onchange=\"document.getElementsByName('chkModifyProduct" . $lastProductID . "')[0].checked = true\"";
                     $deletionDisabled = $mySqli->query("SELECT COUNT(*) FROM ProductsCategories WHERE ProductID = " . $lastProductID)->fetch_row()[0] > 0 ? "disabled" : "";
                     echo "<tr>";
                     echo "<td>" . $lastProductID . "</td>";

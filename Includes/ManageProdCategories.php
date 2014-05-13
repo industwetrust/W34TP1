@@ -134,22 +134,21 @@
                 <td>Ajouter</td>
                 <td>Modifier</td>
                 <td>Détruire</td>
-    <!--                <td>Message</td>-->
             </tr>
             <?php
                 while($row = $categories->fetch_assoc()) {
                     $lastCategoryID = $row["CategoryID"];
+                    $onChangeEvent = "onchange=\"document.getElementsByName('chkModifyCategory" . $lastCategoryID . "')[0].checked = true\"";
                     echo "<tr>";
                     echo "<td>" . $lastCategoryID . "</td>";
-                    echo "<td><input type='text' name='txtCategoryName" . $lastCategoryID . "' value='" . $row["CategoryName"] . "' /></td>";
-                    echo "<td><input type='text' name='txtCategoryDesc" . $lastCategoryID . "' value='" . $row["Description"] . "' /></td>";
+                    echo "<td><input type='text' name='txtCategoryName" . $lastCategoryID . "' value='" . $row["CategoryName"] . "' " . $onChangeEvent . " /></td>";
+                    echo "<td><input type='text' name='txtCategoryDesc" . $lastCategoryID . "' value='" . $row["Description"] . "' " . $onChangeEvent . " /></td>";
                     echo "<td>" . $row["productCount"] . "</td>";
-                    echo "<td><input type='text' name='txtImageURL" . $lastCategoryID . "' value='" . $row["ImageURL"] . "' /></td>";
-                    echo "<td><img style='width: 64px; height:64px;' src=' " . $PRODUCT_CATEOGORIES_IMG_PATH . $row["ImageURL"] . "'></td>";
+                    echo "<td><input type='text' name='txtImageURL" . $lastCategoryID . "' value='" . $row["ImageURL"] . "' " . $onChangeEvent . " /></td>";
+                    echo "<td><img style='width: 64px; height:64px;' src=' " . $PRODUCT_CATEOGORIES_IMG_PATH . $row["ImageURL"] . "' " . $onChangeEvent . " /></td>";
                     echo "<td></td>";
                     echo "<td><input type='checkbox' name='chkModifyCategory" . $lastCategoryID . "' value='Modify' /></td>";
                     echo "<td><input type='checkbox' name='chkDeleteCategory" . $lastCategoryID . "' value='Delete' " . ($row["productCount"] > 0 ? "disabled" : "") . "/></td>";
-    //                    echo "<td id='msgTD' style='color:red;'></td>";
                     echo "</tr>";
                 }
 
@@ -164,7 +163,6 @@
                     echo "<td><input type='checkbox' name='chkAddCategory" . $i . "' value='Add' /></td>";
                     echo "<td></td>";
                     echo "<td></td>";
-    //                    echo "<td id='msgTD' style='color:red;'></td>";
                     echo "</tr>";
                 }
             ?>

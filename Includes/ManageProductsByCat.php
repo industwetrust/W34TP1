@@ -84,7 +84,7 @@
                     echo "<td><input type='checkbox' " .
                                     "id='chkProdInCat_" . $pID . "_" . $categoryIDs[$i] . "' " .
                                     "name='chkProdInCat_" . $pID . "," . $categoryIDs[$i] . "' " . 
-                                    "onclick='CheckModifyChkBox(" . $pID . ", " . $categoryIDs[$i] . ")' " . 
+                                    "onclick='AddModifiedItem(" . $pID . ", " . $categoryIDs[$i] . ")' " . 
                                     $checked . " /></td>";
                 }
 
@@ -112,7 +112,7 @@
         document.getElementById("frmChangeProdsInCats").submit();
     }
     
-    function CheckModifyChkBox(productID, categoryID) {
+    function AddModifiedItem(productID, categoryID) {
         var newValue = document.getElementById('chkProdInCat_' + productID + '_' + categoryID).checked ? "Add" : "Delete";
         
         if (prodsInCat[productID + '_' + categoryID] === undefined)
