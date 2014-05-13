@@ -2,7 +2,7 @@
     $ITEMS_SHOWN_PER_PAGE = 16;
     $ITEMS_SHOWN_PER_ROW = 4;
     $ITEM_WIDTH = 300;
-    $ITEM_HEIGHT = 273;
+    $ITEM_HEIGHT = 290;
 ?>
 
 <?php
@@ -28,7 +28,7 @@
     echo "<div class='wrap'>";
     echo "<div class='container inner_content'>";
     echo "<div style='background-image:url(\"Img/Cart.png\"); float:right; margin-bottom:4px; height:48px; width:48px; text-align:center;'>";
-        echo "<a style='color:#060; font-size:18px; position:relative; top:10px;'>" . $_SESSION["Basket"]->GetDiffProductCount() . "</a>";
+        echo "<a href='index.php?page=Panier' style='color:#060; font-size:18px; position:relative; top:10px;'>" . $_SESSION["Basket"]->GetDiffProductCount() . "</a>";
     echo "</div>";
     echo "<div class='row' style='clear:both;'>";
     
@@ -46,7 +46,7 @@
             
                 echo "<div class='hover_img'>";
                     echo "<a href='index.php?page=Produits&Category=" . $row["CategoryID"] . "' class='preloader' style='background-image: none; background-position: initial initial; background-repeat: initial initial;'>";
-                        echo "<img src='img/categories/" . $row["ImageURL"] . "' alt style='visibility: visible; opacity: 1; width: 243px; height: 180px;'";
+                        echo "<img src='img/categories/" . $row["ImageURL"] . "' alt style='visibility: visible; opacity: 1; width: 270px; height: 200px;'";
                     echo "</a>";
                 echo "</div>";
 
@@ -79,7 +79,7 @@
                                    "LIMIT " . ($ITEMS_SHOWN_PER_PAGE * $page) . " , " . $ITEMS_SHOWN_PER_PAGE);
         $itemNumber = 0;
         
-        echo "<div class='projects isotope' style='overflow: hidden; position: relative; height: " . (ceil($products->num_rows / $ITEMS_SHOWN_PER_ROW) * $ITEM_HEIGHT + 85) . "px;'>";
+        echo "<div class='projects isotope' style='overflow: hidden; position: relative; height: " . (ceil($products->num_rows / $ITEMS_SHOWN_PER_ROW) * $ITEM_HEIGHT + 45) . "px;'>";
         
         while($row = $products->fetch_assoc()) {
             $quantityInBasket = $_SESSION["Basket"]->GetQuantityInBasket($row["ProductID"]);
@@ -89,7 +89,7 @@
             
                 echo "<div class=''>";
                     echo "<a class='preloader' style='background-image: none; background-position: initial initial; background-repeat: initial initial;'>";
-                        echo "<img src='img/Products/" . $row["ImageURL"] . "' alt style='visibility: visible; opacity: 1;'";
+                        echo "<img src='img/Products/" . $row["ImageURL"] . "' alt style='visibility: visible; opacity: 1; width: 270px; height: 200px;'";
                     echo "</a>";
                 echo "</div>";
 
@@ -99,7 +99,7 @@
                     echo "</h6>";
 
                     echo "<div class='descr'>Prix: " . $row["Price"] . "<br />" . 
-                         "Ajouter au panier:<input type'text' name='txtAddToCart" . $row["ProductID"] . "' style='width: 34px; height: 14px;' onkeypress='return IsNumberOrControl(event)' maxLength='4' value='$quantityInBasket' ></div>";
+                         "Ajouter au panier: <input type'text' name='txtAddToCart" . $row["ProductID"] . "' style='width: 18px; height: 14px; text-align:right;' onkeypress='return IsNumberOrControl(event)' maxLength='2' value='$quantityInBasket' ></div>";
             
                 echo "</div>";
             

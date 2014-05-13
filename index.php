@@ -115,6 +115,7 @@
                     case "GestionCategoriesProd" :  include("Includes/ManageProdCategories.php");   break;
                     case "GestionProduits" :        include("Includes/ManageProducts.php");         break;
                     case "GestionProduitParCat" :   include("Includes/ManageProductsByCat.php");    break;
+                    case "Panier" :                 include("Includes/ViewCart.php");               break;
                     default :                       include("Includes/homepage.php");               break;
                 }
             } else //dans le cast ou l'url ne contient pas de param 'page'
