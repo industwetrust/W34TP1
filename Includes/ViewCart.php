@@ -40,25 +40,34 @@
             <?php
                 $orders = $_SESSION["Basket"]->GetProductOrders();
 
+                $totalPrice = 0;
+                
                 foreach ($orders as $order) {
-                    $product = $mySqli->query("SELECT p.*, pi.ImageURL " . 
-                                              "FROM Products p " .
-                                              "INNER JOIN ProductImages pi " .
-                                              "ON p.ProductID = pi.ProductID " .
-                                              "WHERE p.ProductID = " . $order->ProductID . 
-                                              " ORDER BY pi.ImageID DESC " .
-                                              "LIMIT 1;")->fetch_assoc();
+                    $product = $mySqli->query("SELECT * FROM Products WHERE ProductID = " . $order->ProductID)->fetch_assoc();
+                    $onChangeEvent = "onchange=\"document.getElementById('tdTotalPrice$order->ProductID').innerHTML = (document.getElementsByName('txtQuantity$order->ProductID')[0].value * " . $product["Price"] . ").toFixed(2) \"";
                     
                     echo "<tr>";
                     echo "<td><img style='width:64px; height:64px;' src='Img/products/" . $product["ImageURL"] . "' /></td>";
                     echo "<td>" . $product["ProductName"] . "</td>";
                     echo "<td>" . $product["Price"] . "</td>";
-                    echo "<td><input type='text' name='txtQuantity" . $order->ProductID . "' value='$order->Quantity' /></td>";
-                    echo "<td>" . $product["Price"] * $order->Quantity . "</td>";
+                    echo "<td><input style='width: 39px; text-align:right;' type='text' name='txtQuantity$order->ProductID' onkeypress='return IsNumberOrControl(event)' maxLength='2' $onChangeEvent value='$order->Quantity' /></td>";
+                    echo "<td id='tdTotalPrice$order->ProductID'>" . $product["Price"] * $order->Quantity . "</td>";
                     echo "</tr>";
+                    
+                    $totalPrice += $product["Price"] * $order->Quantity;
                 }
+                
+                echo "<tr><td>Total:</td><td></td><td></td><td></td><td>$totalPrice</td></tr>";
             ?>
         </table><br />
         <input type="submit" value="Confirmer">
     </form>
 </div>
+
+<script type="text/javascript">
+    function IsNumberOrControl(e) {
+        var key = window.event ? e.keyCode : e.which;
+
+        return e.keyCode === 8 || e.keyCode === 46 || e.keyCode === 37 || e.keyCode === 39 || e.keyCode >= 48 && key <= 57;
+    }
+</script>

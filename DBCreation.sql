@@ -38,6 +38,7 @@ CREATE TABLE Categories(
 CREATE TABLE Products(
   ProductID INT NOT NULL AUTO_INCREMENT,
   ProductName VARCHAR(60) NOT NULL,
+  ImageURL VARCHAR(2048) NOT NULL,
   Price NUMERIC(9,2),
   UnitsInStock INT,
   PRIMARY KEY (ProductID)
@@ -49,14 +50,6 @@ CREATE TABLE ProductsCategories(
   PRIMARY KEY (ProductID, CategoryID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
   FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
-);
-
-CREATE TABLE ProductImages(
-  ImageID INT NOT NULL AUTO_INCREMENT,
-  ProductID INT NOT NULL,
-  ImageURL VARCHAR(2048) NOT NULL,
-  PRIMARY KEY (ImageID),
-  FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
 CREATE TABLE Shippers (

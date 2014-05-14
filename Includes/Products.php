@@ -68,15 +68,12 @@
     }
     else {
         echo "<form action='#' method='POST'>";
-        $products = $mySqli->query("SELECT DISTINCT p.ProductID, p.ProductName, p.Price, p.UnitsInStock, p.Description, MIN(pi.ImageURL) ImageURL " .
+        $products = $mySqli->query("SELECT p.ProductID, p.ProductName, p.Price, p.UnitsInStock, p.Description, p.ImageURL " .
                                    "FROM ProductsCategories pc " .
                                    "INNER JOIN Products p " .
                                    "ON pc.ProductID = p.ProductID " .
-                                   "INNER JOIN ProductImages pi " .
-                                   "ON pi.ProductID = p.ProductID " .
                                    "WHERE pc.CategoryID = " . $_GET["Category"] .
-                                   " GROUP BY p.ProductID, p.ProductName, p.Price, p.UnitsInStock " .
-                                   "LIMIT " . ($ITEMS_SHOWN_PER_PAGE * $page) . " , " . $ITEMS_SHOWN_PER_PAGE);
+                                   " LIMIT " . ($ITEMS_SHOWN_PER_PAGE * $page) . " , " . $ITEMS_SHOWN_PER_PAGE);
         $itemNumber = 0;
         
         echo "<div class='projects isotope' style='overflow: hidden; position: relative; height: " . (ceil($products->num_rows / $ITEMS_SHOWN_PER_ROW) * $ITEM_HEIGHT + 45) . "px;'>";
@@ -117,11 +114,11 @@
         
         echo "<div class='pageNavigator' style='margin: 10px 0px 0px 30px; color:blue;'>";
             echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=0' ><< </a>";
-            echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=" . $previousPage . "' >< </a>";
+            echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=$previousPage' >< </a>";
             for ($i = 1; $i <= $pageCount; $i++) {
                 echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=" . ($i-1) . "' >" . $i . " </a>";
             }
-            echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=" . $nextPage . "' >> </a>";
+            echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=$nextPage' >> </a>";
             echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=" . ($pageCount-1) . "' >>> </a>";
         echo "</div>";
         echo "</form>";
@@ -130,7 +127,8 @@
     echo "</div>";
     echo "</div>";
     
-?><script type="text/javascript">
+?>
+<script type="text/javascript">
     function IsNumberOrControl(e) {
         var key = window.event ? e.keyCode : e.which;
 

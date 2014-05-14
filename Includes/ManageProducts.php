@@ -36,7 +36,8 @@
                              "ProductName='" .  $_POST["txtProductName" . $id]  . "', " . 
                              "Description='" .  $_POST["txtProductDesc" . $id]  . "', " . 
                              "price='" .        $_POST["txtPrice" . $id]        . "', " . 
-                             "unitsInStock='" . $_POST["txtUnitsInStock" . $id] . "' " . 
+                             "unitsInStock='" . $_POST["txtUnitsInStock" . $id] . "', " . 
+                             "ImageURL='" .     $_POST["txtImageURL" . $id] . "' " . 
                              "WHERE ProductID = " . $id . ";";
                     
                     $mySqli->query($query);
@@ -54,43 +55,30 @@
         
         // Deletes
         if (count($toDelete) > 0) {
-            $productQuery = "DELETE FROM products WHERE productID IN (";
-            $imageQuery = "DELETE FROM productimages WHERE productID IN (";
+            $query = "DELETE FROM products WHERE productID IN (";
             for ($i = 0, $lim = count($toDelete); $i < $lim; $i++) {
-                $productQuery .= $toDelete[$i];
-                $imageQuery .= $toDelete[$i];
+                $query .= $toDelete[$i];
                 
                 if ($i < $lim - 1) {
-                    $productQuery .= ", ";
-                    $imageQuery .= ", ";
+                    $query .= ", ";
                 }
             }
             
-            $productQuery .= ");";
-            $imageQuery .= ");";
+            $query .= ");";
 
-            $mySqli->query($productQuery);
+            $mySqli->query($query);
             if ($mySqli->affected_rows == count($toDelete)) {
                 echo "<div style='color: green;'>" . $mySqli->affected_rows . " produits détruits avec succès!</div>";
             }
             else {
                 echo "<div style='color: red;'>" . $mySqli->affected_rows . " produits détruits sur " . count($toDelete) . ". Err msg: " . $mySqli->error . "</div>";
             }
-
-            $mySqli->query($imageQuery);
-            if ($mySqli->affected_rows == count($toDelete)) {
-                echo "<div style='color: green;'>" . $mySqli->affected_rows . " images détruits avec succès!</div>";
-            }
-            else {
-                echo "<div style='color: red;'>" . $mySqli->affected_rows . " images détruits sur " . count($toDelete) . ". Err msg: " . $mySqli->error . "</div>";
-            }
         }
         
         // Inserts
         if (count($toAdd) > 0) {
             $okItemsCount = 0;
-            $productQuery = "INSERT INTO Products (productName, Description, price, unitsInStock) VALUES ";
-            $imageQuery = "INSERT INTO ProductImages (productID, ImageURL) VALUES ";
+            $query = "INSERT INTO Products (productName, Description, price, unitsInStock, ImageURL) VALUES ";
             for ($i = 0, $lim = count($toAdd); $i < $lim; $i++) {
                 $id = $toAdd[$i];
 
@@ -99,47 +87,32 @@
                 }
                 else {
                     if ($okItemsCount++ > 0) {
-                        $productQuery .= ", ";
-                        $imageQuery .= ", ";
+                        $query .= ", ";
                     }
                     
-                    $productQuery .= "('" . $_POST["txtProductName" . $id] . "', '" .
-                                            $_POST["txtProductDesc" . $id] . "', '" .
-                                            $_POST["txtPrice"       . $id] . "', '" .
-                                            $_POST["txtUnitsInStock" . $id] . "', '";
-                    
-                    $imageQuery .= "('" . $id . "', '" . $_POST["txtImageURL" . $id] . "', '";
+                    $query .= "('" . $_POST["txtProductName" . $id] . "', '" .
+                                     $_POST["txtProductDesc" . $id] . "', '" .
+                                     $_POST["txtPrice"       . $id] . "', '" .
+                                     $_POST["txtUnitsInStock" . $id] . "', '" .
+                                     $_POST["txtImageURL" . $id] . "')'";
                 }
             }
             
             if ($okItemsCount > 0) {
-                $productQuery .= ";";
-                $imageQuery .= ";";
+                $query .= ";";
                 
-                $mySqli->query($productQuery);
+                $mySqli->query($query);
                 if ($mySqli->affected_rows == $okItemsCount) {
                     echo "<div style='color: green;'>" . $mySqli->affected_rows . " produits ajoutées avec succès!</div>";
                 }
                 else {
                     echo "<div style='color: red;'>" . $mySqli->affected_rows . " produits ajoutées sur " . $okItemsCount . ". Err msg: " . $mySqli->error . "</div>";
                 }
-                
-                $mySqli->query($imageQuery);
-                if ($mySqli->affected_rows == $okItemsCount) {
-                    echo "<div style='color: green;'>" . $mySqli->affected_rows . " images ajoutées avec succès!</div>";
-                }
-                else {
-                    echo "<div style='color: red;'>" . $mySqli->affected_rows . " images ajouté sur " . $okItemsCount . ". Err msg: " . $mySqli->error . "</div>";
-                }
             }
         }
     }
     
-    $getProductsQuery = "SELECT p.ProductID, p.ProductName, p.Description, p.Price, p.UnitsInStock, MIN(pi.ImageURL) imageURL " .
-                        "FROM products p " .
-                        "LEFT JOIN productImages pi " .
-                        "ON p.ProductID = pi.ProductID " .
-                        "GROUP BY p.ProductID, p.ProductName, p.Description, p.Price, p.UnitsInStock";
+    $getProductsQuery = "SELECT ProductID, ProductName, Description, Price, UnitsInStock, ImageURL FROM products";
     
     $products = $mySqli->query($getProductsQuery);
 ?>
@@ -153,8 +126,8 @@
                 <td>Description</td>
                 <td>Prix</td>
                 <td>Unités en stocks</td>
-                <td>Nom image principale</td>
-                <td>Image principale</td>
+                <td>Nom image</td>
+                <td>Image</td>
                 <td>Ajouter</td>
                 <td>Modifier</td>
                 <td>Détruire</td>
@@ -172,8 +145,8 @@
                     echo "<td><input type='text' name='txtProductDesc" . $lastProductID . "' value='" . $row["Description"] . "' " . $onChangeEvent . " /></td>";
                     echo "<td><input type='text' name='txtPrice" . $lastProductID . "' value='" . $price . "' " . $onChangeEvent . " /></td>";
                     echo "<td><input type='text' name='txtUnitsInStock" . $lastProductID . "' value='" . $unitsInStock . "' " . $onChangeEvent . " /></td>";
-                    echo "<td><input type='text' name='txtImageURL" . $lastProductID . "' value='" . $row["imageURL"] . "' " . $onChangeEvent . " /></td>";
-                    echo "<td><img style='width: 64px; height:64px;' src=' " . $PRODUCT_IMGS_PATH . $row["imageURL"] . "'></td>";
+                    echo "<td><input type='text' name='txtImageURL" . $lastProductID . "' value='" . $row["ImageURL"] . "' " . $onChangeEvent . " /></td>";
+                    echo "<td><img style='width: 64px; height:64px;' src=' " . $PRODUCT_IMGS_PATH . $row["ImageURL"] . "'></td>";
                     echo "<td></td>";
                     echo "<td><input type='checkbox' name='chkModifyProduct" . $lastProductID . "' value='Modify' /></td>";
                     echo "<td><input type='checkbox' name='chkDeleteProduct" . $lastProductID . "' value='Delete' " . $deletionDisabled . " /></td>";
