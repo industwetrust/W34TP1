@@ -96,15 +96,15 @@
             </div>
         </div>
 
-        <!-- Username & Password Login form -->
+        <!-- Login form -->
         <div class="user_login">
-            <form>
+            <form id='frmLogin' method="POST" action="index.php?page=login">
                 <label>Nom d'utilisateur</label>
-                <input type="text" />
+                <input id='txtLogUsername' name='txtUsername' type="text" />
                 <br />
 
                 <label>Mot de passe</label>
-                <input type="password" />
+                <input id='txtLogPassword' name='txtPassword' type="password" />
                 <br />
 
                 <div class="checkbox">
@@ -114,7 +114,7 @@
 
                 <div class="action_btns">
                     <div class="one_half"><a href="#" class="btn dark_btn"><i class="fa fa-angle-double-left"></i> Retour</a></div>
-                    <div class="one_half last"><a href="#" class="btn send_btn">Se connecter</a></div>
+                    <div class="one_half last"><a onclick="SubmitLoginFormIfValid();" class="btn send_btn">Se connecter</a></div>
                 </div>
             </form>
 
@@ -123,30 +123,30 @@
 
         <!-- Register Form -->
         <div class="user_register">
-            <form>
+            <form id='frmRegister' method="POST" action="index.php?page=registrer">
                 <label>Nom d'utilisateur</label>
-                <input type="text" />
+                <input id='txtRegUsername' name='txtUsername' type="text" maxlength="60" />
                 <br />
 
                 <label>Mot de passe</label>
-                <input type="password" />
+                <input id='txtRegPassword' name='txtPassword' type="password" maxlength="60" />
                 <br />
                 
                 <label>Prénom</label>
-                <input type="text" />
+                <input id='txtRegFirstname' name='txtFirstname' type="text" maxlength="60" />
                 <br />
                 
                 <label>Nom</label>
-                <input type="text" />
+                <input id='txtRegLastname' name='txtLastname' type="text" maxlength="60" />
                 <br />
 
                 <label># Mobile</label>
-                <input type="email" />
+                <input id='txtRegPhone' name='txtPhone' type="email" maxlength="15" />
                 <br />
 
                 <div class="action_btns">
                     <div class="one_half"><a href="#" class="btn dark_btn"><i class="fa fa-angle-double-left"></i> Retour</a></div>
-                    <div class="one_half last"><a href="#" class="btn send_btn">S'inscrire</a></div>
+                    <div class="one_half last"><a onclick="SubmitRegisterFormIfValid();" class="btn send_btn">S'inscrire</a></div>
                 </div>
             </form>
         </div>
@@ -154,9 +154,34 @@
 </div>
 
 <script>
+    function ById(id) { return document.getElementById(id); };
+    
     function GetAppropriateTop() {
         var maxTop = $(window).height() - 601;
         return maxTop < 200 ? maxTop : 200;
+    };
+    
+    function SubmitLoginFormIfValid() {
+        if (ById('txtRegUsername').value === "" || ById('txtRegPassword').value === "") {
+            alert("Assurez-vous que tous les champs sont bien remplis");
+        }
+        else {
+            document.getElementById('frmLogin').submit();
+        }
+    };
+    
+    function SubmitRegisterFormIfValid() {
+        if (ById('txtRegUsername').value === "" ||
+            ById('txtRegPassword').value === "" ||
+            ById('txtRegFirstname').value === "" ||
+            ById('txtRegLastname').value === "" ||
+            ById('txtRegPhone').value === "")
+        {
+            alert("Assurez-vous que tous les champs sont bien remplis");
+        }
+        else {
+            document.getElementById('frmRegister').submit();
+        }
     };
     
     $(".modal_trigger").leanModal({top: GetAppropriateTop(), overlay: 0.6, closeButton: ".modal_close"});

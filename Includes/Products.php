@@ -113,13 +113,13 @@
         $nextPage = $page < $pageCount-1 ? $page + 1 : $pageCount-1;
         
         echo "<div class='pageNavigator' style='margin: 10px 0px 0px 30px; color:blue;'>";
-            echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=0' ><< </a>";
-            echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=$previousPage' >< </a>";
+            echo "<a href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=0' ><< </a>";
+            echo "<a href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=$previousPage' >< </a>";
             for ($i = 1; $i <= $pageCount; $i++) {
-                echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=" . ($i-1) . "' >" . $i . " </a>";
+                echo "<a href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=" . ($i-1) . "' >" . $i . " </a>";
             }
-            echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=$nextPage' >> </a>";
-            echo "<a style='color:blue;' href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=" . ($pageCount-1) . "' >>> </a>";
+            echo "<a href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=$nextPage' >> </a>";
+            echo "<a href='index.php?page=Produits&Category=" . $_GET["Category"] . "&PageN=" . ($pageCount-1) . "' >>> </a>";
         echo "</div>";
         echo "</form>";
     }

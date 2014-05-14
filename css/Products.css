@@ -1,0 +1,12 @@
+.pageNavigator {
+    margin: 10px 0px 0px 30px;
+    color: blue;
+}
+
+.pageNavigator a {
+    color: blue;
+}
+
+.pageNavigator a:visited {
+    color: blue;
+}

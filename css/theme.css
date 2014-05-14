@@ -1012,16 +1012,3 @@ ul.recent_post div a:hover {color:#d00b01;
     padding: 10px;
     text-align: center;
 }
-
-.pageNavigator {
-    margin: 10px 0px 0px 30px;
-    color: blue;
-}
-
-.pageNavigator a {
-    color: blue;
-}
-
-.pageNavigator a:visited {
-    color: blue;
-}

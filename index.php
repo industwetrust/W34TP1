@@ -28,12 +28,12 @@
         <link rel="stylesheet" id="camera-css"  href="css/camera.css" type="text/css" media="all">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/theme.css" rel="stylesheet">
-        <link href="css/Products.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/skins/tango/skin.css" />
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script type="text/javascript" src="LoginPopup/LoginPopup.js"></script>
+        <link href="css/Products.css" rel="stylesheet">
         <!--[if lt IE 9]>
                 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->    
@@ -116,9 +116,10 @@
                     case "GestionProduits" :        include("Includes/ManageProducts.php");         break;
                     case "GestionProduitParCat" :   include("Includes/ManageProductsByCat.php");    break;
                     case "Panier" :                 include("Includes/ViewCart.php");               break;
+                    case "AjouterCommande" :        include("Includes/AddOrderToDB.php");           break;
                     default :                       include("Includes/homepage.php");               break;
                 }
-            } else //dans le cast ou l'url ne contient pas de param 'page'
+            } else //dans le cas ou l'url ne contient pas de param 'page'
                 include("Includes/home.php");
             ?>
         </div>

@@ -6,29 +6,10 @@
     }
 
     $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
-
-    if (isset($_POST)) {
-        $toAdd = array();       // Produits à ajouter,
-        $toModify = array();    // ...        modifier,
-        $toDelete = array();    // ...        détruire
-        
-        // Enlève ce qui est à enlever du panier
-        foreach(array_keys($_POST) as $key) {
-//            if (substr($key, 0, 16) === "chkModifyProduct") {
-//                array_push($toModify, explode("chkModifyProduct", $key)[1]);
-//            }
-//            else if (substr($key, 0, 16) === "chkDeleteProduct") {
-//                array_push($toDelete, explode("chkDeleteProduct", $key)[1]);
-//            }
-//            else if (substr($key, 0, 13) === "chkAddProduct") {
-//                array_push($toAdd, explode("chkAddProduct", $key)[1]);
-//            }
-        }
-    }
 ?>
 
 <div id="manageProductCategoriesContainer" style="width: 800px; margin: 0px auto;">
-    <form action="#" method="POST">
+    <form action="index.php?page=AjouterCommande" method="POST">
         <table border="1">
             <tr>
                 <td>Image</td>
@@ -57,7 +38,7 @@
                     $totalPrice += $product["Price"] * $order->Quantity;
                 }
                 
-                echo "<tr><td>Total:</td><td></td><td></td><td></td><td>$totalPrice</td></tr>";
+                echo "<tr><td>Total:</td><td></td><td></td><td></td><td id='tdGrandTotalPrice'>$totalPrice</td></tr>";
             ?>
         </table><br />
         <input type="submit" value="Confirmer">

@@ -1,76 +1,28 @@
 <?php
-if (!empty($_POST["txtUserName"]) && !empty($_POST["txtpass"])) {
-
-    $user = $_POST["txtUserName"];
-    $prenom = $_POST["txtPrenom"];
-    $nom = $_POST["txtNom"];
-    $phone = $_POST["txtphone"];
-    $pass = $_POST["txtpass"];
-
-    // Vérifier si l'usager est dans le fichier Includes/users.txt
-    $fichier = fopen("Includes/users.txt", "r");
-
-    while ($ligne = fgets($fichier)) {
-        $mot = explode(";", $ligne);
-
-        if ($mot[0] == $user) {
-            echo "Ce nom d'utilisateur est déjà utilisé.";
-            fclose($fichier);
-            return;
-        } else {
-            fclose($fichier);
-            $fichier = fopen("Includes/users.txt", "a");
-            fwrite($fichier, $user);
-            fwrite($fichier, ";");
-            fwrite($fichier, $pass);
-            fwrite($fichier, ";");
-            fwrite($fichier, $prenom);
-            fwrite($fichier, ";");
-            fwrite($fichier, $nom);
-            fwrite($fichier, ";");
-            fwrite($fichier, $phone);
-
-            fwrite($fichier, "\r\n");
-            echo "Utilisateur créé";
-            fclose($fichier);
-            return;
+    if (empty($_POST["txtUsername"]) || empty($_POST["txtPassword"]) || empty($_POST["txtFirstname"]) || empty($_POST["txtLastname"]) || empty($_POST["txtPhone"])) {
+        echo "<div style='color:red;'>Certain champs sont manquant! Assurez vous que tous les champs sont bien remplis.</div>";
+    }
+    else {
+        $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
+        
+        if ($mySqli->query("SELECT * FROM Customers WHERE Username = '" . $_POST["txtUsername"] . "'")->num_rows > 0) {
+            echo "<div style='color:red;'>Ce nom d'utilisateur est déjà utilisé. Veuillez en choisir un autre.</div>";
+        }
+        else {
+            $mySqli->query("INSERT INTO Customers (Username, Password, Firstname, Lastname, Phone) VALUES ('" .
+                    $_POST["txtUsername"] .  "', '" .
+                    $_POST["txtPassword"] .  "', '" .
+                    $_POST["txtFirstname"] . "', '" .
+                    $_POST["txtLastname"] .  "', '" .
+                    $_POST["txtPhone"] .     "')");
+            if ($mySqli->affected_rows == 1) {
+                setcookie("username", $_POST["txtUsername"], $SECONDS_IN_A_DAY * 90);
+                echo "<div style='color:green;'>Votre compte a été créé avec succès! Vous serez redirigez vers la page d'accueil dans 5 secondes.</div>";
+                header("refresh:5;url=index.php" );
+            }
+            else {
+                echo "<div style='color:red;'>Une erreur s'est produite: " . $mySqli->error . ".</div>";
+            }
         }
     }
-}
 ?>
-
-<form id="form1" method="POST">
-    <div class="span10">
-        <h2>Pour vous créer une compte, remplir ce formulaire</h2>
-        <p>
-<!--            <div ID="MessageLiteral"></div>-->
-        </p>
-        <fieldset>
-            <legend></legend>
-            <table>
-                <tr>
-                    <td><span>Prenom: </span></td>
-                    <td><input type="Text" name="txtPrenom"/></td>
-                </tr>
-                <tr>
-                    <td><span>Nom: </span></td>
-                    <td><input type="Text" name="txtNom"/></td>
-                </tr>
-                <tr>
-                    <td><span># Mobile: </span></td>
-                    <td><input type="Text" name="txtphone"/></td>
-                </tr>
-                <tr>
-                    <td><span>Nom d'utilisateur : </td>
-                    <td><input type="Text" name="txtUserName"/></td>
-                </tr>
-                <tr>
-                    <td><span>Mot de passe : </span></td>
-                    <td><input type="Text" name="txtpass"/></td>
-                </tr>
-            </table>   
-            <input type="submit" name=="LogInButton" value="S'inscrire" />
-        </fieldset>
-    </div>
-</form>
-
