@@ -11,6 +11,34 @@
     $PRODUCT_IMGS_PATH = "Img/Products/";
     
     $SECONDS_IN_A_DAY = 60*60*24;
+    
+    if (isset($_GET["page"]) && $_GET["page"] == "registrer") { // La création de cookie doit se faire avant tout output au client.
+        if (empty($_POST["txtUsername"]) || empty($_POST["txtPassword"]) || empty($_POST["txtFirstname"]) || empty($_POST["txtLastname"]) || empty($_POST["txtPhone"])) {
+            $_SESSION["TryRegisterResult"] = "MissingInfos";
+        }
+        else {
+            $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
+
+            if ($mySqli->query("SELECT * FROM Customers WHERE Username = '" . $_POST["txtUsername"] . "'")->num_rows > 0) {
+                $_SESSION["TryRegisterResult"] = "UsernameTaken";
+            }
+            else {
+                $mySqli->query("INSERT INTO Customers (Username, Password, Firstname, Lastname, Phone) VALUES ('" .
+                        $_POST["txtUsername"] .  "', '" .
+                        $_POST["txtPassword"] .  "', '" .
+                        $_POST["txtFirstname"] . "', '" .
+                        $_POST["txtLastname"] .  "', '" .
+                        $_POST["txtPhone"] .     "')");
+                if ($mySqli->affected_rows == 1) {
+                    setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
+                    $_SESSION["TryRegisterResult"] = "Success";
+                }
+                else {
+                    $_SESSION["TryRegisterResult"] = "OtherSqlError";
+                }
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>

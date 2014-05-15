@@ -15,9 +15,9 @@
             echo "<div>Votre panier est vide! Cliquez <a href='index.php?page=Produits'>ici</a> pour visiter le catalogue</div>";
         }
         else {
-            if (isset($_COOKIE["username"])) {
+            if (!empty($_COOKIE["username"])) {
                 $customerID = $mySqli->query("SELECT CustomerID FROM Customers WHERE Username = '" . $_COOKIE["username"] . "'")->fetch_assoc()["CustomerID"];
-                echo $_COOKIE["username"];
+                
                 $queryResult = $mySqli->query("SELECT AddressID FROM Addresses WHERE IsDefaultShipping = 1 AND CustomerID = '" . $customerID . "'");
                 $shippingAddressID = $queryResult->num_rows > 0 ? $queryResult->fetch_assoc()["AddressID"] : "NULL";
                 
@@ -27,15 +27,21 @@
                 $mySqli->query("INSERT INTO Orders (CustomerID, BillingAddress, ShippingAddress, OrderDate) VALUES ($customerID, $shippingAddressID, $billingAddressID, CURDATE())"); echo $mySqli->error;
                 $orderID = $mySqli->query("SELECT OrderID FROM Orders ORDER BY OrderID DESC LIMIT 1")->fetch_assoc()["OrderID"];
                 
-                $query = "";
-                foreach ($_SESSION["Basket"]->GetProductOrders() as $po) {
-                    $query .= "INSERT INTO OrderDetail (OrderID, ProductID, Quantity) VALUES ($orderID, $po->ProductID, $po->Quantity);";
+                $query = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity) VALUES ";
+                $pOrders = $_SESSION["Basket"]->GetProductOrders();
+                for ($i = 0; $i < count($pOrders); $i++) {
+                    if ($i > 0) {
+                        $query .= ", ";
+                    }
+                    $po = $pOrders[$i];
+                    $query .= "($orderID, $po->ProductID, $po->Quantity)";
                 }
+                $query .= ";";
 
                 $mySqli->query($query);
 
                 if ($mySqli->affected_rows > 0) {
-                    echo "<div style='color:green;'>Votre commande a été complété avec succès! Cliquez <a>ici</a> pour accéder à vos commandes et pour entrer vos informations de livraison et de paiement.</div>";
+                    echo "<div style='color:green;'>Votre commande a été complété avec succès! Cliquez <a>ici</a> pour accéder à vos commandes et entrer vos informations de livraison et de paiement.</div>";
                     $_SESSION["Basket"] = new Basket();
                 }
                 else {
