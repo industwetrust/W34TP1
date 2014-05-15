@@ -184,14 +184,15 @@
             
             $constraints = $customSearchConstraint . $categoryConstraint . $nameConstraint . $selCategoryConstraint . $priceConstraint;
             
-            echo "<div class='pageNavigator' style='margin: 10px 0px 0px 30px; color:blue;'>";
-                echo "<a href='index.php?page=Produits" . $constraints . "&PageN=0' ><< </a>";
-                echo "<a href='index.php?page=Produits" . $constraints . "&PageN=$previousPage' >< </a>";
+            echo "<div class='pagination' style='margin: 10px 0px 0px 20%; color:blue;'>";
+            echo "<ul><li>";
+                echo "<li><a href='index.php?page=Produits" . $constraints . "&PageN=0' ><< </a></li>";
+                echo "<li><a href='index.php?page=Produits" . $constraints . "&PageN=$previousPage' >< </a></li>";
                 for ($i = 1; $i <= $pageCount; $i++) {
-                    echo "<a href='index.php?page=Produits" . $constraints . "&PageN=" . ($i-1) . "' >" . $i . " </a>";
+                    echo "<li class='active'><a href='index.php?page=Produits" . $constraints . "&PageN=" . ($i-1) . "' >" . $i . " </a></li>";
                 }
-                echo "<a href='index.php?page=Produits" . $constraints . "&PageN=$nextPage' >> </a>";
-                echo "<a href='index.php?page=Produits" . $constraints . "&PageN=" . ($pageCount-1) . "' >>> </a>";
+                echo "<li><a href='index.php?page=Produits" . $constraints . "&PageN=$nextPage' >> </a></li>";
+                echo "<li><a href='index.php?page=Produits" . $constraints . "&PageN=" . ($pageCount-1) . "' >>> </a></li></ul>";
             echo "</div>";
             
             echo "</form>";

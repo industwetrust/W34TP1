@@ -94,7 +94,7 @@
                                      $_POST["txtProductDesc" . $id] . "', '" .
                                      $_POST["txtPrice"       . $id] . "', '" .
                                      $_POST["txtUnitsInStock" . $id] . "', '" .
-                                     $_POST["txtImageURL" . $id] . "')'";
+                                     $_POST["txtImageURL" . $id] . "')";
                 }
             }
             
