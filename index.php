@@ -2,6 +2,10 @@
     include("Includes/functionsAndClasses.php");
     session_start();
     
+        if (!isset($_SESSION["Basket"])) {
+        $_SESSION["Basket"] = new Basket();
+    }
+    
     $DB_HOST = "localhost";
     $DB_USER = "root";
     $DB_PASS = "";
@@ -25,12 +29,13 @@
             else {
                 $mySqli->query("INSERT INTO Customers (Username, Password, Firstname, Lastname, Phone) VALUES ('" .
                         $_POST["txtUsername"] .  "', '" .
-                        $_POST["txtPassword"] .  "', '" .
+                        md5($_POST["txtPassword"]) .  "', '" .
                         $_POST["txtFirstname"] . "', '" .
                         $_POST["txtLastname"] .  "', '" .
                         $_POST["txtPhone"] .     "')");
                 if ($mySqli->affected_rows == 1) {
                     setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
+                    $_SESSION["login"]= $_POST["txtUsername"];
                     $_SESSION["TryRegisterResult"] = "Success";
                 }
                 else {
@@ -39,6 +44,34 @@
             }
         }
     }
+    if (isset($_GET["page"]) && $_GET["page"] == "login"){
+        if (empty($_POST["txtUsername"]) || empty($_POST["txtPassword"]) ) {
+            $_SESSION["TryRegisterResult"] = "MissingInfos";
+        }
+        else{
+            $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
+            $nom =$_POST["txtUsername"];
+            $pass = md5($_POST["txtPassword"]);
+            
+            $query = "SELECT * FROM customers WHERE Username =  '". $nom. "' AND PASSWORD =  '". $pass."'";
+            $result = $mySqli->query($query);
+            if($result->num_rows ==1){
+                //L'usager est Trouvé
+                $ligne = $result->fetch_assoc();
+                print_r($ligne);
+                $_SESSION["login"]=$ligne["Username"];
+                $_SESSION["TryRegisterResult"] = "Success";
+            }
+            else {
+                "nope.";
+            }
+        }
+    }
+    
+
+    
+    
+
 ?>
 
 <!DOCTYPE html>
@@ -80,11 +113,20 @@
                             <div class="span8">
                                 <div class="follow_us">
                                     <ul>
-                                        <li>Se connecter avec: </li>
-                                        <li><a href="http://www.facebook.com/arriba.ec" class="facebook">Facebook</a></li>
-<!--                                        <li><a href="http://www.facebook.com/arriba.ec" class="google">Google</a></li>-->
-                                        <li><a href="#" class="delicious">Delicious</a></li>
-<!--                                        <li><a href="index.php?page=login" class="delicious">Delicious</a></li>-->
+                                         <?php
+                                            if(isset($_SESSION["nom"]) || isset($_SESSION["login"])){
+                                                echo "<li> deconnecter: </a></li>";
+                                                echo "<li><a class='delicious' href='index.php?page=sortir' >Delicious</a></li>";
+                                            }
+                                            else{
+                                                echo "<li>Se connecter: </a></li>";
+                                                echo "<li><a class='delicious modal_trigger' href='#modal' >Delicious</a></li>";
+                                            }
+                                            
+                                            ?>
+                                        
+<!--                                        <li><a href="http://www.facebook.com/arriba.ec" class="facebook">Facebook</a></li>
+                                        <li><a href="http://www.facebook.com/arriba.ec" class="google">Google</a></li>-->
                                     </ul>
                                 </div>
                                 <nav id="main_menu">
@@ -92,34 +134,37 @@
                                         <ul class="nav sf-menu">
                                             <li class="current"><a href="index.php">Accueil</a></li>
                                             <li><a href="index.php?page=about">À propos</a></li>
-                                            <li class="sub-menu"><a href="javascript:{}">Clients</a>
-                                                <ul>
-                                                    <li><a class="modal_trigger" href="#modal"><span>-</span>S'inscrire</a></li>
-                                                    <li><a class="modal_trigger" href="#modal"><span>-</span>Se connecter</a></li>
-                                                    <li><a href="index.php?page=sortir"><span>-</span>Se déconnecter</a></li>
-                                                </ul>                                          
-                                            </li>
                                             <li class="sub-menu"><a href="javascript:{}">Produits</a>
                                                 <ul>
                                                     <li><a href="index.php?page=Produits"><span>-</span>Catalogue</a></li>
 <!--                                                    <li><a href="portfolio_3columns.html"><span>-</span>Categories</a></li>-->
                                                 </ul>
-                                            </li>                                  
-                                            <li class="sub-menu"><a href="javascript:{}">Administrer</a>
-                                                <ul>
-                                                    <li><a href="blog.html"><span>-</span>Utilisateurs</a></li>
-                                                    <li><a href="index.php?page=GestionCategoriesProd"><span>-</span>Categories de produit</a></li> 
-                                                    <li><a href="index.php?page=GestionProduits"><span>-</span>Produits</a></li> 
-                                                    <li><a href="index.php?page=GestionProduitParCat"><span>-</span>Produit par catégories</a></li>
-                                                    <li><a href="blog_post.html"><span>-</span>Commandes</a></li> 
-                                                </ul>
                                             </li>
+                                            <?php 
+                                                if(isset($_SESSION["login"])){
+                                                    echo "<li class='sub-menu'><a href='javascript:{}'>Clients</a></li>";
+                                                }
+                                                if(isset($_SESSION["nom"])){ ?>
+                                                    <li class="sub-menu"><a href="javascript:{}">Administrer</a>
+                                                        <ul>
+                                                            <li><a href="blog.html"><span>-</span>Utilisateurs</a></li>
+                                                            <li><a href="index.php?page=GestionCategoriesProd"><span>-</span>Categories de produit</a></li> 
+                                                            <li><a href="index.php?page=GestionProduits"><span>-</span>Produits</a></li> 
+                                                            <li><a href="index.php?page=GestionProduitParCat"><span>-</span>Produit par catégories</a></li>
+                                                            <li><a href="blog_post.html"><span>-</span>Commandes</a></li> 
+                                                        </ul>
+                                                    </li>
+                                            <?php } ?>
                                             <li><a href="index.php?page=contacts">Contacter</a></li>
                                         </ul>
                                     </div>
                                 </nav>
                             </div>
-                            <div class="follow_us"> PANIER </div>
+                            <div style='background-image:url("Img/Cart.png"); float:right; margin-bottom:4px; 
+                                 height:48px; width:48px; text-align:center;'>
+                                    <a href='index.php?page=Panier' style='color:#060; font-size:18px; position:relative; 
+                                       top:10px;'><?= $_SESSION["Basket"]->GetDiffProductCount() ?> </a>
+                            </div>
                         </div>                
                     </div>
                 </div>
@@ -133,10 +178,10 @@
             if (isset($_GET["page"])) {
                 $page = $_GET["page"];
                 switch ($page) {
-                    case "login" :                  include("Includes/login.php");                  break;
+                    case "login" :                  include("Includes/login/login.php");            break;
                     case "users" :                  include("Includes/users.php");                  break;
-                    case "registrer" :              include("Includes/registrer.php");              break;
-                    case "sortir" :                 include("Includes/sortir.php");                 break;
+                    case "registrer" :              include("Includes/login/registrer.php");        break;
+                    case "sortir" :                 include("Includes/login/sortir.php");           break;
                     case "about" :                  include("Includes/about.php");                  break;
                     case "contacts" :               include("Includes/contacts.php");               break;
                     case "Produits" :               include("Includes/Products.php");               break;
@@ -160,6 +205,7 @@
                     <div class="row">
                         <div class="span3">
                             <h2 class="title">Récents tweets</h2>
+                            <a href='Includes/login/login_externe.php'>test</a>
                             <div class="tweet_block"></div>                       
                         </div>
 

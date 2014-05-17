@@ -63,6 +63,14 @@
         });
     })(jQuery);
 </script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_CA/sdk.js#xfbml=1&appId=155567074550166&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <div id="modal" class="popupContainer" style="display:none;">
     <header class="popupHeader">
@@ -75,8 +83,8 @@
         <div class="social_login">
             <div class="">
                 <a href="#" class="social_box fb">
-                    <span class="icon"><i class="fa fa-facebook"></i></span>
-                    <span class="icon_title">Utiliser Facebook</span>
+                    <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"
+                            data-scope="email, user_birthday" ></div>
 
                 </a>
 
@@ -100,17 +108,12 @@
         <div class="user_login">
             <form id='frmLogin' method="POST" action="index.php?page=login">
                 <label>Nom d'utilisateur</label>
-                <input id='txtLogUsername' name='txtUsername' type="text" />
+                <input id='txtRegUsername' name='txtUsername' type="text" />
                 <br />
 
                 <label>Mot de passe</label>
-                <input id='txtLogPassword' name='txtPassword' type="password" />
+                <input id='txtRegPassword' name='txtPassword' type="password" />
                 <br />
-
-                <div class="checkbox">
-                    <input id="remember" type="checkbox" />
-                    <label for="remember">Se souvenir de moi</label>
-                </div>
 
                 <div class="action_btns">
                     <div class="one_half"><a href="#" class="btn dark_btn"><i class="fa fa-angle-double-left"></i> Retour</a></div>

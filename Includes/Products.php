@@ -1,4 +1,9 @@
+
+
 <?php // Constantes
+
+
+
     $ITEMS_SHOWN_PER_PAGE = 16;
     $ITEMS_SHOWN_PER_ROW = 4;
     $ITEM_WIDTH = 300;
@@ -6,9 +11,6 @@
 ?>
 
 <?php
-    if (!isset($_SESSION["Basket"])) {
-        $_SESSION["Basket"] = new Basket();
-    }
 
     if (!empty($_POST)) {
         foreach(array_keys($_POST) as $txtBox) {
@@ -27,9 +29,6 @@
     // TODO: Dans le cas où $page n'est pas un entier positif, le changer en 0
     echo "<div class='wrap'>";
     echo "<div class='container inner_content'>";
-    echo "<div style='background-image:url(\"Img/Cart.png\"); float:right; margin-bottom:4px; height:48px; width:48px; text-align:center;'>";
-        echo "<a href='index.php?page=Panier' style='color:#060; font-size:18px; position:relative; top:10px;'>" . $_SESSION["Basket"]->GetDiffProductCount() . "</a>";
-    echo "</div>";
     echo "<div class='row' style='clear:both;'>";
     
     if (!isset($_GET["Category"]) && !isset($_GET["CustomSearch"])) {
