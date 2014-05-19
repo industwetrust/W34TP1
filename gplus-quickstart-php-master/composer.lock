@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "29f7b56885be15475025f32dccc1b467",
+    "hash": "efbce2d3303d27b1d15749ec7d0d30a5",
     "packages": [
         {
             "name": "google/apiclient",
@@ -112,12 +112,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Silex.git",
-                "reference": "185be1eb3570232d57aaf846c6e789009f5f5009"
+                "reference": "ddcec0796ed78750b5b3091b4a946913a88ba2f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Silex/zipball/185be1eb3570232d57aaf846c6e789009f5f5009",
-                "reference": "185be1eb3570232d57aaf846c6e789009f5f5009",
+                "url": "https://api.github.com/repos/silexphp/Silex/zipball/ddcec0796ed78750b5b3091b4a946913a88ba2f4",
+                "reference": "ddcec0796ed78750b5b3091b4a946913a88ba2f4",
                 "shasum": ""
             },
             "require": {
@@ -188,21 +188,21 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2014-04-15 20:51:52"
+            "time": "2014-01-20 06:44:05"
         },
         {
             "name": "symfony/debug",
-            "version": "v2.4.4",
+            "version": "v2.4.2",
             "target-dir": "Symfony/Component/Debug",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "6a8eb9aba50595014fef52d6b4d99b31dfaa6f02"
+                "reference": "23b5f4fcad883679d9a6e1cbc568247fe606d8ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/6a8eb9aba50595014fef52d6b4d99b31dfaa6f02",
-                "reference": "6a8eb9aba50595014fef52d6b4d99b31dfaa6f02",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/23b5f4fcad883679d9a6e1cbc568247fe606d8ee",
+                "reference": "23b5f4fcad883679d9a6e1cbc568247fe606d8ee",
                 "shasum": ""
             },
             "require": {
@@ -245,21 +245,21 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-16 10:34:42"
+            "time": "2014-02-11 13:52:09"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.3.13",
+            "version": "v2.3.11",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "cb7cd38c081507d10997553c4c522956a4d2afab"
+                "reference": "15645237c6ff70e74a28e8836362d82492765055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/cb7cd38c081507d10997553c4c522956a4d2afab",
-                "reference": "cb7cd38c081507d10997553c4c522956a4d2afab",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/15645237c6ff70e74a28e8836362d82492765055",
+                "reference": "15645237c6ff70e74a28e8836362d82492765055",
                 "shasum": ""
             },
             "require": {
@@ -301,21 +301,21 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-16 10:30:19"
+            "time": "2014-02-11 10:29:24"
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.3.13",
+            "version": "v2.3.11",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "39718aefd809f5c0be7f3b64d2d97dfab1668b87"
+                "reference": "b55af1566bff5697eb56590759276d6b39c81384"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/39718aefd809f5c0be7f3b64d2d97dfab1668b87",
-                "reference": "39718aefd809f5c0be7f3b64d2d97dfab1668b87",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/b55af1566bff5697eb56590759276d6b39c81384",
+                "reference": "b55af1566bff5697eb56590759276d6b39c81384",
                 "shasum": ""
             },
             "require": {
@@ -353,21 +353,21 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-18 20:55:02"
+            "time": "2014-02-11 10:29:24"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v2.3.13",
+            "version": "v2.3.11",
             "target-dir": "Symfony/Component/HttpKernel",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "df7c1ada1e06b193a077adeaa520bf39f39b500e"
+                "reference": "9aef5f2ca801edb23175fbdd713d869381a09429"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/df7c1ada1e06b193a077adeaa520bf39f39b500e",
-                "reference": "df7c1ada1e06b193a077adeaa520bf39f39b500e",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/9aef5f2ca801edb23175fbdd713d869381a09429",
+                "reference": "9aef5f2ca801edb23175fbdd713d869381a09429",
                 "shasum": ""
             },
             "require": {
@@ -426,21 +426,21 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-27 08:34:33"
+            "time": "2014-02-27 14:55:30"
         },
         {
             "name": "symfony/routing",
-            "version": "v2.3.13",
+            "version": "v2.3.11",
             "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "6e4c9024a04340b83e456a1a24597dba066dcdc9"
+                "reference": "b7c5289d628936505417c9382000384992e3d856"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/6e4c9024a04340b83e456a1a24597dba066dcdc9",
-                "reference": "6e4c9024a04340b83e456a1a24597dba066dcdc9",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/b7c5289d628936505417c9382000384992e3d856",
+                "reference": "b7c5289d628936505417c9382000384992e3d856",
                 "shasum": ""
             },
             "require": {
@@ -486,7 +486,7 @@
             ],
             "description": "Symfony Routing Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-23 13:35:47"
+            "time": "2014-02-11 10:29:24"
         },
         {
             "name": "twig/twig",
@@ -546,12 +546,20 @@
             "time": "2014-02-13 10:19:29"
         }
     ],
-    "packages-dev": [],
-    "aliases": [],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "silex/silex": 20
     },
-    "platform": [],
-    "platform-dev": []
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
 }

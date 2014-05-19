@@ -195,8 +195,16 @@
                 </a>
 
                 <a href="#" class="social_box google">
-                    <span class="icon"><i class="fa fa-google-plus"></i></span>
-                    <span class="icon_title">Utiliser Google</span>
+                    <span id="signinButton">
+                        <span
+                          class="g-signin"
+                          data-callback="signinCallback"
+                          data-clientid="917844569051-v90a0c76omdssbpatgm6c7it97tpb76u.apps.googleusercontent.com"
+                          data-cookiepolicy="single_host_origin"
+                          data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                          data-scope="https://www.googleapis.com/auth/plus.login">
+                        </span>
+                    </span>
                 </a>
             </div>
 
@@ -214,11 +222,11 @@
         <div class="user_login">
             <form id='frmLogin' method="POST" action="index.php?page=login">
                 <label>Nom d'utilisateur</label>
-                <input id='txtRegUsername' name='txtUsername' type="text" />
+                <input id='txtUsername' name='txtUsername' type="text" />
                 <br />
 
                 <label>Mot de passe</label>
-                <input id='txtRegPassword' name='txtPassword' type="password" />
+                <input id='txtPassword' name='txtPassword' type="password" />
                 <br />
 
                 <div class="action_btns">
@@ -271,7 +279,7 @@
     };
     
     function SubmitLoginFormIfValid() {
-        if (ById('txtRegUsername').value === "" || ById('txtRegPassword').value === "") {
+        if (ById('txtUsername').value === "" || ById('txtPassword').value === "") {
             alert("Assurez-vous que tous les champs sont bien remplis");
         }
         else {
@@ -284,8 +292,10 @@
             ById('txtRegPassword').value === "" ||
             ById('txtRegFirstname').value === "" ||
             ById('txtRegLastname').value === "" ||
-            ById('txtRegPhone').value === "")
+            ById('txtRegPhone').value === "" ||
+
         {
+           
             alert("Assurez-vous que tous les champs sont bien remplis");
         }
         else {
