@@ -1,8 +1,21 @@
 <?php
+    include ("Facebook/FacebookSession.php") ;
+    include ("Facebook/FacebookRequest.php");
+    include ("Facebook/FacebookResponse.php");
+    include ("Facebook/FacebookJavaScriptLoginHelper.php");
+    include ("Facebook/GraphObject.php");
+    include ("Facebook/GraphUser.php");
+    include ("Facebook/FacebookSDKException.php");
+    include ("Facebook/FacebookRequestException.php");
+    include ("Facebook/FacebookAuthorizationException.php");
+    include ("Facebook/FacebookServerException.php");
+    
+    include("PHPMailer_v5.1/class.phpmailer.php");
+    include("PHPMailer_v5.1/class.smtp.php");
     include("Includes/functionsAndClasses.php");
     session_start();
     
-        if (!isset($_SESSION["Basket"])) {
+       if (!isset($_SESSION["Basket"])) {
         $_SESSION["Basket"] = new Basket();
     }
     
@@ -44,6 +57,7 @@
             }
         }
     }
+    
     if (isset($_GET["page"]) && $_GET["page"] == "login"){
         if (empty($_POST["txtUsername"]) || empty($_POST["txtPassword"]) ) {
             $_SESSION["TryRegisterResult"] = "MissingInfos";
@@ -52,20 +66,19 @@
             $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
             $nom =$_POST["txtUsername"];
             $pass = md5($_POST["txtPassword"]);
-            
             $query = "SELECT * FROM customers WHERE Username =  '". $nom. "' AND PASSWORD =  '". $pass."'";
             $result = $mySqli->query($query);
             if($result->num_rows ==1){
                 //L'usager est Trouvé
                 $ligne = $result->fetch_assoc();
-                print_r($ligne);
+
                 $_SESSION["login"]=$ligne["Username"];
                 $_SESSION["TryRegisterResult"] = "Success";
             }
             else {
-                "nope.";
-            }
+                $_SESSION["TryRegisterResult"] = "Erreur";
         }
+    }
     }
     
 
@@ -211,7 +224,40 @@
 
                         <div class="span3">
                             <h2 class="title">Question?</h2>
-                            <form action="Question" method="post">
+                            <?php
+                            if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["message"]))
+                            {
+                                $mail             = new PHPMailer();
+                                $mail->IsSMTP();
+                                $mail->SMTPAuth   = true;                  // enable SMTP authentication
+                                $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+                                $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+                                $mail->Port       = 465;                   // set the SMTP port
+
+                                $mail->Username   = "csharp1374@gmail.com";  // GMAIL username
+                                $mail->Password   = "jaime la peinture";            // GMAIL password
+
+                                $mail->From       = $_POST["email"];
+                                $mail->FromName   = $_POST["name"];
+                                $mail->Subject    = "test aburrido";
+                                $mail->AltBody    = $_POST["message"]; //Text Body
+                                $mail->WordWrap   = 50; // set word wrap
+
+                                $mail->MsgHTML($_POST["message"]);
+
+                                $mail->AddReplyTo($_POST["email"]);
+                                $mail->AddAddress("csharp1374@gmail.com"); //addresse d'envoi du courriel
+
+                                $mail->IsHTML(true); // send as HTML
+
+                                if(!$mail->Send()) {
+                                  echo "Mailer Error: " . $mail->ErrorInfo;
+                                } else {
+                                  echo "<div style='color:red; '>Question envoyée! Nous repondrons le plus tôt possible</div>";
+                                }
+                            }
+                            ?>
+                            <form action="index.php" method="post">
                                 <input class="span3" type="text" name="name" id="name" value="Nom" onFocus="if (this.value == 'Name')
                                             this.value = '';" onBlur="if (this.value == '')
                                                         this.value = 'Name';" />
@@ -281,7 +327,7 @@
         </div>
         <!--//footer-->
         
-        <?php include("LoginPopup/LoginPopup.html"); ?>
+        <?php include("Includes/login/loginpopup.php"); ?>
 
         <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
         <script type="text/javascript" src="js/jquery.mobile.customized.min.js"></script>

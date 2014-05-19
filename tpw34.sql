@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: May 15, 2014 at 03:51 PM
--- Server version: 5.6.12-log
--- PHP Version: 5.4.12
+-- Client :  127.0.0.1
+-- Généré le :  Lun 19 Mai 2014 à 03:13
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,15 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `tpw34`
+-- Base de données :  `tpw34`
 --
-CREATE DATABASE IF NOT EXISTS `tpw34` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `tpw34`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `addresses`
+-- Structure de la table `addresses`
 --
 
 CREATE TABLE IF NOT EXISTS `addresses` (
@@ -44,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Structure de la table `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -56,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `categories`
+-- Contenu de la table `categories`
 --
 
 INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Description`, `ImageURL`) VALUES
@@ -69,7 +67,26 @@ INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Description`, `ImageURL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customers`
+-- Structure de la table `chocolat`
+--
+
+CREATE TABLE IF NOT EXISTS `chocolat` (
+  `nom` varchar(60) NOT NULL,
+  `User` varchar(60) NOT NULL,
+  `Password` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `chocolat`
+--
+
+INSERT INTO `chocolat` (`nom`, `User`, `Password`) VALUES
+('6d4c2c405bb26a2b4ab04ee45fe4171e', '7e4b64eb65e34fdfad79e623c44abd94', 'c378985d629e99a4e86213db0cd5e70d');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `customers`
 --
 
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -86,16 +103,16 @@ CREATE TABLE IF NOT EXISTS `customers` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `customers`
+-- Contenu de la table `customers`
 --
 
 INSERT INTO `customers` (`CustomerID`, `Username`, `Password`, `Phone`, `Email`, `FirstName`, `LastName`, `RegisterDate`) VALUES
-(8, 'qwerty', 'qwerty', 'qwerty', NULL, 'qwerty', 'qwerty', NULL);
+(8, 'qwerty', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'qwerty', NULL, 'qwerty', 'qwerty', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orderdetail`
+-- Structure de la table `orderdetail`
 --
 
 CREATE TABLE IF NOT EXISTS `orderdetail` (
@@ -107,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `orderdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `orderdetail`
+-- Contenu de la table `orderdetail`
 --
 
 INSERT INTO `orderdetail` (`OrderID`, `ProductID`, `Quantity`) VALUES
@@ -117,7 +134,7 @@ INSERT INTO `orderdetail` (`OrderID`, `ProductID`, `Quantity`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Structure de la table `orders`
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -136,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `orders`
+-- Contenu de la table `orders`
 --
 
 INSERT INTO `orders` (`OrderID`, `CustomerID`, `ShipperID`, `BillingAddress`, `ShippingAddress`, `OrderDate`, `ShipDate`) VALUES
@@ -145,7 +162,7 @@ INSERT INTO `orders` (`OrderID`, `CustomerID`, `ShipperID`, `BillingAddress`, `S
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Structure de la table `products`
 --
 
 CREATE TABLE IF NOT EXISTS `products` (
@@ -159,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `products`
+-- Contenu de la table `products`
 --
 
 INSERT INTO `products` (`ProductID`, `ProductName`, `Price`, `UnitsInStock`, `Description`, `ImageURL`) VALUES
@@ -171,7 +188,7 @@ INSERT INTO `products` (`ProductID`, `ProductName`, `Price`, `UnitsInStock`, `De
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productscategories`
+-- Structure de la table `productscategories`
 --
 
 CREATE TABLE IF NOT EXISTS `productscategories` (
@@ -182,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `productscategories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `productscategories`
+-- Contenu de la table `productscategories`
 --
 
 INSERT INTO `productscategories` (`ProductID`, `CategoryID`) VALUES
@@ -200,7 +217,7 @@ INSERT INTO `productscategories` (`ProductID`, `CategoryID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shippers`
+-- Structure de la table `shippers`
 --
 
 CREATE TABLE IF NOT EXISTS `shippers` (
@@ -212,24 +229,24 @@ CREATE TABLE IF NOT EXISTS `shippers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints for table `addresses`
+-- Contraintes pour la table `addresses`
 --
 ALTER TABLE `addresses`
   ADD CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`);
 
 --
--- Constraints for table `orderdetail`
+-- Contraintes pour la table `orderdetail`
 --
 ALTER TABLE `orderdetail`
   ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`),
   ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `products` (`ProductID`);
 
 --
--- Constraints for table `orders`
+-- Contraintes pour la table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`),
@@ -238,7 +255,7 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`ShippingAddress`) REFERENCES `addresses` (`AddressID`);
 
 --
--- Constraints for table `productscategories`
+-- Contraintes pour la table `productscategories`
 --
 ALTER TABLE `productscategories`
   ADD CONSTRAINT `productscategories_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `products` (`ProductID`),

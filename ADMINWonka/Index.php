@@ -10,7 +10,7 @@ if (isset($_SESSION["login"]) ) session_destroy();
             $DB_NAME = "tpw34";
         $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
         
-        $query = "SELECT nom FROM admin WHERE User = " . 
+        $query = "SELECT nom FROM Chocolat WHERE User = " . 
                  " '".md5($_POST["txtNom"])."' AND Password = '". md5($_POST["txtPW"]) ."'";
         
         $result = $mySqli->query($query);
