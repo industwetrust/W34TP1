@@ -3,6 +3,7 @@
     
     include("PHPMailer_v5.1/class.phpmailer.php");
     include("PHPMailer_v5.1/class.smtp.php");
+    
     include("Includes/functionsAndClasses.php");
     
     session_start();
@@ -72,9 +73,7 @@
         }
     }
     }
-    
-
-    
+  
     
 
 ?>
@@ -97,6 +96,13 @@
         <link rel="stylesheet" type="text/css" href="css/skins/tango/skin.css" />
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+        <style type="text/css">
+            b{
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 800;
+                font-size: 13px;
+            }
+        </style>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
         <script type="text/javascript" src="js/jquery.mobile.customized.min.js"></script>
@@ -155,8 +161,17 @@
                                     <ul>
                                          <?php
                                             if(isset($_SESSION["nom"]) || isset($_SESSION["login"])){
-                                                echo "<li> deconnecter: </a></li>";
-                                                echo "<li><a class='delicious' href='index.php?page=sortir' >Delicious</a></li>";
+                                                if (isset($_SESSION["nom"]))
+                                                {
+                                                    echo "<li> Bonjour, <b>".$_SESSION["nom"]."</b></li>";
+                                                }
+                                                
+                                                if (isset($_SESSION["login"]))
+                                                {
+                                                    echo "<li> Bonjour, <b>".$_SESSION["login"]."</b></li>";
+                                                }
+                                                
+                                                echo " <br />deconnecter: <li><a class='delicious' href='index.php?page=sortir' >Delicious</a></li>";
                                             }
                                             else{
                                                 echo "<li>Se connecter: </a></li>";

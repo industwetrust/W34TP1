@@ -1,7 +1,7 @@
 <!--Cette page permet de dénifir les catégories de produit-->
 
 <?php
-    header ('charset=utf-8');
+
 
     $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
 
