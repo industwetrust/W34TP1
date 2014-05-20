@@ -118,6 +118,7 @@
         'into Facebook.';
     }
   }
+  
 
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
@@ -198,8 +199,8 @@
                     <span id="signinButton">
                         <span
                           class="g-signin"
-                          data-callback="signinCallback"
-                          data-clientid="917844569051-v90a0c76omdssbpatgm6c7it97tpb76u.apps.googleusercontent.com"
+                          data-callback="loginFinishedCallback"
+                          data-clientid='825595175461-dmiqhfpdf9ch4fe2u2ejv4ja59b4hd01.apps.googleusercontent.com'
                           data-cookiepolicy="single_host_origin"
                           data-requestvisibleactions="http://schemas.google.com/AddActivity"
                           data-scope="https://www.googleapis.com/auth/plus.login">
@@ -292,7 +293,7 @@
             ById('txtRegPassword').value === "" ||
             ById('txtRegFirstname').value === "" ||
             ById('txtRegLastname').value === "" ||
-            ById('txtRegPhone').value === "" ||
+            ById('txtRegPhone').value === "" )
 
         {
            

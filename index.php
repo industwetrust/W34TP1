@@ -1,18 +1,10 @@
 <?php
-    include ("Facebook/FacebookSession.php") ;
-    include ("Facebook/FacebookRequest.php");
-    include ("Facebook/FacebookResponse.php");
-    include ("Facebook/FacebookJavaScriptLoginHelper.php");
-    include ("Facebook/GraphObject.php");
-    include ("Facebook/GraphUser.php");
-    include ("Facebook/FacebookSDKException.php");
-    include ("Facebook/FacebookRequestException.php");
-    include ("Facebook/FacebookAuthorizationException.php");
-    include ("Facebook/FacebookServerException.php");
+    require_once __DIR__.'/vendor/autoload.php';
     
     include("PHPMailer_v5.1/class.phpmailer.php");
     include("PHPMailer_v5.1/class.smtp.php");
     include("Includes/functionsAndClasses.php");
+    
     session_start();
     
        if (!isset($_SESSION["Basket"])) {
@@ -106,14 +98,49 @@
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script type="text/javascript" src="LoginPopup/LoginPopup.js"></script>
+        <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile.customized.min.js"></script>
+        <script type="text/javascript" src="js/camera.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/superfish.js"></script>
+        <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+        <script type="text/javascript" src="js/jquery.jcarousel.js"></script>
+        <script type="text/javascript" src="js/jquery.tweet.js"></script>
+        <script type="text/javascript" src="js/myscript.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                //Slider
+                $('#camera_wrap_1').camera();
+
+                //Featured works & latest posts
+                $('#mycarousel, #mycarousel2, #newscarousel').jcarousel();
+            });
+        </script>
+        
+<!--          <style type="text/css">  cosas de google
+  .hide { display: none;}
+  .show { display: block;}
+  </style>
+  <script src="https://apis.google.com/js/plusone.js" type="text/javascript"></script>-->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
         <link href="css/Products.css" rel="stylesheet">
         <!--[if lt IE 9]>
                 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->    
     </head>
 
-    <body>
+    <body onload="initialize()">
         <!--header-->
         <div class="header">
             <div class="wrap">
@@ -168,7 +195,7 @@
                                                         </ul>
                                                     </li>
                                             <?php } ?>
-                                            <li><a href="index.php?page=contacts">Contacter</a></li>
+                                            <li><a href="index.php?page=contacts">Contactez-nous</a></li>
                                         </ul>
                                     </div>
                                 </nav>
@@ -183,6 +210,8 @@
                 </div>
             </div>    
         </div>
+        
+        <div id="email123" class="hide"></div>
         <!--//header-->    
 
         <!--page_container-->
@@ -196,7 +225,7 @@
                     case "registrer" :              include("Includes/login/registrer.php");        break;
                     case "sortir" :                 include("Includes/login/sortir.php");           break;
                     case "about" :                  include("Includes/about.php");                  break;
-                    case "contacts" :               include("Includes/contacts.php");               break;
+                    case "contacts" :               include("contact_form/contacts.php");               break;
                     case "Produits" :               include("Includes/Products.php");               break;
                     case "GestionCategoriesProd" :  include("Includes/ManageProdCategories.php");   break;
                     case "GestionProduits" :        include("Includes/ManageProducts.php");         break;
@@ -329,24 +358,7 @@
         
         <?php include("Includes/login/loginpopup.php"); ?>
 
-        <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-        <script type="text/javascript" src="js/jquery.mobile.customized.min.js"></script>
-        <script type="text/javascript" src="js/camera.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/superfish.js"></script>
-        <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
-        <script type="text/javascript" src="js/jquery.jcarousel.js"></script>
-        <script type="text/javascript" src="js/jquery.tweet.js"></script>
-        <script type="text/javascript" src="js/myscript.js"></script>
-        <script type="text/javascript">
-                                    $(document).ready(function() {
-                                        //Slider
-                                        $('#camera_wrap_1').camera();
 
-                                        //Featured works & latest posts
-                                        $('#mycarousel, #mycarousel2, #newscarousel').jcarousel();
-                                    });
-        </script>
     <!-- Placez ce script JavaScript asynchrone juste devant votre balise </body> -->
     <script type="text/javascript">
       (function() {
@@ -354,6 +366,58 @@
        po.src = 'https://apis.google.com/js/client:plusone.js';
        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
      })();
+     
+     
+    </script>
+    
+             <script type="text/javascript">
+
+             
+     function loginFinishedCallback(authResult) {
+    if (authResult) {
+      if (authResult['error'] === undefined){
+        gapi.auth.setToken(authResult); // Stocker le jeton renvoyé.
+         // Masquer le bouton de connexion lorsque l'ouverture de session réussit.
+        getEmail();                     // Déclencher une requête pour obtenir l'adresse e-mail.
+      } else {
+        console.log('An error occurred');
+      }
+    } else {
+      console.log('Empty authResult');  // Un problème s'est produit
+    }
+  }
+
+  /*
+   * Initie la requête au point de terminaison userinfo pour obtenir l'adresse
+   * e-mail de l'utilisateur. Cette fonction dépend de gapi.auth.setToken, qui doit contenir un
+   * jeton d'accès OAuth valide.
+   *
+   * Une fois la requête achevée, le rappel getEmailCallback est déclenché et reçoit
+   * le résultat de la requête.
+   */
+  function getEmail(){
+    // Charger les bibliothèques OAuth2 pour activer les méthodes userinfo.
+    gapi.client.load('oauth2', 'v2', function() {
+          var request = gapi.client.oauth2.userinfo.get();
+          request.execute(getEmailCallback);
+        });
+  }
+
+  function getEmailCallback(obj){
+    var el = document.getElementById('email123');
+    var email = 'jojojo';
+
+    if (obj['email']) {
+      email = 'Email: ' + obj['email'];
+    }
+
+    //console.log(obj);   // Retirer les commentaires pour inspecter l'objet complet.
+
+    el.innerHTML = email;
+        el.className='show';
+  }
+
+
     </script>
         
     </body>

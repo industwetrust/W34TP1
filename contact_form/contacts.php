@@ -6,6 +6,7 @@
  */
 ?>
 
+
 <div class="breadcrumb">
     <div class="wrap">
         <div class="container">
@@ -19,10 +20,19 @@
             <div class="row">
                 <div class="span4">
                     <h2 class="title"><span>Coordonnées</span></h2>
-                    <!--<div id="map"><iframe width="100%" height="310" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=london&sll=37.0625,-95.677068&sspn=42.631141,90.263672&ie=UTF8&hq=&hnear=London,+United+Kingdom&ll=51.500141,-0.126257&spn=0.026448,0.039396&z=14&output=embed"></iframe></div>-->
                     <p>57 rue Jacques-Bacon<br/>Chicoutimi, (Qc) G7H 3R3</p>
-                    <p>Téléphone: +1 (581) 234-0581<br/>Email: <a href="mailto:#">pablo@arriba.ec</a><br/>Facebook: <a href="#">http://www.facebook.com/arriba.ec</a></p>                           
+                    <p>Téléphone: +1 (581) 234-0581<br/>Email: <a href="mailto:#">pablo@arriba.ec</a>
+                        <br/>
+                        Facebook: <a href="#">http://www.facebook.com/arriba.ec</a>
+                    </p> 
+                    <br/>
+                    <div id='map'>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d661.9658405766752!2d-71.04041065968676!3d48.420767475017364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc020bbcee462a3%3A0xa2cfed329a02cbc2!2sColl%C3%A8ge+MultiHexa!5e0!3m2!1sfr!2s!4v1400547804472" 
+                        width="400" height="300" frameborder="0" style="border:0">
+                    </iframe>
+                    </div>
                 </div>
+
                 <div class="span8">
                     <h2 class="title"><span>Contactez-nous</span></h2>
                     <div class="contact_form">  
@@ -40,14 +50,21 @@
                             </form>
                         </div>
                     </div>                   
-                </div>                	
+                </div> 
+                                <div class="span4">
+
             </div>
+
+            </div>
+           
         </section>
     </div>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+        
         $("#ajax-contact-form").submit(function() {
             var str = $(this).serialize();
             $.ajax({
@@ -56,7 +73,7 @@
                 data: str,
                 success: function(msg) {
                     // Message Sent - Show the 'Thank You' message and hide the form
-                    if (msg == 'OK') {
+                    if (msg === 'OK') {
                         result = '<div class="notification_ok">Your message has been sent. Thank you!</div>';
                         $("#fields").hide();
                     } else {
@@ -66,6 +83,10 @@
                 }
             });
             return false;
+        });
+        
+        $("#ajax-contact-form").reset(function() {
+            $(".span7").text = "";
         });
     });
 </script>
