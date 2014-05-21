@@ -19,6 +19,11 @@
                 $quantity = $_POST[$txtBox];
                 
                 $_SESSION["Basket"]->AddProductOrder($productID, $quantity);
+                                echo '<script language="Javascript">
+                <!--
+                window.location.reload();
+                // -->
+                </script>';
             }
         }
     }
@@ -166,7 +171,7 @@
 
             echo "</div>";
             echo "<div><input type='submit' value='Mettre à jour le panier' style='margin-left: 30px;' /></div>";
-
+            echo "</form>";
             // Pagination
             $pageCount = ceil($mySqli->query("SELECT COUNT(DISTINCT p.ProductID, p.ProductName, p.Price, p.UnitsInStock, p.Description, p.ImageURL) " . 
                                              "FROM ProductsCategories pc " .
@@ -194,7 +199,7 @@
                 echo "<li><a href='index.php?page=Produits" . $constraints . "&PageN=" . ($pageCount-1) . "' >>> </a></li></ul>";
             echo "</div>";
             
-            echo "</form>";
+
         }
         else { // Aucun produit trouvé
             

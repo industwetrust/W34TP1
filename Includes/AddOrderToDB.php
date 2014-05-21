@@ -15,8 +15,8 @@
             echo "<div>Votre panier est vide! Cliquez <a href='index.php?page=Produits'>ici</a> pour visiter le catalogue</div>";
         }
         else {
-            if (!empty($_COOKIE["username"])) {
-                $customerID = $mySqli->query("SELECT CustomerID FROM Customers WHERE Username = '" . $_COOKIE["username"] . "'")->fetch_assoc()["CustomerID"];
+            if (!empty($_SESSION["login"])) {
+                $customerID = $mySqli->query("SELECT CustomerID FROM Customers WHERE Username = '" . $_SESSION["login"] . "'")->fetch_assoc()["CustomerID"];
                 
                 $queryResult = $mySqli->query("SELECT AddressID FROM Addresses WHERE IsDefaultShipping = 1 AND CustomerID = '" . $customerID . "'");
                 $shippingAddressID = $queryResult->num_rows > 0 ? $queryResult->fetch_assoc()["AddressID"] : "NULL";

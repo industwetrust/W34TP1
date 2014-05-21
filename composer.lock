@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "933073ce4d31d7682dd994a23fafbb90",
+    "hash": "41361d41771f6e9adae4524147f4c9a2",
     "packages": [
         {
             "name": "facebook/php-sdk-v4",
@@ -531,6 +531,37 @@
             "description": "Symfony Routing Component",
             "homepage": "http://symfony.com",
             "time": "2014-04-23 13:35:47"
+        },
+        {
+            "name": "tinymce/tinymce",
+            "version": "4.0.26",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tinymce/tinymce-dist.git",
+                "reference": "e078ad02472cd660333d6c0b001c127d98d7aaf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/e078ad02472cd660333d6c0b001c127d98d7aaf7",
+                "reference": "e078ad02472cd660333d6c0b001c127d98d7aaf7",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "description": "Web based JavaScript HTML WYSIWYG editor control.",
+            "homepage": "http://www.tinymce.com",
+            "keywords": [
+                "editor",
+                "html",
+                "javascript",
+                "richtext",
+                "tinymce",
+                "wysiwyg"
+            ],
+            "time": "2014-05-06 13:59:11"
         },
         {
             "name": "twig/twig",

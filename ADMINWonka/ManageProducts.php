@@ -1,5 +1,11 @@
 <?php
-    header ('charset=utf-8');
+    if(!isset($_SESSION["nom"])){
+               echo '<script language="Javascript">
+                <!--
+                document.location.replace("index.php");
+                // -->
+                </script>';
+    }
 
     $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
 

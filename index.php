@@ -1,4 +1,6 @@
 <?php
+
+//rechercher info sur mysqli_prepare stmt  mysqli::prepare(string $query)
     require_once __DIR__.'/vendor/autoload.php';
     
     include("PHPMailer_v5.1/class.phpmailer.php");
@@ -202,10 +204,10 @@
                                             </li>
                                             <?php 
                                                 if(isset($_SESSION["login"])){
-                                                    echo "<li class='sub-menu'><a href='javascript:{}'>Clients</a></li>";
+                                                    echo "<li class='sub-menu'><a href='index.php?page=clients'>Clients</a></li>";
                                                 }
                                                 if(isset($_SESSION["nom"])){ ?>
-                                                    <li class="sub-menu"><a href="javascript:{}">Administrer</a>
+                                                    <li class="sub-menu"><a href='javascript:{}'>Administrer</a>
                                                         <ul>
                                                             <li><a href="blog.html"><span>-</span>Utilisateurs</a></li>
                                                             <li><a href="index.php?page=GestionCategoriesProd"><span>-</span>Categories de produit</a></li> 
@@ -215,7 +217,7 @@
                                                         </ul>
                                                     </li>
                                             <?php } ?>
-                                            <li><a href="index.php?page=contacts">Contactez-nous</a></li>
+                                            <li class="sub-menu"><a href="index.php?page=contacts">Contactez-nous</a></li>
                                         </ul>
                                     </div>
                                 </nav>
@@ -240,18 +242,19 @@
             if (isset($_GET["page"])) {
                 $page = $_GET["page"];
                 switch ($page) {
-                    case "login" :                  include("Includes/login/login.php");            break;
-                    case "users" :                  include("Includes/users.php");                  break;
+                    case "login"                  : include("Includes/login/login.php");            break;
+                    case "users"                  : include("Includes/users.php");                  break;
                     case "registrer" :              include("Includes/login/registrer.php");        break;
                     case "sortir" :                 include("Includes/login/sortir.php");           break;
                     case "about" :                  include("Includes/about.php");                  break;
                     case "contacts" :               include("contact_form/contacts.php");               break;
                     case "Produits" :               include("Includes/Products.php");               break;
-                    case "GestionCategoriesProd" :  include("Includes/ManageProdCategories.php");   break;
-                    case "GestionProduits" :        include("Includes/ManageProducts.php");         break;
-                    case "GestionProduitParCat" :   include("Includes/ManageProductsByCat.php");    break;
+                    case "GestionCategoriesProd" :  include("ADMINWonka/ManageProdCategories.php");   break;
+                    case "GestionProduits" :        include("ADMINWonka/ManageProducts.php");         break;
+                    case "GestionProduitParCat" :   include("ADMINWonka/ManageProductsByCat.php");    break;
                     case "Panier" :                 include("Includes/ViewCart.php");               break;
                     case "AjouterCommande" :        include("Includes/AddOrderToDB.php");           break;
+                    case "clients":                 include("Includes/clients.php");                break;
                     default :                       include("Includes/homepage.php");               break;
                 }
             } else //dans le cas ou l'url ne contient pas de param 'page'
@@ -273,40 +276,49 @@
 
                         <div class="span3">
                             <h2 class="title">Question?</h2>
+                            <a name="question"/>
+                            
                             <?php
                             if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["message"]))
                             {
-                                $mail             = new PHPMailer();
-                                $mail->IsSMTP();
-                                $mail->SMTPAuth   = true;                  // enable SMTP authentication
-                                $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-                                $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-                                $mail->Port       = 465;                   // set the SMTP port
+                                if($_POST["email"] && !ValidateEmail($_POST["email"]))
+                                {
+                                echo "<div style='color:red; '>SVP entrez un courriel valide</div>";
+                                }
+                                else
+                                {
+                                    $mail             = new PHPMailer();
+                                    $mail->IsSMTP();
+                                    $mail->SMTPAuth   = true;                  // enable SMTP authentication
+                                    $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+                                    $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+                                    $mail->Port       = 465;                   // set the SMTP port
 
-                                $mail->Username   = "csharp1374@gmail.com";  // GMAIL username
-                                $mail->Password   = "jaime la peinture";            // GMAIL password
+                                    $mail->Username   = "csharp1374@gmail.com";  // GMAIL username
+                                    $mail->Password   = "jaime la peinture";            // GMAIL password
 
-                                $mail->From       = $_POST["email"];
-                                $mail->FromName   = $_POST["name"];
-                                $mail->Subject    = "test aburrido";
-                                $mail->AltBody    = $_POST["message"]; //Text Body
-                                $mail->WordWrap   = 50; // set word wrap
+                                    $mail->From       = $_POST["email"];
+                                    $mail->FromName   = $_POST["name"];
+                                    $mail->Subject    = "test aburrido";
+                                    $mail->AltBody    = $_POST["message"]; //Text Body
+                                    $mail->WordWrap   = 50; // set word wrap
 
-                                $mail->MsgHTML($_POST["message"]);
+                                    $mail->MsgHTML($_POST["message"]);
 
-                                $mail->AddReplyTo($_POST["email"]);
-                                $mail->AddAddress("csharp1374@gmail.com"); //addresse d'envoi du courriel
+                                    $mail->AddReplyTo($_POST["email"]);
+                                    $mail->AddAddress("csharp1374@gmail.com"); //addresse d'envoi du courriel
 
-                                $mail->IsHTML(true); // send as HTML
+                                    $mail->IsHTML(true); // send as HTML
 
-                                if(!$mail->Send()) {
-                                  echo "Mailer Error: " . $mail->ErrorInfo;
-                                } else {
-                                  echo "<div style='color:red; '>Question envoyée! Nous repondrons le plus tôt possible</div>";
+                                    if(!$mail->Send()) {
+                                      echo "Mailer Error: " . $mail->ErrorInfo;
+                                    } else {
+                                      echo "<div style='color:red; '>Question envoyée! Nous repondrons le plus tôt possible</div>";
+                                    }
                                 }
                             }
                             ?>
-                            <form action="index.php" method="post">
+                            <form action="index.php#question" method="post">
                                 <input class="span3" type="text" name="name" id="name" value="Nom" onFocus="if (this.value == 'Name')
                                             this.value = '';" onBlur="if (this.value == '')
                                                         this.value = 'Name';" />

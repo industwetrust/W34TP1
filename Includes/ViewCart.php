@@ -1,5 +1,4 @@
 <?php
-    header ('charset=utf-8');
     
     if (!isset($_SESSION["Basket"])) {
         $_SESSION["Basket"] = new Basket();
