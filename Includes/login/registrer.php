@@ -11,7 +11,7 @@
                 echo "<div style='color:green;'>Votre compte a été créé avec succès! Vous serez redirigez vers la page d'accueil dans 5 secondes.</div>";
                 echo '<script language="Javascript">
                         <!--
-                        document.location.replace("/index.php");
+                        document.location.replace("index.php");
                         // -->
                         </script>';
                 break;

@@ -5,6 +5,7 @@
     include("PHPMailer_v5.1/class.smtp.php");
     
     include("Includes/functionsAndClasses.php");
+    include("contact_form/email_validation.php");
     
     session_start();
     
@@ -33,12 +34,14 @@
                 $_SESSION["TryRegisterResult"] = "UsernameTaken";
             }
             else {
-                $mySqli->query("INSERT INTO Customers (Username, Password, Firstname, Lastname, Phone) VALUES ('" .
+                $mySqli->query("INSERT INTO Customers (Username, Password, Firstname, Lastname, Phone, Email, RegisterDate) VALUES ('" .
                         $_POST["txtUsername"] .  "', '" .
                         md5($_POST["txtPassword"]) .  "', '" .
                         $_POST["txtFirstname"] . "', '" .
                         $_POST["txtLastname"] .  "', '" .
-                        $_POST["txtPhone"] .     "')");
+                        $_POST["txtPhone"] . "', '".
+                        $_POST["txtemail"]."', '".
+                        date("Y-m-d H:i:s")."')");
                 if ($mySqli->affected_rows == 1) {
                     setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
                     $_SESSION["login"]= $_POST["txtUsername"];
@@ -113,6 +116,8 @@
         <script type="text/javascript" src="js/jquery.jcarousel.js"></script>
         <script type="text/javascript" src="js/jquery.tweet.js"></script>
         <script type="text/javascript" src="js/myscript.js"></script>
+        <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
+<script src="http://jquery.bassistance.de/validate/additional-methods.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 //Slider

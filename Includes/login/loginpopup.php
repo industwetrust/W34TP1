@@ -242,24 +242,13 @@
         <!-- Register Form -->
         <div class="user_register">
             <form id='frmRegister' method="POST" action="index.php?page=registrer">
-                <label>Nom d'utilisateur</label>
-                <input id='txtRegUsername' name='txtUsername' type="text" maxlength="60" />
-                <br />
-
-                <label>Mot de passe</label>
-                <input id='txtRegPassword' name='txtPassword' type="password" maxlength="60" />
-                <br />
-                
-                <label>Prénom</label>
-                <input id='txtRegFirstname' name='txtFirstname' type="text" maxlength="60" />
-                <br />
-                
-                <label>Nom</label>
-                <input id='txtRegLastname' name='txtLastname' type="text" maxlength="60" />
-                <br />
-
-                <label># Mobile</label>
-                <input id='txtRegPhone' name='txtPhone' type="email" maxlength="15" />
+                <input id='txtRegUsername'   name='txtUsername'  type="text"     maxlength="40" placeholder="Nom d'utilisateur" />
+                <input id='txtRegPassword'   name='txtPassword'  type="password" maxlength="40" placeholder="Mot de passe" />
+                <input id='txtRegPassword2'  name='txtPassword'  type="password" maxlength="40" placeholder="Répéter de Passe" />
+                <input id='txtRegFirstname'  name='txtFirstname' type="text"     maxlength="40" placeholder="Prénom" onkeypress="return validerTexte(event)"/>
+                <input id='txtRegLastname'   name='txtLastname'  type="text"     maxlength="40" placeholder="Nom" onkeypress="return validerTexte(event)"   />
+                <input id='txtRegPhone'      name='txtPhone'     type="number"   maxlength="40" placeholder="# Mobile, écrit seulement chiffres" onkeypress="return Valider(event)" />
+                <input id='txtRegemail'      name='txtemail'     type="email"    maxlength="40" placeholder="Courriel" />
                 <br />
 
                 <div class="action_btns">
@@ -288,23 +277,65 @@
         }
     };
     
+    function Valider(e) {
+            var key = window.ev ? e.keyCode : e.which; //verifier le navigateur
+            // if inmediat  condition ? action si vrai : action si faux
+            // key contient le numero ascii de la touche pressee
+            // on accepte seulement les chiffres
+            if (!((key >= 48 && key <= 57)|| key == 8)) {
+                return false;
+            }
+        };
+    
+    function validerTexte(e) {
+        var key = window.ev ? e.keyCode : e.which;
+        if (!((key >= 65 && key <= 90)||(key >= 97 && key <= 122)|| key == 32 || key == 8)) {
+                return false;
+            }
+       
+    };
+    
+    msg = "";
     function SubmitRegisterFormIfValid() {
+        if (!validerEcran()){
+            alert(msg);
+            return;
+        }
+        
         if (ById('txtRegUsername').value === "" ||
             ById('txtRegPassword').value === "" ||
+            ById('txtRegPassword2').value === "" ||
             ById('txtRegFirstname').value === "" ||
             ById('txtRegLastname').value === "" ||
+            ById('txtRegemail').value === "" ||
             ById('txtRegPhone').value === "" )
 
         {
-           
-            alert("Assurez-vous que tous les champs sont bien remplis");
+           msg = "Assurez-vous que tous les champs sont bien remplis";
+            alert(msg);
         }
         else {
-            document.getElementById('frmRegister').submit();
+           document.getElementById('frmRegister').submit();
         }
+    }
+    
+    function validerEcran(){
+        if (ById('txtRegPassword').value !== ById('txtRegPassword2').value){
+            msg = "Mots de passe distincts";
+            return false;
+        }
+        var temp = ById("txtRegemail").value;
+        var email = new RegExp("([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})");
+        var OK = email.test(temp);
+        if(!OK)
+        {
+            msg = "Le courriel n'est pas Valide";
+            return false;
+        }
+      return true;  
     };
     
-    $(".modal_trigger").leanModal({top: GetAppropriateTop(), overlay: 0.6, closeButton: ".modal_close"});
+    $(".modal_trigger").leanModal({top: GetAppropriateTop(), overlay: 0.2, closeButton: ".modal_close"});
 
     $(function() {
         // Calling Login Form
