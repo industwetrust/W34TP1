@@ -28,15 +28,15 @@
 
 <script type="text/javascript" >
     $(document).ready(function () {
-       $("input#txtEdPass").hide(); 
+       
         BarrerDebarrer("true");
-        
-        $("input#txtEdPassword ").hide(); 
-        $("input#txtEdPassword2").hide();    
+        $("#txtEdPass").hide(); 
+        $("#txtEdPassword").hide(); 
+        $("#txtEdPassword2").hide();
+        $("#btnAnuler").hide();
             
     function BarrerDebarrer(Choix) 
     {
-	 
         $("#txtEdFirstname").prop("disabled", Choix);
         $("#txtEdLastname ").prop("disabled", Choix);
         $("#txtEdPhone    ").prop("disabled", Choix);
@@ -137,19 +137,19 @@
       <div class="span4">
           <h2>Information Personnel</h2>
         <form id='frmRegister' method="POST" action="index.php?page=registrer">
-            Utilisateur :<label id='EdUsername'       name='Username' ><?= $Utilisateur?></label>
-          <input id='txtEdPass      '  name='txtPassword'  type="password" maxlength="40" placeholder="Mot de passe Actuel" />
-          <input id='txtEdPassword  '  name='txtPassword'  type="password" maxlength="40" placeholder="Nouvelle mot de passe" />
-          <input id='txtEdPassword2 '  name='txtPassword2'  type="password" maxlength="40" placeholder="Répéter mot de Passe" />
-          <input id='txtEdFirstname'  value="<?= $FirstName ?>" name='txtFirstname' type="text"     maxlength="40" placeholder="Prénom" onkeypress="return validerTexte(event)"/>
-          <input id='txtEdLastname '  value="<?= $LastName ?>" name='txtLastname'  type="text"     maxlength="40" placeholder="Nom" onkeypress="return validerTexte(event)"   />
-          <input id='txtEdPhone    '  value="<?= $Phone ?>" name='txtPhone'     type="number"   maxlength="40" placeholder="# Mobile, écrit seulement chiffres" onkeypress="return Valider(event)" />
-          <input id='txtEdEmail    '  value="<?= $Email ?>" name='txtemail'     type="email"    maxlength="40" placeholder="Courriel" />
-          <label id='EdCreated      '  name='created'     ><?= $Created ?></label>
+            Utilisateur :<label id='EdUsername' name='Username' ><?= $Utilisateur?></label>
+          <input id='txtEdPass'  name='txtPassword'  type="password" maxlength="40" placeholder="Mot de passe Actuel" />
+          <input id='txtEdPassword'  name='txtPassword'  type="password" maxlength="40" placeholder="Nouvelle mot de passe" />
+          <input id='txtEdPassword2'  name='txtPassword2'  type="password" maxlength="40" placeholder="Répéter mot de Passe" />
+          Prenom :&nbsp;<input id='txtEdFirstname'  value="<?= $FirstName ?>" name='txtFirstname' type="text"     maxlength="40" placeholder="Prénom" onkeypress="return validerTexte(event)"/>
+          <br/>Nom : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id='txtEdLastname'  value="<?= $LastName ?>" name='txtLastname'  type="text"     maxlength="40" placeholder="Nom" onkeypress="return validerTexte(event)"   />
+          <br/>Phone :&nbsp;&nbsp;&nbsp;<input id='txtEdPhone'  value="<?= $Phone ?>" name='txtPhone'     type="number"   maxlength="40" placeholder="# Mobile, écrit seulement chiffres" onkeypress="return Valider(event)" />
+          <br/>Courriel:&nbsp;<input id='txtEdEmail'  value="<?= $Email ?>" name='txtemail'     type="email"    maxlength="40" placeholder="Courriel" />
+          <br/>Inscrit le: &nbsp;<label id='EdCreated'  name='created'     ><?= $Created ?></label>
           <br />
 
           <div class="action_btns">
-              <div class="one_half"><a href="#" class="btn dark_btn"><i class="fa fa-angle-double-left"></i> Retour</a></div>
+              <div class="one_half" id='btnAnuler'><a href="#" class="btn dark_btn"><i class="fa fa-angle-double-left"></i> Anuler</a></div>
               <div class="one_half last"><a onclick="SubmitRegisterFormIfValid();" class="btn send_btn">Modifier</a></div>
           </div>
         </form>
