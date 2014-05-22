@@ -1,6 +1,6 @@
 <?php
 
-include dirname(dirname(__FILE__)).'/contact_form/mail.php';
+
 include("../PHPMailer_v5.1/class.phpmailer.php");
 include("../PHPMailer_v5.1/class.smtp.php");
 

@@ -244,7 +244,7 @@
             <form id='frmRegister' method="POST" action="index.php?page=registrer">
                 <input id='txtRegUsername'   name='txtUsername'  type="text"     maxlength="40" placeholder="Nom d'utilisateur" />
                 <input id='txtRegPassword'   name='txtPassword'  type="password" maxlength="40" placeholder="Mot de passe" />
-                <input id='txtRegPassword2'  name='txtPassword'  type="password" maxlength="40" placeholder="Répéter de Passe" />
+                <input id='txtRegPassword2'  name='txtPassword'  type="password" maxlength="40" placeholder="Répéter Mot de Passe" />
                 <input id='txtRegFirstname'  name='txtFirstname' type="text"     maxlength="40" placeholder="Prénom" onkeypress="return validerTexte(event)"/>
                 <input id='txtRegLastname'   name='txtLastname'  type="text"     maxlength="40" placeholder="Nom" onkeypress="return validerTexte(event)"   />
                 <input id='txtRegPhone'      name='txtPhone'     type="number"   maxlength="40" placeholder="# Mobile, écrit seulement chiffres" onkeypress="return Valider(event)" />

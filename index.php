@@ -8,6 +8,7 @@
     
     include("Includes/functionsAndClasses.php");
     include("contact_form/email_validation.php");
+
     
     session_start();
     
@@ -45,7 +46,7 @@
                         $_POST["txtemail"]."', '".
                         date("Y-m-d H:i:s")."')");
                 if ($mySqli->affected_rows == 1) {
-                    setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
+
                     $_SESSION["login"]= $_POST["txtUsername"];
                     $_SESSION["TryRegisterResult"] = "Success";
                 }

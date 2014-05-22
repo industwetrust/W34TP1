@@ -11,4 +11,3 @@ function ValidateEmail($value)
 
 	return empty($string) ? true : false;
 }
-?>
