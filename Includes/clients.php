@@ -127,7 +127,7 @@
             <fieldset>
                   <p>
                     <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                    <input name="fichier" type="file" id="fichier_a_uploader" class="btn dark_btn" /><br />
+                    <input name="fichier" type="file" id="fichier_a_uploader" /><br />
                     <input type="submit" name="profile" value="Changer la photo" class="btn send_btn"/>
                   </p>
               </fieldset>

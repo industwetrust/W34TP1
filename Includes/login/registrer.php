@@ -7,6 +7,9 @@
             case "UsernameTaken":
                 echo "<div style='color:red;'>Ce nom d'utilisateur est déjà utilisé. Veuillez en choisir un autre.</div>";
                 break;
+            case "EmailTaken":
+                echo "<div style='color:red;'>Ce email est déjà utilisé. Veuillez en choisir un autre.</div>";
+                break;
             case "Success":
                 echo "<div style='color:green;'>Votre compte a été créé avec succès! Vous serez redirigez vers la page d'accueil dans 5 secondes.</div>";
                 echo '<script language="Javascript">

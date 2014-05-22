@@ -36,6 +36,10 @@
             if ($mySqli->query("SELECT * FROM Customers WHERE Username = '" . $_POST["txtUsername"] . "'")->num_rows > 0) {
                 $_SESSION["TryRegisterResult"] = "UsernameTaken";
             }
+            else if ($mySqli->query("SELECT * FROM Customers WHERE Email='" . $_POST["txtemail"] . "'")->num_rows > 0) {
+                $_SESSION["TryRegisterResult"] = "EmailTaken";
+            }
+            
             else {
                 $mySqli->query("INSERT INTO Customers (Username, Password, Firstname, Lastname, Phone, Email, RegisterDate) VALUES ('" .
                         $_POST["txtUsername"] .  "', '" .
