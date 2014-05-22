@@ -27,43 +27,28 @@
 ?>
 
 <script type="text/javascript" >
-    $(document).ready(function () {
+        $(document).ready(function () {
        
-        BarrerDebarrer("true");
-        $("#txtEdPass").hide(); 
-        $("#txtEdPassword").hide(); 
-        $("#txtEdPassword2").hide();
-        $("#btnAnuler").hide();
-            
-    function BarrerDebarrer(Choix) 
-    {
-        $("#txtEdFirstname").prop("disabled", Choix);
-        $("#txtEdLastname ").prop("disabled", Choix);
-        $("#txtEdPhone    ").prop("disabled", Choix);
-        $("#txtEdEmail    ").prop("disabled", Choix);
-    };
-
-        
-    function Valider(e) {
-        var key = window.ev ? e.keyCode : e.which; //verifier le navigateur
-        // if inmediat  condition ? action si vrai : action si faux
-        // key contient le numero ascii de la touche pressee
-        // on accepte seulement les chiffres
-        if (!((key >= 48 && key <= 57)|| key == 8)) {
-           return false;
-        }
-    };
-    
-    function validerTexte(e) {
-        var key = window.ev ? e.keyCode : e.which;
-        if (!((key >= 65 && key <= 90)||(key >= 97 && key <= 122)|| key == 32 || key == 8)) {
-                return false;
-            }
-       
-    };
-    
+            BarrerDebarrer(true);
+            $("#txtEdPass").hide(); 
+            $("#txtEdPassword").hide(); 
+            $("#txtEdPassword2").hide();
+            $("#btnAnuler").hide();
+        });
     msg = "";
-    function SubmitRegisterFormIfValid() {
+         function SubmitRegisterFormIfVal() {
+             if(ById('cmdModifier').value === "Modifier"){
+                 ById('cmdModifier').value = "Enregistrer";
+                 ById('cmdModifier').type = "Submit";
+                 
+$("#txtEdPass").show();
+                 $("#txtEdPassword").show(); 
+                 $("#txtEdPassword2").show();
+                 $("#btnAnuler").show();
+                 BarrerDebarrer(false);
+                 return;
+             }
+
         if (!validerEcran()){
             alert(msg);
             return;
@@ -101,7 +86,16 @@
         }
       return true;  
     };
-            });
+    
+        function BarrerDebarrer(Choix) 
+    {
+        $("#txtEdFirstname").prop("disabled", Choix);
+        $("#txtEdLastname ").prop("disabled", Choix);
+        $("#txtEdPhone    ").prop("disabled", Choix);
+        $("#txtEdEmail    ").prop("disabled", Choix);
+    };
+    
+
 </script>  
 <div class="container-fluid">
   <div class="span12">
@@ -123,7 +117,7 @@
           <br />
           <br />
         <form id="ChargerPhoto" action=# enctype="multipart/form-data" method="POST">
-<!--          <form enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">-->
+
             <fieldset>
                   <p>
                     <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
@@ -136,7 +130,7 @@
       </div>
       <div class="span4">
           <h2>Information Personnel</h2>
-        <form id='frmRegister' method="POST" action="index.php?page=registrer">
+        <form id='frmRegister' method="POST" action="#">
             Utilisateur :<label id='EdUsername' name='Username' ><?= $Utilisateur?></label>
           <input id='txtEdPass'  name='txtPassword'  type="password" maxlength="40" placeholder="Mot de passe Actuel" />
           <input id='txtEdPassword'  name='txtPassword'  type="password" maxlength="40" placeholder="Nouvelle mot de passe" />
@@ -150,7 +144,7 @@
 
           <div class="action_btns">
               <div class="one_half" id='btnAnuler'><a href="#" class="btn dark_btn"><i class="fa fa-angle-double-left"></i> Anuler</a></div>
-              <div class="one_half last"><a onclick="SubmitRegisterFormIfValid();" class="btn send_btn">Modifier</a></div>
+              <div class="one_half last"><input onclick="SubmitRegisterFormIfVal();" class="btn send_btn" id="cmdModifier" value="Modifier" /></div>
           </div>
         </form>
       
