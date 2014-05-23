@@ -46,7 +46,6 @@ $infosImg = array();
  
 // Variables
 $extension = '';
-$message = '';
 $nomImage = '';
  
 /************************************************************
@@ -70,7 +69,7 @@ if( !is_dir(TARGET) ) {
            
     if ($extension != "jpg")
     {
-        $error .= "Seulment sont acceptes fichiers avec l'extension JPG";
+        echo "<div class='notification_error'>Seulment sont acceptes fichiers avec l'extension JPG</div>";
         
     }
     else {
@@ -103,47 +102,39 @@ if( !is_dir(TARGET) ) {
                 // Si c'est OK, on teste l'upload
                 if(move_uploaded_file($_FILES['fichier']['tmp_name'], TARGET.$nomImage))
                 {
-
-                  $message = 'Upload réussi !  '.TARGET.$nomImage ;
                   $cool = "OK";
                 }
                 else
                 {
                   // Sinon on affiche une erreur systeme
-                  $error .= 'Problème lors de l\'upload !';
+                  echo '<div class="notification_error">Problème lors de l\'upload !</div>';
                 }
               }
               else
               {
-                $error .= 'Une erreur interne a empêché l\'uplaod de l\'image';
+                echo '<div class="notification_error">Une erreur interne a empêché l\'uplaod de l\'image</div>';
               }
             }
             else
             {
               // Sinon erreur sur les dimensions et taille de l'image
-              $error .= 'Erreur dans les dimensions de l\'image !';
+              echo 'Erreur dans les dimensions de l\'image !</div>';
             }
           }
           else
           {
             // Sinon erreur sur le type de l'image
-            $error .= 'Le fichier à uploader n\'est pas une image !';
+          echo '<div class="notification_error">Le fichier à uploader n\'est pas une image !</div>';
           }
         }
         else
         {
           // Sinon on affiche une erreur pour l'extension
-          $error .= 'L\'extension du fichier est incorrecte !';
+          echo '<div class="notification_error">L\'extension du fichier est incorrecte !</div>';
         }
     }
   }
-  else
-  {
-      // Sinon on affiche une erreur pour le champ vide
-      $error .= 'Veuillez remplir le formulaire svp !';
-  }
 
-  
     if($cool)
     {
         echo '<script language="Javascript">
@@ -152,10 +143,4 @@ if( !is_dir(TARGET) ) {
                 // -->
                 </script>';
     }
-
-    else
-    {
-    echo '<div class="notification_error">'.$error.'</div>';
-    }
-
 }

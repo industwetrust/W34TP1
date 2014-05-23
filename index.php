@@ -11,9 +11,9 @@
 
     
     session_start();
-    
-       if (!isset($_SESSION["Basket"])) {
-        $_SESSION["Basket"] = new Basket();
+        $SECONDS_IN_A_DAY = 60*60*24;
+       if (!isset($_COOKIE["Basket"])) {
+           setcookie('Basket', new Basket(), $SECONDS_IN_A_DAY);
     }
     
     $DB_HOST = "localhost";
@@ -24,7 +24,7 @@
     $PRODUCT_CATEOGORIES_IMG_PATH = "Img/Categories/";
     $PRODUCT_IMGS_PATH = "Img/Products/";
     
-    $SECONDS_IN_A_DAY = 60*60*24;
+
     
     if (isset($_GET["page"]) && $_GET["page"] == "registrer") { // La création de cookie doit se faire avant tout output au client.
         if (empty($_POST["txtUsername"]) || empty($_POST["txtPassword"]) || empty($_POST["txtFirstname"]) || empty($_POST["txtLastname"]) || empty($_POST["txtPhone"])) {
@@ -230,7 +230,7 @@
                             <div style='background-image:url("Img/Cart.png"); float:right; margin-bottom:4px; 
                                  height:48px; width:48px; text-align:center;'>
                                     <a href='index.php?page=Panier' style='color:#060; font-size:18px; position:relative; 
-                                       top:10px;'><?= $_SESSION["Basket"]->GetDiffProductCount() ?> </a>
+                                       top:10px;'><?= $_COOKIE["Basket"]->GetDiffProductCount() ?> </a>
                             </div>
                         </div>                
                     </div>
