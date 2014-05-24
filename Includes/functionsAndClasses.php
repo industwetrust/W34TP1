@@ -91,6 +91,31 @@ class Basket {
         return $this->_ProductOrders;
     }
 
+    public static function Serialize($basket) {
+        $serialized = "";
+    
+        foreach ($basket->_ProductOrders as $po) {
+            if ($serialized != "") {
+                $serialized .= ";";
+            }
+            $serialized .= $po->ProductID . '@' . $po->Quantity;
+        }
+
+        return $serialized;
+    }
+    public static function Unserialize($sBasket) { // sBasket: serializedBasket
+        $basket = new Basket();
+        
+        $pOrders = explode(";", $sBasket); // pOrders: productOrders
+        
+        foreach ($pOrders as $po) {
+            $po = explode("@", $po);
+            
+            $basket->AddProductOrder($po->ProductID, $po->Quantity);
+        }
+        
+        return $basket;
+    }
 }
 
 ?>
