@@ -3,11 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 19 Mai 2014 à 03:13
+-- Généré le :  Sam 24 Mai 2014 à 16:47
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
-
-use `tpw34`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -20,15 +18,13 @@ SET time_zone = "+00:00";
 
 --
 -- Base de données :  `tpw34`
-
 --
+
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `addresses`
 --
-
-
 
 CREATE TABLE IF NOT EXISTS `addresses` (
   `AddressID` int(11) NOT NULL AUTO_INCREMENT,
@@ -77,7 +73,8 @@ INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Description`, `ImageURL
 CREATE TABLE IF NOT EXISTS `chocolat` (
   `nom` varchar(60) NOT NULL,
   `User` varchar(60) NOT NULL,
-  `Password` varchar(60) NOT NULL
+  `Password` varchar(60) NOT NULL,
+  PRIMARY KEY (`User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -85,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `chocolat` (
 --
 
 INSERT INTO `chocolat` (`nom`, `User`, `Password`) VALUES
-('6d4c2c405bb26a2b4ab04ee45fe4171e', '7e4b64eb65e34fdfad79e623c44abd94', 'c378985d629e99a4e86213db0cd5e70d');
+('Pablo Aguilar-Lliguin', '7e4b64eb65e34fdfad79e623c44abd94', 'c378985d629e99a4e86213db0cd5e70d');
 
 -- --------------------------------------------------------
 
@@ -133,7 +130,12 @@ CREATE TABLE IF NOT EXISTS `orderdetail` (
 
 INSERT INTO `orderdetail` (`OrderID`, `ProductID`, `Quantity`) VALUES
 (3, 2, 2),
-(3, 4, 1);
+(3, 4, 1),
+(4, 1, 4),
+(4, 3, 5),
+(4, 4, 10),
+(5, 1, 5),
+(5, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -143,25 +145,26 @@ INSERT INTO `orderdetail` (`OrderID`, `ProductID`, `Quantity`) VALUES
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `OrderID` int(11) NOT NULL AUTO_INCREMENT,
+  `Shipped` tinyint(1) DEFAULT '0',
   `CustomerID` int(11) NOT NULL,
-  `ShipperID` int(11) DEFAULT NULL,
   `BillingAddress` int(11) DEFAULT NULL,
   `ShippingAddress` int(11) DEFAULT NULL,
   `OrderDate` date DEFAULT NULL,
   `ShipDate` date DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `CustomerID` (`CustomerID`),
-  KEY `ShipperID` (`ShipperID`),
   KEY `BillingAddress` (`BillingAddress`),
   KEY `ShippingAddress` (`ShippingAddress`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `orders`
 --
 
-INSERT INTO `orders` (`OrderID`, `CustomerID`, `ShipperID`, `BillingAddress`, `ShippingAddress`, `OrderDate`, `ShipDate`) VALUES
-(3, 8, NULL, NULL, NULL, '2014-05-15', NULL);
+INSERT INTO `orders` (`OrderID`, `Shipped`, `CustomerID`, `BillingAddress`, `ShippingAddress`, `OrderDate`, `ShipDate`) VALUES
+(3, 0, 8, NULL, NULL, '2014-05-15', '2014-05-24'),
+(4, 0, 8, NULL, NULL, '2014-05-23', '2014-05-24'),
+(5, 0, 8, NULL, NULL, '2014-05-23', '2014-05-24');
 
 -- --------------------------------------------------------
 
@@ -254,7 +257,6 @@ ALTER TABLE `orderdetail`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`ShipperID`) REFERENCES `shippers` (`ShipperID`),
   ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`BillingAddress`) REFERENCES `addresses` (`AddressID`),
   ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`ShippingAddress`) REFERENCES `addresses` (`AddressID`);
 
