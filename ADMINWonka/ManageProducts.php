@@ -122,59 +122,62 @@
     
     $products = $mySqli->query($getProductsQuery);
 ?>
+<div class='wrap'>
+    <div class='container-fluid'>
+    <div id="manageProductCategoriesContainer" class="span12">
+        <form action="#" method="POST">
+            <table border="1">
+                <tr>
+                    <td>ID</td>
+                    <td>Nom de produit</td>
+                    <td>Description</td>
+                    <td>Prix</td>
+                    <td>Unités en stocks</td>
+                    <td>Nom image</td>
+                    <td>Image</td>
+                    <td>Ajouter</td>
+                    <td>Modifier</td>
+                    <td>Détruire</td>
+                </tr>
+                <?php
+                    while($row = $products->fetch_assoc()) {
+                        $lastProductID = $row["ProductID"];
+                        $price = $row["Price"] == '' ? '-' : $row["Price"];
+                        $unitsInStock = $row["UnitsInStock"] == '' ? '-' : $row["UnitsInStock"];
+                        $onChangeEvent = "onchange=\"document.getElementsByName('chkModifyProduct" . $lastProductID . "')[0].checked = true\"";
+                        $deletionDisabled = $mySqli->query("SELECT COUNT(*) FROM ProductsCategories WHERE ProductID = " . $lastProductID)->fetch_row()[0] > 0 ? "disabled" : "";
+                        echo "<tr>";
+                        echo "<td>" . $lastProductID . "</td>";
+                        echo "<td><input type='text' name='txtProductName" . $lastProductID . "' value='" . $row["ProductName"] . "' " . $onChangeEvent . " /></td>";
+                        echo "<td><input type='text' name='txtProductDesc" . $lastProductID . "' value='" . $row["Description"] . "' " . $onChangeEvent . " /></td>";
+                        echo "<td><input type='text' name='txtPrice" . $lastProductID . "' style='width:80px;'   value='" . $price . "' " . $onChangeEvent . " /></td>";
+                        echo "<td><input type='text' name='txtUnitsInStock" . $lastProductID . "' style='width:80px;' value='" . $unitsInStock . "' " . $onChangeEvent . " /></td>";
+                        echo "<td><input type='text' name='txtImageURL" . $lastProductID . "' value='" . $row["ImageURL"] . "' " . $onChangeEvent . " /></td>";
+                        echo "<td><img style='width: 64px; height:64px;' src=' " . $PRODUCT_IMGS_PATH . $row["ImageURL"] . "'></td>";
+                        echo "<td></td>";
+                        echo "<td><input type='checkbox' name='chkModifyProduct" . $lastProductID . "' value='Modify' /></td>";
+                        echo "<td><input type='checkbox' name='chkDeleteProduct" . $lastProductID . "' value='Delete' " . $deletionDisabled . " /></td>";
+                        echo "</tr>";
+                    }
 
-<div id="manageProductCategoriesContainer" style="width: 1400px; margin: 0px auto;">
-    <form action="#" method="POST">
-        <table border="1">
-            <tr>
-                <td>ID</td>
-                <td>Nom de produit</td>
-                <td>Description</td>
-                <td>Prix</td>
-                <td>Unités en stocks</td>
-                <td>Nom image</td>
-                <td>Image</td>
-                <td>Ajouter</td>
-                <td>Modifier</td>
-                <td>Détruire</td>
-            </tr>
-            <?php
-                while($row = $products->fetch_assoc()) {
-                    $lastProductID = $row["ProductID"];
-                    $price = $row["Price"] == '' ? '-' : $row["Price"];
-                    $unitsInStock = $row["UnitsInStock"] == '' ? '-' : $row["UnitsInStock"];
-                    $onChangeEvent = "onchange=\"document.getElementsByName('chkModifyProduct" . $lastProductID . "')[0].checked = true\"";
-                    $deletionDisabled = $mySqli->query("SELECT COUNT(*) FROM ProductsCategories WHERE ProductID = " . $lastProductID)->fetch_row()[0] > 0 ? "disabled" : "";
-                    echo "<tr>";
-                    echo "<td>" . $lastProductID . "</td>";
-                    echo "<td><input type='text' name='txtProductName" . $lastProductID . "' value='" . $row["ProductName"] . "' " . $onChangeEvent . " /></td>";
-                    echo "<td><input type='text' name='txtProductDesc" . $lastProductID . "' value='" . $row["Description"] . "' " . $onChangeEvent . " /></td>";
-                    echo "<td><input type='text' name='txtPrice" . $lastProductID . "' value='" . $price . "' " . $onChangeEvent . " /></td>";
-                    echo "<td><input type='text' name='txtUnitsInStock" . $lastProductID . "' value='" . $unitsInStock . "' " . $onChangeEvent . " /></td>";
-                    echo "<td><input type='text' name='txtImageURL" . $lastProductID . "' value='" . $row["ImageURL"] . "' " . $onChangeEvent . " /></td>";
-                    echo "<td><img style='width: 64px; height:64px;' src=' " . $PRODUCT_IMGS_PATH . $row["ImageURL"] . "'></td>";
-                    echo "<td></td>";
-                    echo "<td><input type='checkbox' name='chkModifyProduct" . $lastProductID . "' value='Modify' /></td>";
-                    echo "<td><input type='checkbox' name='chkDeleteProduct" . $lastProductID . "' value='Delete' " . $deletionDisabled . " /></td>";
-                    echo "</tr>";
-                }
-
-                for ($i = $lastProductID+1; $i <= $lastProductID + 5; $i++) {
-                    echo "<tr>";
-                    echo "<td>" . $i . "</td>";
-                    echo "<td><input type='text' name='txtProductName" . $i . "' value='" . $row["ProductName"] . "' /></td>";
-                    echo "<td><input type='text' name='txtProductDesc" . $i . "' value='" . $row["Description"] . "' /></td>";
-                    echo "<td><input type='text' name='txtPrice" . $i . "' value='0.00' /></td>";
-                    echo "<td><input type='text' name='txtUnitsInStock" . $i . "' value='0' /></td>";
-                    echo "<td><input type='text' name='txtImageURL" . $i . "' value='' /></td>";
-                    echo "<td></td>";
-                    echo "<td><input type='checkbox' name='chkAddProduct" . $i . "' value='Add' /></td>";
-                    echo "<td></td>";
-                    echo "<td></td>";
-                    echo "</tr>";
-                }
-            ?>
-        </table><br />
-        <input type="submit" value="Confirmer">
-    </form>
+                    for ($i = $lastProductID+1; $i <= $lastProductID + 5; $i++) {
+                        echo "<tr>";
+                        echo "<td>" . $i . "</td>";
+                        echo "<td><input type='text' name='txtProductName" . $i . "' value='" . $row["ProductName"] . "' /></td>";
+                        echo "<td><input type='text' name='txtProductDesc" . $i . "' value='" . $row["Description"] . "' /></td>";
+                        echo "<td><input type='text' name='txtPrice" . $i . "' style='width:80px;' value='0.00' /></td>";
+                        echo "<td><input type='text' name='txtUnitsInStock" . $i . "' style='width:80px;' value='0' /></td>";
+                        echo "<td><input type='text' name='txtImageURL" . $i . "' value='' /></td>";
+                        echo "<td></td>";
+                        echo "<td><input type='checkbox' name='chkAddProduct" . $i . "' value='Add' /></td>";
+                        echo "<td></td>";
+                        echo "<td></td>";
+                        echo "</tr>";
+                    }
+                ?>
+            </table><br />
+            <input type="submit" value="Confirmer">
+        </form>
+    </div>
+    </div>
 </div>

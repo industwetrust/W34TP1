@@ -20,11 +20,19 @@
             <div class="row">
                 <div class="span4">
                     <h2 class="title"><span>Coordonnées</span></h2>
-                    <p>57 rue Jacques-Bacon<br/>Chicoutimi, (Qc) G7H 3R3</p>
-                    <p>Téléphone: +1 (581) 234-0581<br/>Email: <a href="mailto:#">pablo@arriba.ec</a>
-                        <br/>
+                    <address>
+                        <strong>Pablo Chocolaier</strong>
+                        <br>
+                        57 rue Jacques-Bacon
+                        <br>
+                        Chicoutimi, (Qc) G7H 3R3
+                        <br>
+                        Téléphone: +1 (581) 234-0581
+                        <br>
+                        Email: <a href="mailto:#">pablo@arriba.ec</a>
+                        <br>
                         Facebook: <a href="#">http://www.facebook.com/arriba.ec</a>
-                    </p> 
+                    </address>
                     <br/>
                     <div id='map'>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d661.9658405766752!2d-71.04041065968676!3d48.420767475017364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc020bbcee462a3%3A0xa2cfed329a02cbc2!2sColl%C3%A8ge+MultiHexa!5e0!3m2!1sfr!2s!4v1400547804472" 
@@ -74,7 +82,7 @@
                 success: function(msg) {
                     // Message Sent - Show the 'Thank You' message and hide the form
                     if (msg === 'OK') {
-                        result = '<div class="notification_ok">Your message has been sent. Thank you!</div>';
+                        result = '<div class="notification_ok">votre message a été évoyée, Merci!</div>';
                         $("#fields").hide();
                     } else {
                         result = msg;

@@ -12,8 +12,8 @@
     
     session_start();
         $SECONDS_IN_A_DAY = 60*60*24;
-       if (!isset($_COOKIE["Basket"])) {
-           setcookie('Basket', new Basket(), $SECONDS_IN_A_DAY);
+       if (!isset($_SESSION["Basket"])) {
+        $_SESSION["Basket"] = new Basket();
     }
     
     $DB_HOST = "localhost";
@@ -166,6 +166,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="span4">
+                                <br />
                                 <div class="logo"><a href="index.php"><img src="img/logopablo.jpg" alt="" /></a></div>                        
                             </div>
                             <div class="span8">
@@ -201,15 +202,14 @@
                                         <ul class="nav sf-menu">
                                             <li class="current"><a href="index.php">Accueil</a></li>
                                             <li><a href="index.php?page=about">À propos</a></li>
-                                            <li class="sub-menu"><a href="javascript:{}">Produits</a>
-                                                <ul>
-                                                    <li><a href="index.php?page=Produits"><span>-</span>Catalogue</a></li>
-<!--                                                    <li><a href="portfolio_3columns.html"><span>-</span>Categories</a></li>-->
-                                                </ul>
+                                            <li class="sub-menu">
+                                                <a href="index.php?page=Produits">Produits</a>
                                             </li>
                                             <?php 
                                                 if(isset($_SESSION["login"])){
-                                                    echo "<li class='sub-menu'><a href='index.php?page=clients'>Clients</a></li>";
+                                                    echo "<li class='sub-menu'><a href='javascript:{}'>Clients</a>";
+                                                    echo "<ul><li><a href='index.php?page=clients'>Profile</a></li>";
+                                                    echo "<li><a href='index.php?page=anciennes'>Anciennes Comandes</a></li></ul></li>";
                                                 }
                                                 if(isset($_SESSION["nom"])){ ?>
                                                     <li class="sub-menu"><a href='javascript:{}'>Administrer</a>
@@ -218,7 +218,7 @@
                                                             <li><a href="index.php?page=GestionCategoriesProd"><span>-</span>Categories de produit</a></li> 
                                                             <li><a href="index.php?page=GestionProduits"><span>-</span>Produits</a></li> 
                                                             <li><a href="index.php?page=GestionProduitParCat"><span>-</span>Produit par catégories</a></li>
-                                                            <li><a href="blog_post.html"><span>-</span>Commandes</a></li> 
+                                                            <li><a href="index.php?page=ManageComandes"><span>-</span>Commandes</a></li> 
                                                         </ul>
                                                     </li>
                                             <?php } ?>
@@ -230,7 +230,7 @@
                             <div style='background-image:url("Img/Cart.png"); float:right; margin-bottom:4px; 
                                  height:48px; width:48px; text-align:center;'>
                                     <a href='index.php?page=Panier' style='color:#060; font-size:18px; position:relative; 
-                                       top:10px;'><?= $_COOKIE["Basket"]->GetDiffProductCount() ?> </a>
+                                       top:10px;'><?= $_SESSION["Basket"]->GetDiffProductCount() ?> </a>
                             </div>
                         </div>                
                     </div>
@@ -252,14 +252,17 @@
                     case "registrer" :              include("Includes/login/registrer.php");        break;
                     case "sortir" :                 include("Includes/login/sortir.php");           break;
                     case "about" :                  include("Includes/about.php");                  break;
-                    case "contacts" :               include("contact_form/contacts.php");               break;
+                    case "contacts" :               include("contact_form/contacts.php");           break;
                     case "Produits" :               include("Includes/Products.php");               break;
-                    case "GestionCategoriesProd" :  include("ADMINWonka/ManageProdCategories.php");   break;
-                    case "GestionProduits" :        include("ADMINWonka/ManageProducts.php");         break;
-                    case "GestionProduitParCat" :   include("ADMINWonka/ManageProductsByCat.php");    break;
+                    case "GestionCategoriesProd" :  include("ADMINWonka/ManageProdCategories.php"); break;
+                    case "GestionProduits" :        include("ADMINWonka/ManageProducts.php");       break;
+                    case "GestionProduitParCat" :   include("ADMINWonka/ManageProductsByCat.php");  break;
                     case "Panier" :                 include("Includes/ViewCart.php");               break;
                     case "AjouterCommande" :        include("Includes/AddOrderToDB.php");           break;
                     case "clients":                 include("Includes/clients.php");                break;
+                    case "anciennes":               include("Includes/anciennes.php");              break;
+                    case "ManageComandes":          include("ADMINWonka/ManageComandes.php");       break;
+                    
                     default :                       include("Includes/homepage.php");               break;
                 }
             } else //dans le cas ou l'url ne contient pas de param 'page'
@@ -273,13 +276,7 @@
             <div class="wrap">
                 <div class="container">
                     <div class="row">
-                        <div class="span3">
-                            <h2 class="title">Récents tweets</h2>
-                            <a href='Includes/login/login_externe.php'>test</a>
-                            <div class="tweet_block"></div>                       
-                        </div>
-
-                        <div class="span3">
+                        <div class="span4">
                             <h2 class="title">Question?</h2>
                             <a name="question"/>
                             
@@ -339,7 +336,7 @@
                                 <div class="clear"></div>
                             </form>
                         </div> 
-                        <div class="span3">
+                        <div class="span4">
                             <h2 class="title">Opinions</h2>
                             <ul>
                                 <li>
@@ -354,13 +351,9 @@
                                 </li>
                             </ul>                     
                         </div>
-                        <div class="span3">
+                        <div class="span4">
                             <h2 class="title">DERNIERES NOUVELLES</h2>
-                            <iframe src="//www.facebook.com/plugins/likebox.php?href=https://www.facebook.com/arriba.ec&width&height=395&colorscheme=light&show_faces=false&header=false&stream=true&show_border=true&appId=155567074550166" 
-                                    scrolling="yes" 
-                                    frameborder="0" 
-                                    style="border:none; 
-                                    overflow:visible ; height:240px;" allowTransparency="true"></iframe>
+                            <div class="fb-like-box" data-href="https://www.facebook.com/arriba.ec" data-width="300" data-height="210" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="true" data-show-border="true"></div>
                         </div>         	
                     </div>
                 </div>            
@@ -368,27 +361,26 @@
 
             <div class="footer_bottom">
 
-                <div class="wrap">
-                    <div class="container">
-                        <div class="foot_menu">
-                            <div>
-                                <script>
-                                    (function() {
-                                        var cx = '009833121842273863740:b9ratqf4tac';
-                                        var gcse = document.createElement('script');
-                                        gcse.type = 'text/javascript';
-                                        gcse.async = true;
-                                        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-                                                '//www.google.com/cse/cse.js?cx=' + cx;
-                                        var s = document.getElementsByTagName('script')[0];
-                                        s.parentNode.insertBefore(gcse, s);
-                                    })();
-                                </script>
-                                <gcse:search>hola hola</gcse:search>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="foot_menu">
+                    <div class="span12">
+                        <script>
+                            (function() {
+                                var cx = '009833121842273863740:b9ratqf4tac';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                        '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                    s.parentNode.insertBefore(gcse, s);
+                            })();
+                        </script>
+                        <gcse:search></gcse:search>
                     </div>
                 </div>
+            </div>
+
             </div>
         </div>
         <!--//footer-->

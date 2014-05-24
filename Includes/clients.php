@@ -201,53 +201,7 @@ if($result->num_rows ==1){
             </div>
       </div>
     </div>
-    <div class="row">
-      <div class="span5"> 
-          <h2>Anciennes Commandes</h2>
-          <?php 
-          $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
-          $nom =$_SESSION["login"];
-          $query = "SELECT o.OrderID, o.OrderDate, p.ProductName, p.Price , od.Quantity, o.BillingAddress, o.ShippingAddress, c.Username 
-                    FROM orders o INNER JOIN orderdetail od on o.OrderID = od.OrderId INNER JOIN products p on od.ProductID = p.ProductID 
-                    INNER JOIN customers c on o.CustomerID = c.CustomerID WHERE c.Username = '".$nom."'";
-          $result2 = $mysqli->query($query);
-          $lastOrderID = -1;
-        while($ligne = $result2->fetch_assoc()){
-            
-            if($ligne["OrderID"] > $lastOrderID);
-        $code = $ligne["productCode"];
-        ?>
-          <table border='1'>
-        <tr>
-            <th>No Facture</th>
-            <th>Date</th>
-            <th>Produit</th>
-            <th>quantityInStock</th>
-            <th>buyPrice</th>
-            <th>Qty</th>
-            <th style="background-image:url('Images/Cart.png');width:128px; height:128px;
-                       color:#A00;font-size:48px;">
-                <?=$itemCount;?>
-            </th>
-        </tr>
-
-        <tr>
-            <td><?=$code?></td>
-            <td><?=$ligne["productName"]?></td>
-            <td><?=$ligne["productScale"]?></td>
-            <td><?=$ligne["quantityInStock"]?></td>
-            <td><?=$ligne["buyPrice"]?></td>
-            <td><input type="text" size="1" value="<?=$_SESSION["cart"][$code]?>" /></td>
-            <td><input type="submit" name="<?=$ligne["productCode"] . "_Button"?>" value="Supprimer" /></td>
-        </tr>
-        <?php
-    }
-    ?>
-        
-    </table>
-          
-      </div>
-    </div>
+    
   </div>
 </div>
 

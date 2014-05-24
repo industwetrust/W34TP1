@@ -59,7 +59,12 @@
     
     $categoryIDs = array();
 ?>
-<div id="manageProductsByCatContainer" style="width: 1200px; margin: 0px auto;">
+
+<div class='wrap'>
+    <div class='container-fluid'>
+
+        <div id="manageProductsByCatContainer" class="span12">
+            <div class="span3" ></div>
     <form id="frmChangeProdsInCats" action="#" method="POST">
         <input id="changedChkBoxes" type="hidden" name="changedChkBoxes" value="" />
     </form>
@@ -100,6 +105,8 @@
         ?>
     </table><br />
     <input type="button" value="Confirmer" onclick="SendChangedData()">
+</div>
+    </div>
 </div>
 
 <script type="text/javascript">

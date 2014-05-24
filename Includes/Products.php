@@ -6,9 +6,6 @@
     $ITEMS_SHOWN_PER_ROW = 4;
     $ITEM_WIDTH = 300;
     $ITEM_HEIGHT = 290;
-?>
-
-<?php
 
     if (!empty($_POST)) {
         foreach(array_keys($_POST) as $txtBox) {
@@ -17,7 +14,7 @@
                 $quantity = $_POST[$txtBox];
                 
                 $_SESSION["Basket"]->AddProductOrder($productID, $quantity);
-                                echo '<script language="Javascript">
+                echo '<script language="Javascript">
                 <!--
                 window.location.reload();
                 // -->
@@ -31,8 +28,8 @@
     $page = empty($_GET["PageN"]) ? 0 : $_GET["PageN"];
     // TODO: Dans le cas où $page n'est pas un entier positif, le changer en 0
     echo "<div class='wrap'>";
-    echo "<div class='container inner_content'>";
-    echo "<div class='row' style='clear:both;'>";
+    echo "<div class='container-fluid'>";
+    echo "<div class='span12' >";
     
     if (!isset($_GET["Category"]) && !isset($_GET["CustomSearch"])) {
         $categories = $mySqli->query("SELECT * FROM Categories WHERE (SELECT COUNT(*) FROM ProductsCategories WHERE CategoryID = Categories.CategoryID)");
@@ -41,59 +38,61 @@
         
         $itemNumber = 0;
         
-        echo "<div class='projects isotope' style='overflow: hidden; position: relative; height: " . (ceil($categories->num_rows / $ITEMS_SHOWN_PER_ROW) * $ITEM_HEIGHT) . "px;'>";
+        echo "<div class='row' >";
         
         while($row = $categories->fetch_assoc()) {
             array_push($catIDs, $row["CategoryID"]);
             array_push($catNames, $row["CategoryName"]);
             
-            $posX = ($itemNumber % $ITEMS_SHOWN_PER_ROW) * $ITEM_WIDTH;
-            $posY = floor($itemNumber / 4) * $ITEM_WIDTH;
-            echo "<div class='span3 element category01 isotope-item' data-category='category01' style='position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(" . $posX . "px, " . $posY . "px, 0px);'>";
-            
-                echo "<div class='hover_img'>";
-                    echo "<a href='index.php?page=Produits&Category=" . $row["CategoryID"] . "' class='preloader' style='background-image: none; background-position: initial initial; background-repeat: initial initial;'>";
-                        echo "<img src='img/categories/" . $row["ImageURL"] . "' alt style='visibility: visible; opacity: 1; width: 270px; height: 200px;'";
-                    echo "</a>";
-                echo "</div>";
+            ?>
+            <div class='span3' data-category='category01'>
+                <div class='hover_img'>
+                    <a href='index.php?page=Produits&Category=<?= $row["CategoryID"] ?>' >
+                        <img src='img/categories/<?= $row["ImageURL"] ?>' alt style='visibility: visible; 
+                             opacity: 1; width: 270px; height: 200px;'/>
+                    </a>
+                </div>
+                <div class='item_description'>
+                    <h6>
+                    <a><?= $row["CategoryName"] ?></a>
+                    </h6>
 
-                echo "<div class='item_description'>";
-                    echo "<h6>";
-                        echo "<a>" . $row["CategoryName"] . "</a>";
-                    echo "</h6>";
-
-                    echo "<div class='descr'>" . $row["Description"] . "</div>";
+                    <div class='descr'><?= $row["Description"] ?></div>
+                </div><br/><br/>
+            </div>
             
-                echo "</div>";
-            
-            echo "</div>";
-            
+           <?php
             $itemNumber++;
         }
         
         // Création du menu pour la recherche de produit de façon personalisée
-        $posX = ($itemNumber % $ITEMS_SHOWN_PER_ROW) * $ITEM_WIDTH;
-        $posY = floor($itemNumber / 4) * $ITEM_WIDTH;
-        echo "<div class='span3 element category01 isotope-item' data-category='category01' style='position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(" . $posX . "px, " . $posY . "px, 0px);'>";
-            echo "<form action='index.php' method='GET'>";
-            echo "<input type='hidden' name='CustomSearch' value='True'/>";
-            echo "<input type='hidden' name='page' value='Produits'/>";
-            echo "<div>Recherche personnalisé:</div>";
-                echo "<div>Nom: <input type='text' name='txtName' style='width:186px;'/><div>";
-                
-                echo "<div>Catégorie: <select style='width:173px;' name='selCategory'>";
-                    echo "<option value='All'>Tous</option>";
-                    for ($i = 0; $i < count($catIDs); $i++) {
+    ?>
+<div class='span3' data-category='category01' style="padding-left: 2%;">
+        <form action='index.php' method='GET'>
+            <input type='hidden' name='CustomSearch' value='True'/>
+            <input type='hidden' name='page' value='Produits'/>
+            <div>Recherche personnalisé:</div>
+            <div>Nom: <input type='text' name='txtName' style='width:186px;'/></div>
+            <div>Catégorie: 
+                <select style='width:173px;' name='selCategory'>
+                    <option value='All'>Tous</option>
+    <?php 
+            for ($i = 0; $i < count($catIDs); $i++) {
                         echo "<option value=$catIDs[$i]>$catNames[$i]</option>";
-                    }
-                echo "</select></div>";
+                    } ?>
                 
-                echo "<div>Prix maximal: <input type='text' name='txtPrice' value='0.00' onkeypress='return IsNumberOrControl(event)' style='width:143px;' maxLength='6'/><div>";
-                echo "<div><input type='submit' value='Rechercher'/></div>";
-            echo "</form>";
-        echo "</div>";
+                </select>
+            </div>
+            <div>Prix maximal: 
+                <input type='text' name='txtPrice' value='0.00' onkeypress='return IsNumberOrControl(event)' 
+                       style='width:143px;' maxLength='6'/>
+            </div>
+            <div><input type='submit' value='Rechercher'/></div>
+        </form>
+</div>
         
-        echo "</div>";
+</div>
+<?php
     }
     else {
         echo "<form action='#' method='POST'>";
