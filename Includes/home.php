@@ -1,9 +1,26 @@
+        <link href="css/prettyPhoto.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" id="camera-css"  href="css/camera.css" type="text/css" media="all">
+                <script type="text/javascript" src="js/camera.js"></script>
+                <script src="http://jquery.bassistance.de/validate/additional-methods.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                //Slider
+                $('#camera_wrap_1').camera();
+
+                //Featured works & latest posts
+                $('#mycarousel, #mycarousel2, #newscarousel').jcarousel();
+            });
+        </script>
+
+
 <!--slider-->
 <div id="main_slider">
     <div class="camera_wrap" id="camera_wrap_1">
         <div data-src="img/slider/1.jpg"></div>
         <div data-src="img/slider/2.jpg"></div>
-        <div data-src="img/slider/3.jpg"></div>                                        
+        <div data-src="img/slider/3.jpg"></div> 
+        <div data-src="img/slider/4.jpg"></div> 
+        
     </div><!-- #camera_wrap_1 -->
     <div class="clear"></div>	
 </div>        
@@ -14,31 +31,27 @@
     <div class="container">
         <div class="row">
             <div class="span3">
-                <a href="#">
+                <a href="index.php?page=Produits">
                     <span class="img_icon icon1"></span>
-                    <span class="link_title">Categories de produits</span>
-                    Nunc vel arcu arcu. Nulla mollis feugiat dui id tincidunt. Aenean ac lobortis elit.
+                    <span class="link_title">Produits</span>
                 </a>
             </div>
             <div class="span3">
-                <a href="#">
+                <a href="http://www.facebook.com/arriba.ec">
                     <span class="img_icon icon2"></span>
-                    <span class="link_title">méthode de livraison</span>
-                    Nunc vel arcu arcu. Nulla mollis feugiat dui id tincidunt. Aenean ac lobortis elit.
+                    <span class="link_title">Suivez-Nous</span>
                 </a>
             </div>
             <div class="span3">
-                <a href="#">
+                <a href="index.php?page=Produits&Category=6">
                     <span class="img_icon icon3"></span>
                     <span class="link_title">Promotions</span>
-                    Nunc vel arcu arcu. Nulla mollis feugiat dui id tincidunt. Aenean ac lobortis elit.
                 </a>
             </div>
             <div class="span3">
-                <a href="#">
+                <a href="index.php?page=contacts">
                     <span class="img_icon icon4"></span>
-                    <span class="link_title">Suivi</span>
-                    Nunc vel arcu arcu. Nulla mollis feugiat dui id tincidunt. Aenean ac lobortis elit.
+                    <span class="link_title">Contactez-Nous</span>
                 </a>
             </div>                           	
         </div>
@@ -50,7 +63,8 @@
 <div class="wrap block">
     <div class="container welcome_block">
         <div class="welcome_line welcome_t"></div>
-        Cras vulputate pretium massa gravida egestas consectetur?<span>Lorem ipsum dolor sit amet & consectetur adipiscing elit!</span>
+        De la fève au gâteau, viens découvrir le processus
+        <span>Chocolats fins faits artisanalement à Chicoutimi !</span>
         <div class="welcome_line welcome_b"></div>
     </div>
 </div>
@@ -59,172 +73,57 @@
 <!--featured works-->
 <div class="wrap block carousel_block">
     <div class="container">
-        <h2 class="upper">Galeries</h2>
+        <h2 class="upper">Galerie</h2>
         <div class="row">
             <div class="span12">
                 <ul id="mycarousel" class="jcarousel-skin-tango">
                     <li>
                         <div class="hover_img">
-                            <a href="img/featured_works/1.jpg" rel="prettyPhoto[portfolio1]"><img src="img/featured_works/1.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                    
+                            <a href="img/featured_works/1.jpg" rel="prettyPhoto[portfolio1]">
+                            <img src="img/featured_works/1.jpg" alt="" />
+                            <span class="portfolio_zoom1"></span></a>                                    
                         </div>
                     </li>
                     <li>
                         <div class="hover_img">
-                            <a href="img/featured_works/2.jpg" rel="prettyPhoto[portfolio1]"><img src="img/featured_works/2.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                    
+                            <a href="img/featured_works/2.jpg" rel="prettyPhoto[portfolio1]">
+                            <img src="img/featured_works/2.jpg" alt="" />
+                            <span class="portfolio_zoom1"></span></a>                                    
                         </div>
                     </li>
                     <li>
                         <div class="hover_img">
-                            <a href="img/featured_works/3.jpg" rel="prettyPhoto[portfolio1]"><img src="img/featured_works/3.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                    
+                            <a href="img/featured_works/3.jpg" rel="prettyPhoto[portfolio1]">
+                            <img src="img/featured_works/3.jpg" alt="" />
+                            <span class="portfolio_zoom1"></span></a>                                    
                         </div>
                     </li> 
                     <li>
                         <div class="hover_img">
-                            <a href="img/featured_works/4.jpg" rel="prettyPhoto[portfolio1]"><img src="img/featured_works/4.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                    
+                            <a href="img/featured_works/4.jpg" rel="prettyPhoto[portfolio1]">
+                            <img src="img/featured_works/4.jpg" alt="" />
+                            <span class="portfolio_zoom1"></span></a>                                    
                         </div>
                     </li>
                     <li>
                         <div class="hover_img">
-                            <a href="img/featured_works/1.jpg" rel="prettyPhoto[portfolio1]"><img src="img/featured_works/1.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                    
+                            <a href="img/featured_works/5.jpg" rel="prettyPhoto[portfolio1]">
+                            <img src="img/featured_works/5.jpg" alt="" />à
+                            <span class="portfolio_zoom1"></span></a>                                    
                         </div>
                     </li>
                     <li>
                         <div class="hover_img">
-                            <a href="img/featured_works/2.jpg" rel="prettyPhoto[portfolio1]"><img src="img/featured_works/2.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                    
+                            <a href="img/featured_works/6.jpg" rel="prettyPhoto[portfolio1]">
+                            <img src="img/featured_works/6.jpg" alt="" />
+                            <span class="portfolio_zoom1"></span></a>                                    
                         </div>
                     </li>                                                       
                 </ul>                         
             </div>                
         </div>                
-    </div>
+    <!--</div>-->
 </div>        
 <!--//featured works-->
 
-<!--Latest news-->
-<div class="wrap block">
-    <div class="container">
-        <div class="row news_block">
-            <div class="span6">
-                <h2 class="title">Idées spéciales avec les chocolats</h2>
-                <p>Vestibulum tincidunt ultricies aliquam. Donec porta mi nec tortor sagittis rhoncus. Nunc ante arcu, ornaresit gravida rutrum ut, facilisis et lacus. Aliquam mauris arcu, interdum eu fermentum tincidunt.</p>
-                <ul class="the-icons grey">
-                    <li><i class="icon-time"></i> Curabitur eu placerat massa.</li>
-                    <li><i class="icon-star"></i> Integer adipiscing velit nec purus facilisis ut pharetra!</li>
-                    <li><i class="icon-camera"></i> Nunc mollis, nisl vel tincidunt vestibulum, lacus libero mollis urna, eu dapibus lacus nisi et nulla.</li>
-                    <li><i class="icon-qrcode"></i> Curabitur veltpat magna. Pellentesque pellentesque dapibus dictum. </li>
-                    <li><i class="icon-user"></i> Nulla ut erat ut massa molestie commodo.</li>
-                </ul>
-                <p>Duis vel ligula et libero iaculis facilisis in vel justo. Duis lacinia orci ut tellus interdum dignissim. Fusce eugei scelerisque enim. Phasellus nec libero lectus. Quisque posuere mi non nibh facilisis semper. Donec lorem suscipit est sed mauris eleifend congue. Class taciti sociosqu litora torquent <a href="#" class="arrow_link">per conubia.</a></p>
-            </div> 
-            <div class="span6">
-                <h2 class="title">Nouvelles dans le Blog</h2>
-                <ul id="newscarousel" class="jcarousel-skin-tango">
-                    <li>
-                        <div class="news_date">15 apr<span>2019</span></div>
-                        <div class="news_t"><a href="#">Sed massa dui, porta corper ac varius!</a></div>
-                        <div class="news">Posted by <a href="#">Anna Smith</a>  /  In <a href="#">City</a><br/>Tags: <a href="#">eget</a>, <a href="#">mauris</a></div>
-                        <div class="news_info">Tristique tincidunt cursus sed, ornare ncidunt eque a tristique. Phasellus porttitor mollis tortor etoq vestibulum. Quisque non lacus tortor, quis cumsan nibh. Lorem ipsum dolor sit amet, consectetur icing elit. Nullam pulvinarteses lorem sed dui euismod eget. <a href="#">Read more...</a></div>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <div class="news_date">05 apr<span>2019</span></div>
-                        <div class="news_t"><a href="#">eget &amp; massa viviamu marius mas</a></div>
-                        <div class="news">Posted by <a href="#">Anna Smith</a>  /  In <a href="#">City</a><br/>Tags: <a href="#">eget</a>, <a href="#">mauris</a></div>
-                        <div class="news_info">Cursus sed, aliquet nec odio. Integer ornare tincidunt neque a tristique. Phasellus porttitor millis tortor etoq vestibulum. Quisque ont lacus toirtor uis accumsan nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ulvinarteses em sed. <a href="#">Read more...</a></div>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <div class="news_date">15 apr<span>2019</span></div>
-                        <div class="news_t"><a href="#">Sed massa dui, porta corper ac varius!</a></div>
-                        <div class="news">Posted by <a href="#">Anna Smith</a>  /  In <a href="#">City</a><br/>Tags: <a href="#">eget</a>, <a href="#">mauris</a></div>
-                        <div class="news_info">Tristique tincidunt cursus sed, ornare ncidunt eque a tristique. Phasellus porttitor mollis tortor etoq vestibulum. Quisque non lacus tortor, quis cumsan nibh. Lorem ipsum dolor sit amet, consectetur icing elit. Nullam pulvinarteses lorem sed dui euismod eget. <a href="#">Read more...</a></div>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <div class="news_date">05 apr<span>2019</span></div>
-                        <div class="news_t"><a href="#">eget &amp; massa viviamu marius mas</a></div>
-                        <div class="news">Posted by <a href="#">Anna Smith</a>  /  In <a href="#">City</a><br/>Tags: <a href="#">eget</a>, <a href="#">mauris</a></div>
-                        <div class="news_info">Cursus sed, aliquet nec odio. Integer ornare tincidunt neque a tristique. Phasellus porttitor millis tortor etoq vestibulum. Quisque ont lacus toirtor uis accumsan nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ulvinarteses em sed. <a href="#">Read more...</a></div>
-                        <div class="clear"></div>
-                    </li>
-                </ul> 
-            </div>       		
-        </div>
-    </div>
-</div>
-<!--Latest news-->
-
-<!--        latest posts
-        <div class="wrap block carousel_block">
-            <div class="container">
-                <h2 class="upper">latest posts</h2>
-                <div class="row">
-                    <div class="span12">
-                        <ul id="mycarousel2" class="jcarousel-skin-tango">
-                            <li>
-                                <div class="post_carousel">
-                                        <img src="img/home_blog/1.jpg" alt="" />
-                                        <div class="title_t"><a href="#">ipsum dolor ac egestas mas</a></div>
-                                    <div class="post_meta">
-                                                Posted by <a href="#">John Doe</a>  /  15 apr  / In <a href="#">Vacation</a>
-                                    </div>
-                                    Ut nisl turpis, tristique tincidunt cursus sed, aliquet nec odio. Integer ornare tincidunt neque a ristiquet phasellus mollis tortor. <a href="#" class="arrow_link">Read more...</a>
-                                </div>	
-                            </li>
-                            <li>
-                                <div class="post_carousel">
-                                        <img src="img/home_blog/2.jpg" alt="" />
-                                        <div class="title_t"><a href="#">vestibulum egestas tortor</a></div>
-                                    <div class="post_meta">
-                                                Posted by <a href="#">John Doe</a>  /  15 apr  / In <a href="#">Vacation</a>
-                                    </div>
-                                    Ut nisl turpis, tristique tincidunt cursus sed, aliquet nec odio. Integer ornare tincidunt neque a ristiquet phasellus mollis tortor. <a href="#" class="arrow_link">Read more...</a>
-                                </div>	
-                            </li>
-                            <li>
-                                <div class="post_carousel">
-                                        <img src="img/home_blog/3.jpg" alt="" />
-                                        <div class="title_t"><a href="#">Quisque sodales dolor</a></div>
-                                    <div class="post_meta">
-                                                Posted by <a href="#">John Doe</a>  /  15 apr  / In <a href="#">Vacation</a>
-                                    </div>
-                                    Ut nisl turpis, tristique tincidunt cursus sed, aliquet nec odio. Integer ornare tincidunt neque a ristiquet phasellus mollis tortor. <a href="#" class="arrow_link">Read more...</a>
-                                </div>	
-                            </li>
-                            <li>
-                                <div class="post_carousel">
-                                        <img src="img/home_blog/4.jpg" alt="" />
-                                        <div class="title_t"><a href="#">ipsum dolor ac egestas mas</a></div>
-                                    <div class="post_meta">
-                                                Posted by <a href="#">John Doe</a>  /  15 apr  / In <a href="#">Vacation</a>
-                                    </div>
-                                    Ut nisl turpis, tristique tincidunt cursus sed, aliquet nec odio. Integer ornare tincidunt neque a ristiquet phasellus mollis tortor. <a href="#" class="arrow_link">Read more...</a>
-                                </div>	
-                            </li> 
-                            <li>
-                                <div class="post_carousel">
-                                        <img src="img/home_blog/1.jpg" alt="" />
-                                        <div class="title_t"><a href="#">Tristique cursus tincidunt</a></div>
-                                    <div class="post_meta">
-                                                Posted by <a href="#">John Doe</a>  /  15 apr  / In <a href="#">Vacation</a>
-                                    </div>
-                                    Ut nisl turpis, tristique tincidunt cursus sed, aliquet nec odio. Integer ornare tincidunt neque a ristiquet phasellus mollis tortor. <a href="#" class="arrow_link">Read more...</a>
-                                </div>	
-                            </li>
-                            <li>
-                                <div class="post_carousel">
-                                        <img src="img/home_blog/2.jpg" alt="" />
-                                        <div class="title_t"><a href="#">ipsum dolor ac egestas mas</a></div>
-                                    <div class="post_meta">
-                                                Posted by <a href="#">John Doe</a>  /  15 apr  / In <a href="#">Vacation</a>
-                                    </div>
-                                    Ut nisl turpis, tristique tincidunt cursus sed, aliquet nec odio. Integer ornare tincidunt neque a ristiquet phasellus mollis tortor. <a href="#" class="arrow_link">Read more...</a>
-                                </div>	
-                            </li>                                                                                   
-                        </ul>                        
-                    </div>                
-                </div>                
-            </div>
-        </div>        
-        //latest posts -->
 

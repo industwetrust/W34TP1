@@ -1,7 +1,7 @@
 <?php
 
 //rechercher info sur mysqli_prepare stmt  mysqli::prepare(string $query)
-    require_once __DIR__.'/vendor/autoload.php';
+//    require_once __DIR__.'/vendor/autoload.php';
     
     include("PHPMailer_v5.1/class.phpmailer.php");
     include("PHPMailer_v5.1/class.smtp.php");
@@ -99,8 +99,7 @@
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
-        <link href="css/prettyPhoto.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" id="camera-css"  href="css/camera.css" type="text/css" media="all">
+
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/theme.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/skins/tango/skin.css" />
@@ -116,7 +115,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
         <script type="text/javascript" src="js/jquery.mobile.customized.min.js"></script>
-        <script type="text/javascript" src="js/camera.js"></script>
+
         <script src="js/bootstrap.js"></script>
         <script src="js/superfish.js"></script>
         <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
@@ -124,16 +123,7 @@
         <script type="text/javascript" src="js/jquery.tweet.js"></script>
         <script type="text/javascript" src="js/myscript.js"></script>
         <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
-<script src="http://jquery.bassistance.de/validate/additional-methods.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                //Slider
-                $('#camera_wrap_1').camera();
 
-                //Featured works & latest posts
-                $('#mycarousel, #mycarousel2, #newscarousel').jcarousel();
-            });
-        </script>
         
 <!--          <style type="text/css">  cosas de google
   .hide { display: none;}
@@ -192,9 +182,6 @@
                                             }
                                             
                                             ?>
-                                        
-<!--                                        <li><a href="http://www.facebook.com/arriba.ec" class="facebook">Facebook</a></li>
-                                        <li><a href="http://www.facebook.com/arriba.ec" class="google">Google</a></li>-->
                                     </ul>
                                 </div>
                                 <nav id="main_menu">

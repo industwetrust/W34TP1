@@ -1,11 +1,3 @@
-<?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
-
 
 <div class="breadcrumb">
     <div class="wrap">
@@ -23,9 +15,11 @@
                     <address>
                         <strong>Pablo Chocolaier</strong>
                         <br>
-                        57 rue Jacques-Bacon
+                        Complexe de la Sagamie
                         <br>
-                        Chicoutimi, (Qc) G7H 3R3
+                        930, rue Jacques-Cartier Est, bureau C 200
+                        <br>
+                        Chicoutimi (Québec)  G7H 7K9
                         <br>
                         Téléphone: +1 (581) 234-0581
                         <br>
@@ -50,9 +44,9 @@
                                 <input class="span7" type="text" name="name" value="" placeholder="Nom (requis)" />
                                 <input class="span7" type="text" name="email" value="" placeholder="Email (requis)" />
                                 <input class="span7" type="text" name="subject" value="" placeholder="Sujet" />
-                                <textarea name="message" id="message" class="span8" placeholder="Message"></textarea>
+                                <textarea name="message" id="message" class="span7" placeholder="Message"></textarea>
                                 <div class="clear"></div>
-                                <input type="reset" class="btn dark_btn" value="Effacer" />
+                                <input onclick="reset();" class="btn dark_btn" value="Effacer" />
                                 <input type="submit" class="btn send_btn" value="Envoyer" />
                                 <div class="clear"></div>
                             </form>
@@ -70,6 +64,10 @@
 </div>
 
 <script type="text/javascript">
+        function reset() {
+            $(".span7").text = "";
+        };
+    
     $(document).ready(function() {
 
         
@@ -93,8 +91,6 @@
             return false;
         });
         
-        $("#ajax-contact-form").reset(function() {
-            $(".span7").text = "";
-        });
+
     });
 </script>

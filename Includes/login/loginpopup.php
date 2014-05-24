@@ -1,30 +1,30 @@
 <?php
 
-    Facebook\FacebookSession::setDefaultApplication('155567074550166', '90e9e6df005f20b5a193c36d23fd713f');
-
-    $helper = new Facebook\FacebookJavaScriptLoginHelper();
-    try {
-        $session = $helper->getSession();
-                    if ($session) {
-            // Logged in.
-    $user_profile = (new Facebook\FacebookRequest(
-      $session, 'GET', '/me'
-    ))->execute()->getGraphObject(Facebook\GraphUser::className());
-    
-    echo $user_profile->getId();
-
-//    echo "Name: " . $user_profile->getName();
-
-
-          }
-
-    } catch(\Facebook\FacebookRequestException $ex) {
-        echo ("jojojo");
-        // When Facebook returns an error
-    } catch(\Exception $ex) {
-        echo ("buuuuuuuuuuuuu");
-        // When validation fails or other local issues
-    }
+//    Facebook\FacebookSession::setDefaultApplication('155567074550166', '90e9e6df005f20b5a193c36d23fd713f');
+//
+//    $helper = new Facebook\FacebookJavaScriptLoginHelper();
+//    try {
+//        $session = $helper->getSession();
+//                    if ($session) {
+//            // Logged in.
+//    $user_profile = (new Facebook\FacebookRequest(
+//      $session, 'GET', '/me'
+//    ))->execute()->getGraphObject(Facebook\GraphUser::className());
+//    
+//    echo $user_profile->getId();
+//
+////    echo "Name: " . $user_profile->getName();
+//
+//
+//          }
+//
+//    } catch(\Facebook\FacebookRequestException $ex) {
+//        echo ("jojojo");
+//        // When Facebook returns an error
+//    } catch(\Exception $ex) {
+//        echo ("buuuuuuuuuuuuu");
+//        // When validation fails or other local issues
+//    }
 
 ?>
 
