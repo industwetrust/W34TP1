@@ -7,6 +7,11 @@
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
+use mysql;
+drop database tpw34;
+create database tpw34;
+use tpw34;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
