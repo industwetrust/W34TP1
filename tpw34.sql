@@ -1,15 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.9
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: May 25, 2014 at 01:19 PM
--- Server version: 5.5.34
--- PHP Version: 5.4.22
-
-use mysql;
-create database tpw34;
-use tpw34;
+-- Client :  127.0.0.1
+-- Généré le :  Dim 25 Mai 2014 à 19:56
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -21,32 +17,43 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `tpw34`
+-- Base de données :  `tpw34`
 --
-
+use mysql;
+drop database IF EXISTS tpw34;
+create database tpw34;
+use tpw34;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `addresses`
+-- Structure de la table `addresses`
 --
 
 CREATE TABLE IF NOT EXISTS `addresses` (
   `AddressID` int(11) NOT NULL AUTO_INCREMENT,
   `CustomerID` int(11) NOT NULL,
+  `nomPersone` varchar(200) NOT NULL,
   `Country` varchar(50) NOT NULL,
   `Province` varchar(50) NOT NULL,
   `City` varchar(50) NOT NULL,
   `Address` varchar(100) NOT NULL,
-  `IsDefaultShipping` tinyint(1) DEFAULT '0',
-  `IsDefaultBilling` tinyint(1) DEFAULT '0',
+  `CodePostal` varchar(10) DEFAULT NULL,
+  `ShortName` varchar(15) NOT NULL,
   PRIMARY KEY (`AddressID`),
   KEY `CustomerID` (`CustomerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `addresses`
+--
+
+INSERT INTO `addresses` (`AddressID`, `CustomerID`, `nomPersone`, `Country`, `Province`, `City`, `Address`, `CodePostal`, `ShortName`) VALUES
+(1, 9, 'Dave Cote', 'canada', 'quebec', 'chicoutimi', '100 Racine', 'g5h 6y7', 'billing');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins`
+-- Structure de la table `admins`
 --
 
 CREATE TABLE IF NOT EXISTS `admins` (
@@ -57,16 +64,17 @@ CREATE TABLE IF NOT EXISTS `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `admins`
+-- Contenu de la table `admins`
 --
 
 INSERT INTO `admins` (`nom`, `User`, `Password`) VALUES
+('Dave', '1610838743cc90e3e4fdda748282d9b8', 'e10adc3949ba59abbe56e057f20f883e'),
 ('Pablo Aguilar-Lliguin', '7e4b64eb65e34fdfad79e623c44abd94', 'c378985d629e99a4e86213db0cd5e70d');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Structure de la table `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -78,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `categories`
+-- Contenu de la table `categories`
 --
 
 INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Description`, `ImageURL`) VALUES
@@ -91,7 +99,7 @@ INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Description`, `ImageURL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customers`
+-- Structure de la table `customers`
 --
 
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -105,19 +113,20 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `RegisterDate` date DEFAULT NULL,
   PRIMARY KEY (`CustomerID`),
   UNIQUE KEY `Username` (`Username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
--- Dumping data for table `customers`
+-- Contenu de la table `customers`
 --
 
 INSERT INTO `customers` (`CustomerID`, `Username`, `Password`, `Phone`, `Email`, `FirstName`, `LastName`, `RegisterDate`) VALUES
-(8, 'qwerty', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'qwerty', NULL, 'qwerty', 'qwerty', NULL);
+(8, 'qwerty', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'qwerty', NULL, 'qwerty', 'qwerty', NULL),
+(9, 'Dave', 'e10adc3949ba59abbe56e057f20f883e', '1234567890', 'dave@multihexa.ca', 'Dave', 'Cote', '2014-05-25');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orderdetail`
+-- Structure de la table `orderdetail`
 --
 
 CREATE TABLE IF NOT EXISTS `orderdetail` (
@@ -129,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `orderdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `orderdetail`
+-- Contenu de la table `orderdetail`
 --
 
 INSERT INTO `orderdetail` (`OrderID`, `ProductID`, `Quantity`) VALUES
@@ -139,41 +148,44 @@ INSERT INTO `orderdetail` (`OrderID`, `ProductID`, `Quantity`) VALUES
 (4, 3, 5),
 (4, 4, 10),
 (5, 1, 5),
-(5, 3, 2);
+(5, 3, 2),
+(6, 5, 3),
+(6, 7, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Structure de la table `orders`
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `OrderID` int(11) NOT NULL AUTO_INCREMENT,
-  `Shipped` tinyint(1) DEFAULT '0',
   `CustomerID` int(11) NOT NULL,
-  `BillingAddress` int(11) DEFAULT NULL,
-  `ShippingAddress` int(11) DEFAULT NULL,
+  `BillingAddress` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
+  `ShippingAddress` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
   `OrderDate` date DEFAULT NULL,
   `ShipDate` date DEFAULT NULL,
+  `Shipped` int(2) NOT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `CustomerID` (`CustomerID`),
   KEY `BillingAddress` (`BillingAddress`),
   KEY `ShippingAddress` (`ShippingAddress`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `orders`
+-- Contenu de la table `orders`
 --
 
-INSERT INTO `orders` (`OrderID`, `Shipped`, `CustomerID`, `BillingAddress`, `ShippingAddress`, `OrderDate`, `ShipDate`) VALUES
-(3, 0, 8, NULL, NULL, '2014-05-15', '2014-05-24'),
-(4, 0, 8, NULL, NULL, '2014-05-23', '2014-05-24'),
-(5, 0, 8, NULL, NULL, '2014-05-23', '2014-05-24');
+INSERT INTO `orders` (`OrderID`, `CustomerID`, `BillingAddress`, `ShippingAddress`, `OrderDate`, `ShipDate`, `Shipped`) VALUES
+(3, 8, NULL, NULL, '2014-05-15', '2014-05-24', 1),
+(4, 8, NULL, NULL, '2014-05-23', '2014-05-24', 1),
+(5, 8, NULL, NULL, '2014-05-23', '2014-05-24', 1),
+(6, 9, '1', '1', '2014-05-25', NULL, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Structure de la table `products`
 --
 
 CREATE TABLE IF NOT EXISTS `products` (
@@ -187,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `products`
+-- Contenu de la table `products`
 --
 
 INSERT INTO `products` (`ProductID`, `ProductName`, `Price`, `UnitsInStock`, `Description`, `ImageURL`) VALUES
@@ -202,7 +214,7 @@ INSERT INTO `products` (`ProductID`, `ProductName`, `Price`, `UnitsInStock`, `De
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productscategories`
+-- Structure de la table `productscategories`
 --
 
 CREATE TABLE IF NOT EXISTS `productscategories` (
@@ -213,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `productscategories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `productscategories`
+-- Contenu de la table `productscategories`
 --
 
 INSERT INTO `productscategories` (`ProductID`, `CategoryID`) VALUES
@@ -228,47 +240,31 @@ INSERT INTO `productscategories` (`ProductID`, `CategoryID`) VALUES
 (2, 6),
 (6, 6);
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `shippers`
---
-
-CREATE TABLE IF NOT EXISTS `shippers` (
-  `ShipperID` int(11) NOT NULL AUTO_INCREMENT,
-  `ShipperName` varchar(100) NOT NULL,
-  `ShipperPhone` varchar(15) DEFAULT NULL,
-  `ShipperWebsite` varchar(2048) DEFAULT NULL,
-  PRIMARY KEY (`ShipperID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Constraints for dumped tables
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints for table `addresses`
+-- Contraintes pour la table `addresses`
 --
 ALTER TABLE `addresses`
   ADD CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`);
 
 --
--- Constraints for table `orderdetail`
+-- Contraintes pour la table `orderdetail`
 --
 ALTER TABLE `orderdetail`
   ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`),
   ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `products` (`ProductID`);
 
 --
--- Constraints for table `orders`
+-- Contraintes pour la table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`),
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`BillingAddress`) REFERENCES `addresses` (`AddressID`),
-  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`ShippingAddress`) REFERENCES `addresses` (`AddressID`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`);
 
 --
--- Constraints for table `productscategories`
+-- Contraintes pour la table `productscategories`
 --
 ALTER TABLE `productscategories`
   ADD CONSTRAINT `productscategories_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `products` (`ProductID`),

@@ -49,6 +49,8 @@
                 echo "<tr><td>Total:</td><td></td><td></td><td></td><td id='tdGrandTotalPrice'>$totalPrice</td></tr>";
             ?>
         </table><br />
+        <input id='txtbilling'  name='txtbilling'  type="text" maxlength="40" placeholder="Nom Court addresse Facturation" /><br />
+        <input id='txtShipper'  name='txtShipper'  type="text" maxlength="40" placeholder="Nom Court addresse d'envoie" /><br />
         <input type="submit" value="Envoyer"> <br />
     </form>
 </div>

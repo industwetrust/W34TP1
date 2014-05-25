@@ -1,7 +1,7 @@
 <?php
 
 //rechercher info sur mysqli_prepare stmt  mysqli::prepare(string $query)
-//    require_once __DIR__.'/vendor/autoload.php';
+
     
     include("PHPMailer_v5.1/class.phpmailer.php");
     include("PHPMailer_v5.1/class.smtp.php");
@@ -76,7 +76,6 @@
                 $ligne = $result->fetch_assoc();
 
                 $_SESSION["login"] = $ligne["Username"];
-                $_SESSION["ID"] = $ligne["CustomerID"];
                 $_SESSION["TryRegisterResult"] = "Success";
             }
             else {
@@ -123,12 +122,6 @@
         <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
 
         
-<!--          <style type="text/css">  cosas de google
-  .hide { display: none;}
-  .show { display: block;}
-  </style>
-  <script src="https://apis.google.com/js/plusone.js" type="text/javascript"></script>-->
-
         <link href="css/Products.css" rel="stylesheet">
         <!--[if lt IE 9]>
                 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -214,7 +207,6 @@
             </div>    
         </div>
         
-        <div id="email123" class="hide"></div>
         <!--//header-->    
 
         <!--page_container-->
@@ -364,68 +356,6 @@
         <!--//footer-->
         
         <?php include("Includes/login/loginpopup.php"); ?>
-
-
-    <!-- Placez ce script JavaScript asynchrone juste devant votre balise </body> -->
-    <script type="text/javascript">
-      (function() {
-       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-       po.src = 'https://apis.google.com/js/client:plusone.js';
-       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-     })();
-     
-     
-    </script>
-    
-             <script type="text/javascript">
-
-             
-     function loginFinishedCallback(authResult) {
-    if (authResult) {
-      if (authResult['error'] === undefined){
-        gapi.auth.setToken(authResult); // Stocker le jeton renvoyé.
-         // Masquer le bouton de connexion lorsque l'ouverture de session réussit.
-        getEmail();                     // Déclencher une requête pour obtenir l'adresse e-mail.
-      } else {
-        console.log('An error occurred');
-      }
-    } else {
-      console.log('Empty authResult');  // Un problème s'est produit
-    }
-  }
-
-  /*
-   * Initie la requête au point de terminaison userinfo pour obtenir l'adresse
-   * e-mail de l'utilisateur. Cette fonction dépend de gapi.auth.setToken, qui doit contenir un
-   * jeton d'accès OAuth valide.
-   *
-   * Une fois la requête achevée, le rappel getEmailCallback est déclenché et reçoit
-   * le résultat de la requête.
-   */
-  function getEmail(){
-    // Charger les bibliothèques OAuth2 pour activer les méthodes userinfo.
-    gapi.client.load('oauth2', 'v2', function() {
-          var request = gapi.client.oauth2.userinfo.get();
-          request.execute(getEmailCallback);
-        });
-  }
-
-  function getEmailCallback(obj){
-    var el = document.getElementById('email123');
-    var email = 'jojojo';
-
-    if (obj['email']) {
-      email = 'Email: ' + obj['email'];
-    }
-
-    //console.log(obj);   // Retirer les commentaires pour inspecter l'objet complet.
-
-    el.innerHTML = email;
-        el.className='show';
-  }
-
-
-    </script>
-        
+ 
     </body>
 </html>

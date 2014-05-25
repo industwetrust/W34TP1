@@ -18,10 +18,10 @@
             if (!empty($_SESSION["login"])) {
                 $customerID = $mySqli->query("SELECT CustomerID FROM Customers WHERE Username = '" . $_SESSION["login"] . "'")->fetch_assoc()["CustomerID"];
                 
-                $queryResult = $mySqli->query("SELECT AddressID FROM Addresses WHERE IsDefaultShipping = 1 AND CustomerID = '" . $customerID . "'");
+                $queryResult = $mySqli->query("SELECT AddressID FROM Addresses WHERE ShortName = '".$_POST["txtShipper"]."' AND CustomerID = '" . $customerID . "'");
                 $shippingAddressID = $queryResult->num_rows > 0 ? $queryResult->fetch_assoc()["AddressID"] : "NULL";
                 
-                $queryResult = $mySqli->query("SELECT AddressID FROM Addresses WHERE IsDefaultBilling = 1 AND CustomerID = '" . $customerID . "'");
+                $queryResult = $mySqli->query("SELECT AddressID FROM Addresses WHERE ShortName = '".$_POST["txtbilling"]."' AND CustomerID = '" . $customerID . "'");
                 $billingAddressID = $queryResult->num_rows > 0 ? $queryResult->fetch_assoc()["AddressID"] : "NULL";
 
                 $mySqli->query("INSERT INTO Orders (CustomerID, BillingAddress, ShippingAddress, OrderDate) VALUES ($customerID, $shippingAddressID, $billingAddressID, CURDATE())"); echo $mySqli->error;
