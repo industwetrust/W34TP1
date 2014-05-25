@@ -1,43 +1,3 @@
-<?php
-    if(!isset($_SESSION["nom"])){
-               echo '<script language="Javascript">
-                <!--
-                document.location.replace("index.php");
-                // -->
-                </script>';
-    }
-
-    $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
-
-if (isset($_POST)) {
-        $toSend = array();       // comands à envoyeer à ajouter,
-//    
-        
-        // fait les modifications
-        foreach(array_keys($_POST) as $key) {
-            if (substr($key, 0, 9) === "SendOrder") {
-                array_push($toSend, explode("SendOrder", $key)[1]);
-            }
-        }
-        if (count($toSend) > 0) {
-            $okItemsCount = 0;
-            for ($i = 0, $lim = count($toSend); $i < $lim; $i++) {
-                $id = $toSend[$i];
-                $query = "UPDATE Orders SET Shipped = 1 , ShipDate = '".date("Y-m-d H:i:s")."' where OrderID = ".$toSend[$i];
-                $mySqli->query($query);
-                if ($mySqli->affected_rows == 1) {
-                    $okItemsCount++;
-                }
-            }
-        if ($okItemsCount > 0) {
-            echo "<div style='color: green;'>" . 
-                    $okItemsCount . " lignes sur " . count($toSend) . " modifiées avec succès!</div>";
-        }
-    }
-}
-
-
-?>
 
 <div class="row">
     <div class="span11">
@@ -45,14 +5,14 @@ if (isset($_POST)) {
             <img src='img/Rosechoc.jpg' />
         </div>
         <div class="span7">
-          <h2>Nouvelles Commandes</h2>
+          <h2>Archive des comandes déjà attendu</h2>
     <?php 
         $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
-        $query = "SELECT o.OrderID, o.OrderDate, p.ProductName, p.Price, od.Quantity, "
+        $query = "SELECT o.OrderID, o.OrderDate, o.ShipDate, p.ProductName, p.Price, od.Quantity, "
                  . " c.CustomerID FROM orders o INNER JOIN orderdetail od "
                  . "ON o.OrderID = od.OrderId INNER JOIN products p ON od.ProductID = p.ProductID "
                  . "INNER JOIN customers c ON o.CustomerID = c.CustomerID where "
-                 . "o.Shipped = 0 ORDER BY o.orderID";
+                 . "o.Shipped = 1 ORDER BY o.orderID";
         $result2 = $mySqli->query($query);
         $lastOrderID = -1;
         $totalOld = 0;
@@ -60,7 +20,6 @@ if (isset($_POST)) {
             
             if($ligne["OrderID"] > $lastOrderID){
                 if($lastOrderID == -1){
-                    echo "<form action='#' method='POST'>";
                     echo "<table border='1'>";
                 }
                 else{ 
@@ -78,9 +37,7 @@ if (isset($_POST)) {
                         <tr>
                             <th>Facture No : <?= $ligne["OrderID"]?></th>
                             <th>Date : <?= $ligne["OrderDate"] ?></th>
-                            <th colspan="2"> Envoyée
-                                <input type='checkbox' name='SendOrder<?= $ligne["OrderID"]?>' value='send' />
-                            </th>
+                            <th colspan="2">Envoyée le : <?= $ligne["ShipDate"] ?></th>
                         </tr>
                         <tr>
                             <td></td>
@@ -117,9 +74,6 @@ if (isset($_POST)) {
                         <th><?= $totalOld ?></th>
                     </tr>
                 </table>
-                    <br/>
-                    <input type='submit' name='SendButton' value='Mise a Jour' />
-            </form>
         </div>
     </div>  
 </div>

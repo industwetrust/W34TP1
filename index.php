@@ -50,7 +50,7 @@
                         $_POST["txtemail"]."', '".
                         date("Y-m-d H:i:s")."')");
                 if ($mySqli->affected_rows == 1) {
-setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
+                    setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
                     $_SESSION["login"]= $_POST["txtUsername"];
                     $_SESSION["TryRegisterResult"] = "Success";
                 }
@@ -75,7 +75,8 @@ setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
                 //L'usager est Trouvé
                 $ligne = $result->fetch_assoc();
 
-                $_SESSION["login"]=$ligne["Username"];
+                $_SESSION["login"] = $ligne["Username"];
+                $_SESSION["ID"] = $ligne["CustomerID"];
                 $_SESSION["TryRegisterResult"] = "Success";
             }
             else {
@@ -83,9 +84,6 @@ setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
         }
     }
     }
-  
-    
-
 ?>
 
 <!DOCTYPE html>
@@ -130,17 +128,6 @@ setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
   .show { display: block;}
   </style>
   <script src="https://apis.google.com/js/plusone.js" type="text/javascript"></script>-->
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
 
         <link href="css/Products.css" rel="stylesheet">
         <!--[if lt IE 9]>
@@ -196,16 +183,18 @@ setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
                                                 if(isset($_SESSION["login"])){
                                                     echo "<li class='sub-menu'><a href='javascript:{}'>Clients</a>";
                                                     echo "<ul><li><a href='index.php?page=clients'>Profile</a></li>";
+                                                    echo "<li><a href='index.php?page=adress'>Adresses</a></li>";
                                                     echo "<li><a href='index.php?page=anciennes'>Anciennes Comandes</a></li></ul></li>";
+                                                    
                                                 }
                                                 if(isset($_SESSION["nom"])){ ?>
                                                     <li class="sub-menu"><a href='javascript:{}'>Administrer</a>
                                                         <ul>
-                                                            <li><a href="blog.html"><span>-</span>Utilisateurs</a></li>
+                                                            <li><a href="index.php?page=ManageComandes"><span>-</span>Nouvelles Commandes</a></li> 
                                                             <li><a href="index.php?page=GestionCategoriesProd"><span>-</span>Categories de produit</a></li> 
                                                             <li><a href="index.php?page=GestionProduits"><span>-</span>Produits</a></li> 
                                                             <li><a href="index.php?page=GestionProduitParCat"><span>-</span>Produit par catégories</a></li>
-                                                            <li><a href="index.php?page=ManageComandes"><span>-</span>Commandes</a></li> 
+                                                            <li><a href="index.php?page=ArchiveComandes"><span>-</span>Anncienes Comandes</a></li> 
                                                         </ul>
                                                     </li>
                                             <?php } ?>
@@ -244,11 +233,13 @@ setcookie("username", $_POST["txtUsername"], time() + $SECONDS_IN_A_DAY * 90);
                     case "GestionCategoriesProd" :  include("ADMINWonka/ManageProdCategories.php"); break;
                     case "GestionProduits" :        include("ADMINWonka/ManageProducts.php");       break;
                     case "GestionProduitParCat" :   include("ADMINWonka/ManageProductsByCat.php");  break;
-                    case "Panier" :                 include("Includes/ViewCart.php");               break;
+                    case "Panier" :                 include("Includes/ViewDec.php");                break;
                     case "AjouterCommande" :        include("Includes/AddOrderToDB.php");           break;
                     case "clients":                 include("Includes/clients.php");                break;
+                    case "adress":                  include("Includes/adresse.php");                break;
                     case "anciennes":               include("Includes/anciennes.php");              break;
                     case "ManageComandes":          include("ADMINWonka/ManageComandes.php");       break;
+                    case "ArchiveComandes":         include("ADMINWonka/ArchiveComandes.php");      break;
                     
                     default :                       include("Includes/homepage.php");               break;
                 }

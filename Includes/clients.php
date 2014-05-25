@@ -195,10 +195,8 @@ if($result->num_rows ==1){
       
       </div>
         <div class="span4">
-            <div style="border:3px solid red; padding:10px;">
                 <h2>Commande d'aujourd'hui</h2>
                 <?php include("Includes/ViewCart.php"); ?>
-            </div>
       </div>
     </div>
     

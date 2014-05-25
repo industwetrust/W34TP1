@@ -7,7 +7,12 @@
     $mySqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // Constantes déclaré au haut de index.php
 ?>
 
-<div id="manageProductCategoriesContainer" style="width: 800px; margin: 0px auto;">
+<div class="span4">
+    * Les changements apporté aux quantitées sur cette page ne seront
+    effectif que l'orsque vous appuierez sur le buton <strong>"Envoyer".</strong> 
+</div>
+                    
+<div id="manageProductCategoriesContainer" >
     <form action="index.php?page=AjouterCommande" method="POST">
         <table border="1">
             <tr>
@@ -24,13 +29,17 @@
                 
                 foreach ($orders as $order) {
                     $product = $mySqli->query("SELECT * FROM Products WHERE ProductID = " . $order->ProductID)->fetch_assoc();
-                    $onChangeEvent = "onchange=\"document.getElementById('tdTotalPrice$order->ProductID').innerHTML = (document.getElementsByName('txtQuantity$order->ProductID')[0].value * " . $product["Price"] . ").toFixed(2); RefreshGrandTotal(); \"";
+                    $onChangeEvent = "onchange=\"document.getElementById('tdTotalPrice$order->ProductID')"
+                            . ".innerHTML = (document.getElementsByName('txtQuantity$order->ProductID')[0].value * "
+                            . $product["Price"] . ").toFixed(2); RefreshGrandTotal(); \"";
                     
                     echo "<tr class='productOrderRow'>";
                     echo "<td><img style='width:64px; height:64px;' src='Img/products/" . $product["ImageURL"] . "' /></td>";
                     echo "<td>" . $product["ProductName"] . "</td>";
                     echo "<td class='productPrice'>" . $product["Price"] . "</td>";
-                    echo "<td><input class='productQuantity' style='width: 39px; text-align:right;' type='text' name='txtQuantity$order->ProductID' onkeypress='return IsNumberOrControl(event)' maxLength='2' $onChangeEvent value='$order->Quantity' /></td>";
+                    echo "<td><input class='productQuantity' style='width: 39px; text-align:right;' type='text' "
+                    . "name='txtQuantity$order->ProductID' onkeypress='return IsNumberOrControl(event)' maxLength='2' "
+                            . "$onChangeEvent value='$order->Quantity' /></td>";
                     echo "<td id='tdTotalPrice$order->ProductID'>" . $product["Price"] * $order->Quantity . "</td>";
                     echo "</tr>";
                     
@@ -40,13 +49,15 @@
                 echo "<tr><td>Total:</td><td></td><td></td><td></td><td id='tdGrandTotalPrice'>$totalPrice</td></tr>";
             ?>
         </table><br />
-        <input type="submit" value="Confirmer"> <br />
-        * Les changements apporté aux quantitées sur cette page ne seront effectif que l'orsque vous appuierez sur "Confirmer".
+        <input type="submit" value="Envoyer"> <br />
+
         <!--<input type="button" value="Rafraîchir" onclick="RefreshGrandTotal()"> <br /> * Lorsque vous cliquez sur "Rafraîchir", les changements apporté à vos quantités de produits ne sont pas enrégistré.
                                                                                         Ils ne seront enrégistré que lorsque vous appuirez sur "Confirmer". -->
         
     </form>
 </div>
+
+
 
 <script type="text/javascript">
     function ByClass(className) {return document.getElementsByClassName(className);}
