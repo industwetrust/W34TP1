@@ -1,7 +1,4 @@
 <?php // Constantes
-
-
-
     $ITEMS_SHOWN_PER_PAGE = 16;
     $ITEMS_SHOWN_PER_ROW = 4;
     $ITEM_WIDTH = 300;
@@ -65,9 +62,10 @@
             $itemNumber++;
         }
         
-        // Création du menu pour la recherche de produit de façon personalisée
     ?>
-<div class='span3' data-category='category01' style="padding-left: 2%;">
+
+<!--	Création du menu pour la recherche de produit de façon personalisée-->
+	<div class='span3' data-category='category01' style="padding-left: 2%;">
         <form action='index.php' method='GET'>
             <input type='hidden' name='CustomSearch' value='True'/>
             <input type='hidden' name='page' value='Produits'/>
@@ -76,11 +74,10 @@
             <div>Catégorie: 
                 <select style='width:173px;' name='selCategory'>
                     <option value='All'>Tous</option>
-    <?php 
-            for ($i = 0; $i < count($catIDs); $i++) {
-                        echo "<option value=$catIDs[$i]>$catNames[$i]</option>";
-                    } ?>
-                
+					<?php 
+					for ($i = 0; $i < count($catIDs); $i++) {
+						echo "<option value=$catIDs[$i]>$catNames[$i]</option>";
+					} ?>
                 </select>
             </div>
             <div>Prix maximal: 
@@ -89,8 +86,7 @@
             </div>
             <div><input type='submit' value='Rechercher'/></div>
         </form>
-</div>
-        
+	</div>
 </div>
 <?php
     }
@@ -205,21 +201,12 @@
     echo "</div>";
     echo "</div>";
     echo "</div>";
-    
 ?>
+
 <script type="text/javascript">
     function IsNumberOrControl(e) {
         var key = window.event ? e.keyCode : e.which;
 
         return key=== 8 || key === 46 || key === 37 || key === 39 || key >= 48 && key <= 57;
     }
-    
-//    function CheckModifyChkBox(productID, categoryID) {
-//        var newValue = document.getElementById('chkProdInCat_' + productID + '_' + categoryID).checked ? "Add" : "Delete";
-//        
-//        if (prodsInCat[productID + '_' + categoryID] === undefined)
-//            prodsInCat[productID + '_' + categoryID] = newValue;
-//        else
-//            delete prodsInCat[productID + '_' + categoryID]
-//    }
 </script>

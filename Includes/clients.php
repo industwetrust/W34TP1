@@ -199,7 +199,6 @@ if($result->num_rows ==1){
                 <?php include("Includes/ViewCart.php"); ?>
       </div>
     </div>
-    
   </div>
 </div>
 

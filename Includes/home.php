@@ -1,16 +1,16 @@
-        <link href="css/prettyPhoto.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" id="camera-css"  href="css/camera.css" type="text/css" media="all">
-                <script type="text/javascript" src="js/camera.js"></script>
-                <script src="http://jquery.bassistance.de/validate/additional-methods.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                //Slider
-                $('#camera_wrap_1').camera();
+<link href="css/prettyPhoto.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" id="camera-css"  href="css/camera.css" type="text/css" media="all">
+		<script type="text/javascript" src="js/camera.js"></script>
+		<script src="http://jquery.bassistance.de/validate/additional-methods.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//Slider
+		$('#camera_wrap_1').camera();
 
-                //Featured works & latest posts
-                $('#mycarousel, #mycarousel2, #newscarousel').jcarousel();
-            });
-        </script>
+		//Featured works & latest posts
+		$('#mycarousel, #mycarousel2, #newscarousel').jcarousel();
+	});
+</script>
 
 
 <!--slider-->

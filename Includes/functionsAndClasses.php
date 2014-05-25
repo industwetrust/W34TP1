@@ -1,7 +1,6 @@
 <?php
 
 class ProductOrder {
-
     public $ProductID;
     public $Quantity;
 
@@ -9,11 +8,9 @@ class ProductOrder {
         $this->ProductID = $productID;
         $this->Quantity = $quantity;
     }
-
 }
 
 class Basket {
-
     private $_ProductOrders;
 
     function __construct() {

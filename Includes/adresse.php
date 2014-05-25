@@ -35,11 +35,7 @@
             $result2 = $mySqli->query($query);
         }
     }
-        
-
 ?>
-
-
 
 <script type="text/javascript" >
     $(document).ready(function () {
@@ -113,7 +109,6 @@
     }
 
 </script> 
-
 
 <div class="row">
     <div class="span12">

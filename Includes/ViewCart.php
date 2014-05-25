@@ -50,14 +50,8 @@
             ?>
         </table><br />
         <input type="submit" value="Envoyer"> <br />
-
-        <!--<input type="button" value="Rafraîchir" onclick="RefreshGrandTotal()"> <br /> * Lorsque vous cliquez sur "Rafraîchir", les changements apporté à vos quantités de produits ne sont pas enrégistré.
-                                                                                        Ils ne seront enrégistré que lorsque vous appuirez sur "Confirmer". -->
-        
     </form>
 </div>
-
-
 
 <script type="text/javascript">
     function ByClass(className) {return document.getElementsByClassName(className);}

@@ -72,10 +72,10 @@ INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Description`, `ImageURL
 -- --------------------------------------------------------
 
 --
--- Structure de la table `chocolat`
+-- Structure de la table `Admins`
 --
 
-CREATE TABLE IF NOT EXISTS `chocolat` (
+CREATE TABLE IF NOT EXISTS `Admins` (
   `nom` varchar(60) NOT NULL,
   `User` varchar(60) NOT NULL,
   `Password` varchar(60) NOT NULL,
@@ -83,10 +83,10 @@ CREATE TABLE IF NOT EXISTS `chocolat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `chocolat`
+-- Contenu de la table `Admins`
 --
 
-INSERT INTO `chocolat` (`nom`, `User`, `Password`) VALUES
+INSERT INTO `Admins` (`nom`, `User`, `Password`) VALUES
 ('Pablo Aguilar-Lliguin', '7e4b64eb65e34fdfad79e623c44abd94', 'c378985d629e99a4e86213db0cd5e70d');
 
 -- --------------------------------------------------------
